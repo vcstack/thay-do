@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Html, OrbitControls } from "@react-three/drei";
+import { Billboard, Float, OrbitControls } from "@react-three/drei";
 import { useRouter } from "next/navigation";
 import * as THREE from "three";
 import {
@@ -588,6 +588,78 @@ function buildPath(start: [number, number], seat: [number, number]): Vec3[] {
   ];
 }
 
+/* ------------------------------------------------------------------ */
+/* Bảng tên trên đầu học sinh — vẽ tên lên canvas texture rồi gắn lên   */
+/* mặt phẳng trong Billboard (luôn quay mặt về camera). Không dùng      */
+/* drei Html vì Html tạo một React root riêng, khi unmount trong lúc    */
+/* React đang render sẽ gây lỗi "synchronously unmount a root".        */
+/* ------------------------------------------------------------------ */
+function NameTag({
+  name,
+  position,
+}: {
+  name: string;
+  position: [number, number, number];
+}) {
+  const texture = useMemo(() => {
+    if (!name) return null;
+    const canvas = document.createElement("canvas");
+    const font = "bold 46px system-ui, -apple-system, sans-serif";
+    const measure = canvas.getContext("2d")!;
+    measure.font = font;
+    const textW = measure.measureText(name).width;
+    const padX = 30;
+    const padY = 18;
+    canvas.width = Math.ceil(textW + padX * 2);
+    canvas.height = 46 + padY * 2;
+    const ctx = canvas.getContext("2d")!;
+    ctx.font = font;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const w = canvas.width;
+    const h = canvas.height;
+    const r = h / 2;
+    // Viên thuốc bo tròn
+    ctx.beginPath();
+    ctx.moveTo(r, 2);
+    ctx.lineTo(w - r, 2);
+    ctx.arc(w - r, r, r - 2, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(r, h - 2);
+    ctx.arc(r, r, r - 2, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(253, 249, 236, 0.95)";
+    ctx.fill();
+    ctx.strokeStyle = "#c98a2e";
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.fillStyle = "#b3372a";
+    ctx.fillText(name, w / 2, h / 2 + 2);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 4;
+    return tex;
+  }, [name]);
+
+  // Dọn texture cũ khi tên đổi để khỏi rò bộ nhớ.
+  useEffect(() => {
+    return () => {
+      texture?.dispose();
+    };
+  }, [texture]);
+
+  if (!name || !texture) return null;
+  const aspect = texture.image.width / texture.image.height;
+  const height = 0.34;
+  return (
+    <Billboard position={position}>
+      <mesh>
+        <planeGeometry args={[height * aspect, height]} />
+        <meshBasicMaterial map={texture} transparent />
+      </mesh>
+    </Billboard>
+  );
+}
+
 /** Một học sinh: bấm vào để đặt tên rồi đi bộ vào lớp ngồi học. */
 function Student({
   info,
@@ -781,26 +853,8 @@ function Student({
         </mesh>
       </group>
 
-      {/* Bảng tên trên đầu — luôn giữ Html mounted để tránh lỗi unmount
-          root của drei khi tên thay đổi (React 19 cấm unmount đồng bộ
-          trong lúc render). Ẩn bằng CSS khi chưa có tên. */}
-      <Html
-        center
-        position={[0, tagY, 0]}
-        zIndexRange={[30, 0]}
-        style={{
-          pointerEvents: "none",
-          display: info.name ? "block" : "none",
-        }}
-      >
-        {info.name ? (
-          <div className="whitespace-nowrap rounded-full border border-[#c98a2e] bg-[#fdf9ec]/95 px-2 py-0.5 text-[11px] font-bold text-[#b3372a] shadow">
-            {info.name}
-          </div>
-        ) : (
-          <div />
-        )}
-      </Html>
+      {/* Bảng tên trên đầu (chỉ hiện khi đã đặt tên) */}
+      <NameTag name={info.name} position={[0, tagY, 0]} />
     </group>
   );
 }
