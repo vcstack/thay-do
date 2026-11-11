@@ -1,21 +1,27 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import GuestName from "@/components/GuestName";
+import SchoolMap from "@/components/SchoolMap";
 
 const LINKS = [
   { href: "/", label: "Trang chủ" },
   { href: "/lop-hoc", label: "Lớp học" },
   { href: "/bai-hoc", label: "Bài học" },
   { href: "/luyen-viet", label: "Luyện viết" },
+  { href: "/giang-duong", label: "Giảng đường" },
   { href: "/doc-truyen", label: "Đọc truyện" },
   { href: "/thi-hsk", label: "Thi HSK" },
+  { href: "/pho-hoa", label: "Phố Hoa" },
   { href: "/pomodoro", label: "Pomodoro" },
   { href: "/lich-hoc", label: "Lịch học" },
 ];
 
 export default function Nav() {
   const pathname = usePathname();
+  const [showMap, setShowMap] = useState(false);
   return (
     <header className="sticky top-0 z-50 border-b-2 border-vermilion/20 bg-cream/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
@@ -32,7 +38,7 @@ export default function Nav() {
             </span>
           </span>
         </Link>
-        <nav className="hidden flex-wrap items-center gap-1 md:flex">
+        <nav className="hidden flex-wrap items-center gap-1 lg:flex">
           {LINKS.map((l) => {
             const active =
               l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
@@ -51,15 +57,27 @@ export default function Nav() {
             );
           })}
         </nav>
-        <Link
-          href="/bai-hoc"
-          className="rounded-full bg-leaf px-4 py-2 text-sm font-bold text-cream shadow hover:bg-leaf/90"
-        >
-          Vào lớp →
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowMap(true)}
+            className="rounded-full border-2 border-gold bg-cream px-3 py-1.5 text-sm font-bold text-vermilion transition hover:bg-gold-soft/40"
+            title="Mở bản đồ trường"
+          >
+            🗺️ Bản đồ
+          </button>
+          <span className="hidden sm:block">
+            <GuestName />
+          </span>
+          <Link
+            href="/bai-hoc"
+            className="hidden rounded-full bg-leaf px-4 py-2 text-sm font-bold text-cream shadow hover:bg-leaf/90 md:block"
+          >
+            Vào lớp →
+          </Link>
+        </div>
       </div>
       {/* Menu cho điện thoại */}
-      <nav className="flex gap-1 overflow-x-auto px-4 pb-2 md:hidden">
+      <nav className="flex gap-1 overflow-x-auto px-4 pb-2 lg:hidden">
         {LINKS.map((l) => {
           const active =
             l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
@@ -75,7 +93,11 @@ export default function Nav() {
             </Link>
           );
         })}
+        <span className="shrink-0 sm:hidden">
+          <GuestName />
+        </span>
       </nav>
+      {showMap && <SchoolMap onClose={() => setShowMap(false)} />}
     </header>
   );
 }

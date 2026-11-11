@@ -8,6 +8,7 @@ import * as THREE from "three";
 import {
   SUGGESTED_NAMES,
   loadStudentNames,
+  loadGuestName,
   saveStudentName,
 } from "@/data/teacher";
 
@@ -1262,8 +1263,10 @@ export default function SchoolScene() {
   function openNaming(id: string) {
     const st = students.find((s) => s.id === id);
     if (!st) return;
+    // Học sinh chưa có tên thì gợi ý tên khách (tên của người vào trường) trước.
     const suggestion =
       st.name ||
+      loadGuestName() ||
       SUGGESTED_NAMES[Math.floor(Math.random() * SUGGESTED_NAMES.length)];
     setNameInput(suggestion);
     setSuggestIdx(Math.max(0, SUGGESTED_NAMES.indexOf(suggestion)));

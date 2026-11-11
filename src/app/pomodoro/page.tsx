@@ -1,6 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CLASSICS } from "@/data/classics";
+import { speakZh } from "@/lib/speak";
+import {
+  startRain,
+  stopRain,
+  startWind,
+  stopWind,
+  startChimes,
+  stopChimes,
+} from "@/lib/ambient";
 
 const FOCUS_SEC = 25 * 60;
 const BREAK_SEC = 5 * 60;
@@ -32,6 +42,12 @@ export default function PomodoroPage() {
   const [online, setOnline] = useState<number | null>(null);
   const [mates, setMates] = useState<boolean[]>([]);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [openClassic, setOpenClassic] = useState<string | null>(null);
+  const [ambient, setAmbient] = useState<{ rain: boolean; wind: boolean; chimes: boolean }>({
+    rain: false,
+    wind: false,
+    chimes: false,
+  });
 
   // Số người đang học chung (mô phỏng) + trạng thái bạn cùng phòng.
   // Khởi tạo trong effect (giá trị ngẫu nhiên, chỉ có ở client) để tránh lệch hydration.
@@ -209,6 +225,103 @@ export default function PomodoroPage() {
           * Số người và tên bạn học là mô phỏng để tạo cảm giác học chung — chưa
           có người thật online.
         </p>
+      </div>
+
+      {/* Âm thanh nền */}
+      <div className="mt-6 rounded-2xl border-2 border-gold/40 bg-cream p-6 text-left shadow">
+        <h2 className="text-lg font-extrabold text-vermilion">🎧 Âm thanh nền</h2>
+        <p className="mt-1 text-sm text-ink-soft">
+          Bật một âm thanh nền cho dễ tập trung — tạo bằng Web Audio, không cần
+          file nhạc.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            onClick={() => {
+              if (ambient.rain) {
+                stopRain();
+                setAmbient((a) => ({ ...a, rain: false }));
+              } else if (startRain()) {
+                setAmbient((a) => ({ ...a, rain: true }));
+              }
+            }}
+            className={`rounded-full px-4 py-2 text-sm font-bold ${
+              ambient.rain ? "bg-vermilion text-cream shadow" : "border-2 border-gold bg-cream text-vermilion"
+            }`}
+          >
+            🌧️ {ambient.rain ? "Tắt mưa" : "Tiếng mưa"}
+          </button>
+          <button
+            onClick={() => {
+              if (ambient.wind) {
+                stopWind();
+                setAmbient((a) => ({ ...a, wind: false }));
+              } else if (startWind()) {
+                setAmbient((a) => ({ ...a, wind: true }));
+              }
+            }}
+            className={`rounded-full px-4 py-2 text-sm font-bold ${
+              ambient.wind ? "bg-vermilion text-cream shadow" : "border-2 border-gold bg-cream text-vermilion"
+            }`}
+          >
+            🍃 {ambient.wind ? "Tắt gió" : "Tiếng gió"}
+          </button>
+          <button
+            onClick={() => {
+              if (ambient.chimes) {
+                stopChimes();
+                setAmbient((a) => ({ ...a, chimes: false }));
+              } else if (startChimes()) {
+                setAmbient((a) => ({ ...a, chimes: true }));
+              }
+            }}
+            className={`rounded-full px-4 py-2 text-sm font-bold ${
+              ambient.chimes ? "bg-vermilion text-cream shadow" : "border-2 border-gold bg-cream text-vermilion"
+            }`}
+          >
+            🎐 {ambient.chimes ? "Tắt chuông gió" : "Chuông gió"}
+          </button>
+        </div>
+      </div>
+
+      {/* Mở sách — văn cổ */}
+      <div className="mt-6 rounded-2xl border-2 border-gold/40 bg-cream p-6 text-left shadow">
+        <h2 className="text-lg font-extrabold text-vermilion">📜 Mở sách — đọc văn cổ</h2>
+        <p className="mt-1 text-sm text-ink-soft">
+          Trong lúc nghỉ giữa các phiên, mở một đoạn văn cổ ra đọc — vừa nghỉ
+          vừa học được chữ hay.
+        </p>
+        <div className="mt-4 space-y-3">
+          {CLASSICS.map((c) => {
+            const isOpen = openClassic === c.id;
+            return (
+              <div key={c.id} className="overflow-hidden rounded-xl border-2 border-gold/40 bg-[#fffdf4]">
+                <button
+                  onClick={() => setOpenClassic(isOpen ? null : c.id)}
+                  className="flex w-full items-center justify-between p-4 text-left"
+                >
+                  <span className="text-sm font-extrabold text-vermilion">
+                    {c.source} · <span className="text-ink">{c.zh}</span>
+                  </span>
+                  <span className="text-lg text-ink-soft">{isOpen ? "▾" : "▸"}</span>
+                </button>
+                {isOpen && (
+                  <div className="border-t-2 border-gold/30 p-4">
+                    <p className="text-lg font-black leading-relaxed text-ink">{c.zh}</p>
+                    <p className="mt-1 text-sm font-semibold text-leaf">{c.py}</p>
+                    <p className="mt-1 text-sm text-ink-soft">{c.vi}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-ink">{c.note}</p>
+                    <button
+                      onClick={() => speakZh(c.zh)}
+                      className="mt-3 rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm font-bold text-vermilion hover:bg-gold-soft/40"
+                    >
+                      🔊 Nghe thầy đọc
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

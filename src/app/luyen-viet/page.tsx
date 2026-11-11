@@ -9,6 +9,7 @@ import {
   allVocab,
   shuffle,
 } from "@/data/lessons";
+import { WISH_CHARS } from "@/data/wishChars";
 import {
   randomRemark,
   TEACHER_REMARKS_MISTAKE,
@@ -28,6 +29,7 @@ export default function LuyenVietPage() {
   const [totalStrokes, setTotalStrokes] = useState(0);
   const [loadError, setLoadError] = useState(false);
   const [remark, setRemark] = useState("");
+  const [noHint, setNoHint] = useState(false);
 
   const chars = getLessonChars(lessons[lessonId - 1]);
   const vocabHit = allVocab.find((v) => v.zh.includes(char));
@@ -85,6 +87,28 @@ export default function LuyenVietPage() {
       setLoadError(true);
     }
   }, [char]);
+
+  // Mở trang với ?char=福 thì viết chữ đó luôn.
+  useEffect(() => {
+    const c = new URLSearchParams(window.location.search).get("char");
+    if (c && /^[\u4e00-\u9fff]$/.test(c)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setChar(c);
+    }
+  }, []);
+
+  /** Bật/tắt gợi ý nét: tắt thì ẩn viền mờ, viết đúng hết được điểm cao hơn. */
+  function toggleNoHint() {
+    const writer = writerRef.current;
+    const next = !noHint;
+    setNoHint(next);
+    try {
+      if (next) writer?.hideOutline();
+      else writer?.showOutline();
+    } catch {
+      /* ignore */
+    }
+  }
 
   function startQuiz() {
     const writer = writerRef.current;
@@ -148,6 +172,17 @@ export default function LuyenVietPage() {
                 ▶ Xem thầy viết
               </button>
               <button
+                onClick={toggleNoHint}
+                className={`rounded-full border-2 px-4 py-2 text-sm font-bold transition ${
+                  noHint
+                    ? "border-vermilion bg-vermilion text-cream shadow"
+                    : "border-gold bg-cream text-vermilion hover:bg-gold-soft/40"
+                }`}
+                title="Tắt gợi ý nét — viết đúng hết được điểm cao hơn"
+              >
+                {noHint ? "🙈 Không gợi ý: BẬT" : "💡 Không gợi ý"}
+              </button>
+              <button
                 onClick={startQuiz}
                 disabled={quizState === "quizzing"}
                 className="rounded-full bg-vermilion px-4 py-2 text-sm font-bold text-cream shadow hover:bg-vermilion-dark disabled:opacity-50"
@@ -182,10 +217,21 @@ export default function LuyenVietPage() {
             </span>
             {quizState === "done" && (
               <span className="rounded-full bg-leaf px-3 py-1 text-cream">
-                🎉 Xong! {mistakes === 0 ? "Không sai nét nào — giỏi quá!" : `Sai ${mistakes} lần, tô lại cho chắc nhé.`}
+                🎉 Xong!{" "}
+                {mistakes === 0
+                  ? noHint
+                    ? "Không gợi ý mà viết đúng hết — thầy cho 2 điểm, giỏi quá!"
+                    : "Không sai nét nào — giỏi quá!"
+                  : `Sai ${mistakes} lần, tô lại cho chắc nhé.`}
               </span>
             )}
           </div>
+          {noHint && (
+            <p className="mt-2 text-sm font-bold text-vermilion">
+              🙈 Đang tắt gợi ý nét — viền mờ đã ẩn. Viết đúng hết không sai nét
+              nào thì được tính 2 điểm.
+            </p>
+          )}
           {quizState === "quizzing" && (
             <p className="mt-2 text-sm text-ink-soft">
               Tô theo viền mờ — viết đúng thứ tự nét thì mới qua nét tiếp theo.
@@ -249,6 +295,36 @@ export default function LuyenVietPage() {
             Mẹo: viết chữ Hán đúng thứ tự nét (trái → phải, trên → xuống
             dưới, ngang trước sổ sau) thì nhớ lâu hơn nhiều.
           </p>
+        </div>
+      </div>
+
+      {/* Xin chữ theo mong ước */}
+      <div className="mt-10">
+        <h2 className="text-xl font-black text-ink">🧧 Xin chữ theo mong ước</h2>
+        <p className="mt-1 text-sm text-ink-soft">
+          Đầu năm xin chữ, cả năm như ý. Bấm vào một thẻ để mở trang viết chữ
+          đó — viết đẹp thì mong ước thành sự thật.
+        </p>
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {WISH_CHARS.map((w) => (
+            <button
+              key={w.char}
+              onClick={() => {
+                setChar(w.char);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`rounded-2xl border-2 p-4 text-center shadow transition hover:-translate-y-0.5 ${
+                w.char === char
+                  ? "border-vermilion bg-vermilion/5"
+                  : "border-gold/40 bg-cream hover:border-vermilion"
+              }`}
+            >
+              <p className="text-5xl font-black text-vermilion">{w.char}</p>
+              <p className="mt-2 text-sm font-extrabold text-ink">{w.wish}</p>
+              <p className="text-xs font-semibold text-leaf">{w.py}</p>
+              <p className="mt-1 text-xs text-ink-soft">{w.meaning}</p>
+            </button>
+          ))}
         </div>
       </div>
     </div>

@@ -1,8 +1,11 @@
 # Thầy Đồ — Trường Học Tiếng Trung Ảo
 
 Ngôi trường ảo học tiếng Trung chạy ngay trên trình duyệt, lấy cảm hứng từ
-xiehanzi.com/thay-do. Vào trường, ngắm sân trường 3D, vào lớp học bài, luyện
-viết chữ Hán có thầy chấm điểm, thi thử HSK, học theo nhịp Pomodoro.
+mô hình trường học ảo (lớp theo giờ, thư viện theo cấp, trường thi, giảng
+đường chiết tự, sân đọc sách, phố Hoa). Vào trường, ngắm sân trường 3D, vào
+lớp học bài, luyện viết chữ Hán có thầy chấm điểm, thi thử HSK, học theo nhịp
+Pomodoro. Thiết kế và nội dung trong repo này là tự viết, không sao chép từ
+trang tham khảo.
 
 ## Chạy local
 
@@ -32,27 +35,35 @@ npm run start
 - **Hanzi Writer** — luyện viết chữ Hán theo thứ tự nét, chấm đúng/sai từng
   nét (dữ liệu nét chữ tải từ CDN lúc chạy).
 - **Web Speech API** — nút loa đọc phát âm tiếng Trung (zh-CN) ngay trong
-  trình duyệt, không cần server.
+  trình duyệt, không cần server; **Web Audio API** — âm thanh nền (mưa, gió,
+  chuông gió) tạo bằng code, không cần file nhạc.
 
-## Tính năng đã có (MVP)
+## Tính năng đã có
 
 | Trang | Tính năng |
 | --- | --- |
-| `/` Trang chủ | Cảnh 3D trường học Việt Nam full màn hình + nút vào lớp, thống kê bài học |
+| `/` Trang chủ | Hero + số người online (mô phỏng) → cảnh 3D → "Hôm nay học gì?" → "Giờ học tới" (lớp sắp mở, đếm ngược, nút Vào lớp/Nhắc tôi) → "Lộ trình lớp" (Vỡ lòng 8 buổi, HSK1 29, HSK2 23, HSK3 30, HSK4–6 chờ đủ người) → "Trong trường có gì" (9 địa điểm) → "Bảng vàng tuần" (3 bảng, dữ liệu mẫu) → mục đăng nhập giữ tiến trình |
 | `/lop-hoc` | Lớp theo giờ (8:00/14:00/20:00): thầy giảng bài, lời nhận xét hài hước, danh sách học sinh trong lớp |
-| `/doc-truyen` | 9 truyện ngắn HSK 1–3, bấm vào từ để xem nghĩa, nghe đọc từng câu |
 | `/bai-hoc` | 20 bài học (200 từ vựng, 100 câu mẫu, 110 câu hội thoại), có pinyin + nghĩa Việt + nút nghe |
 | `/bai-hoc/[id]` | Chi tiết từng bài: từ vựng, câu mẫu, hội thoại, bài trước/sau |
-| `/luyen-viet` | Chọn chữ trong bài → xem thầy viết mẫu → tô theo từng nét, chấm sai đúng, thầy chê hài hước khi viết sai |
-| `/thi-hsk` | Trắc nghiệm 10 câu (chọn nghĩa / chọn chữ Hán), tính điểm, xem lại câu sai |
-| `/pomodoro` | Đồng hồ 25 phút học / 5 phút nghỉ, vòng tròn tiến độ, đếm phiên đã xong, phòng tự học chung (mô phỏng) |
+| `/luyen-viet` | Chọn chữ trong bài → xem thầy viết mẫu → tô theo từng nét, chấm sai đúng, thầy chê hài hước khi viết sai; 12 thẻ "xin chữ" theo mong ước; nút "Không gợi ý" (ẩn viền nét, viết đúng hết được 2 điểm) |
+| `/giang-duong` | Giảng chiết tự: mỗi ngày một chữ (10 chữ thông dụng), giải thích nguồn gốc + mẹo nhớ bằng tiếng Việt, nghe phát âm, nghe thầy giảng lại, danh sách các chữ đã giảng |
+| `/doc-truyen` | 3 kệ: Kệ truyện (9 truyện HSK 1–3, bấm từ xem nghĩa, nghe đọc từng câu), Góc nghe (nghe hội thoại + nghe thanh điệu, 5 câu mỗi lượt), Kệ mẫu câu (8 chủ đề giao tiếp) |
+| `/thi-hsk` | 3 chế độ: Đề ngắn đầu giờ (5 câu, 15 phút), Đề thi thử HSK (cấp HSK 1–3, 5 câu Nghe + 5 câu Đọc), Đề kiểm tra 10 câu ngẫu nhiên |
+| `/pho-hoa` | Luyện nói theo kịch bản ở 6 điểm: Trà quán, Sạp hoa quả, Quán mì, Hiệu thuốc, Bưu cục, Khách điếm — chọn câu trả lời để đối đáp, có nút nghe mẫu và ghi âm thử (Web Speech API) |
+| `/pomodoro` | Đồng hồ 25 phút học / 5 phút nghỉ, vòng tròn tiến độ, đếm phiên, phòng tự học chung (mô phỏng), âm thanh nền (mưa/gió/chuông gió), "Mở sách" đọc văn cổ (Tam Tự Kinh, Luận Ngữ, thành ngữ, câu đối) |
 | `/lich-hoc` | Lớp mở 8:00 / 14:00 / 20:00 mỗi ngày, trạng thái trực tiếp (đang mở / sắp mở / đã kết thúc) + thời khóa biểu tuần |
+
+**Khác:** tên khách tự động khi vào trường (bấm để đổi tên, lưu localStorage,
+đồng bộ làm tên gợi ý cho học sinh 3D); nút **Bản đồ** ở thanh menu mở sơ đồ
+5 khu (Phố Hoa, Tiền viện, Sân trường, Khu học, Học xá) có lọc theo kỹ năng
+(Đọc, Nghe, Nói, Viết, Ngữ pháp, Thi), mục "Đang diễn ra" và tab thời khóa biểu.
 
 Dữ liệu bài học tái sử dụng từ app Học Tiếng Trung (`src/data/lessons.json`).
 
 ## Hướng phát triển tiếp theo
 
-1. **Supabase** (auth + Postgres + Realtime): đăng nhập, lưu tiến độ học,
+1. **Supabase** (auth + Postgres + Realtime): đăng nhập thật, lưu tiến độ học,
    hiện số người đang online trong trường, học chung phòng Pomodoro.
 2. **3D nâng cấp**: hiệu ứng ngày/đêm, thêm khu phố cổ Hội An, nhân vật thầy
    đi lại trong sân.
@@ -60,5 +71,4 @@ Dữ liệu bài học tái sử dụng từ app Học Tiếng Trung (`src/data/
    điểm.
 4. **Ngữ pháp HSK1** (đã có sẵn nội dung trong app Học Tiếng Trung, chỉ cần
    mang qua).
-5. **Âm thanh**: nhạc nền cổ phong, tiếng chuông vào lớp.
-6. Deploy lên **Vercel** (free) để có link chia sẻ cho mọi người vào học.
+5. Deploy lên **Vercel** (free) để có link chia sẻ cho mọi người vào học.

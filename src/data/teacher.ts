@@ -39,6 +39,46 @@ export const SUGGESTED_NAMES: string[] = [
 /** Key lưu tên học sinh vào localStorage. */
 export const STUDENT_NAMES_KEY = "thaydo:student-names";
 
+/** Key lưu tên khách (tên của người vào trường) vào localStorage. */
+export const GUEST_NAME_KEY = "thaydo:guest-name";
+
+/** Tên khách gợi ý khi vào trường lần đầu. */
+export const GUEST_NAMES: string[] = [
+  "Trà Bạc",
+  "Trà Xanh",
+  "Tiểu Thư",
+  "Mọt Sách",
+  "Trà Đá",
+  "A Ngốc",
+];
+
+export function loadGuestName(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    const saved = window.localStorage.getItem(GUEST_NAME_KEY);
+    if (saved && saved.trim()) return saved;
+  } catch {
+    /* ignore */
+  }
+  // Lần đầu vào trường: tạo tên khách mặc định và lưu lại.
+  const name = GUEST_NAMES[Math.floor(Math.random() * GUEST_NAMES.length)];
+  try {
+    window.localStorage.setItem(GUEST_NAME_KEY, name);
+  } catch {
+    /* ignore */
+  }
+  return name;
+}
+
+export function saveGuestName(name: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(GUEST_NAME_KEY, name);
+  } catch {
+    /* ignore */
+  }
+}
+
 export function loadStudentNames(): Record<string, string> {
   if (typeof window === "undefined") return {};
   try {
