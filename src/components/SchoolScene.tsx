@@ -781,19 +781,26 @@ function Student({
         </mesh>
       </group>
 
-      {/* Bảng tên trên đầu (chỉ hiện khi đã đặt tên) */}
-      {info.name && (
-        <Html
-          center
-          position={[0, tagY, 0]}
-          zIndexRange={[30, 0]}
-          style={{ pointerEvents: "none" }}
-        >
+      {/* Bảng tên trên đầu — luôn giữ Html mounted để tránh lỗi unmount
+          root của drei khi tên thay đổi (React 19 cấm unmount đồng bộ
+          trong lúc render). Ẩn bằng CSS khi chưa có tên. */}
+      <Html
+        center
+        position={[0, tagY, 0]}
+        zIndexRange={[30, 0]}
+        style={{
+          pointerEvents: "none",
+          display: info.name ? "block" : "none",
+        }}
+      >
+        {info.name ? (
           <div className="whitespace-nowrap rounded-full border border-[#c98a2e] bg-[#fdf9ec]/95 px-2 py-0.5 text-[11px] font-bold text-[#b3372a] shadow">
             {info.name}
           </div>
-        </Html>
-      )}
+        ) : (
+          <div />
+        )}
+      </Html>
     </group>
   );
 }
