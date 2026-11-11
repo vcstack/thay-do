@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Billboard, Float, OrbitControls } from "@react-three/drei";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useRouter } from "next/navigation";
 import * as THREE from "three";
 import {
@@ -506,6 +507,26 @@ function SchoolBuilding({ onEnter }: { onEnter: () => void }) {
           </mesh>
         </group>
       ))}
+      {/* bục giảng của thầy (trước mặt thầy, hướng về học sinh) */}
+      <group position={[3.5, 0.6, -1.5]}>
+        <mesh castShadow position={[0, 0.55, 0]}>
+          <boxGeometry args={[0.95, 0.1, 0.65]} />
+          <meshStandardMaterial color="#8a6b45" roughness={0.85} />
+        </mesh>
+        <mesh position={[0, 0.27, 0]}>
+          <boxGeometry args={[0.14, 0.55, 0.5]} />
+          <meshStandardMaterial color="#6b5232" roughness={0.9} />
+        </mesh>
+        {/* sách trên bục */}
+        <mesh position={[0, 0.64, 0]} rotation={[0, 0.2, 0]}>
+          <boxGeometry args={[0.5, 0.06, 0.35]} />
+          <meshStandardMaterial color="#b3372a" roughness={0.8} />
+        </mesh>
+        <mesh position={[0.05, 0.68, 0.02]} rotation={[0, -0.15, 0]}>
+          <boxGeometry args={[0.42, 0.05, 0.3]} />
+          <meshStandardMaterial color="#f6f1de" roughness={0.9} />
+        </mesh>
+      </group>
       {/* thầy đứng lớp */}
       <TeacherFigure position={[3.5, 0.6, -2.3]} />
     </group>
@@ -666,11 +687,14 @@ function Student({
   onRequestGo,
   onRequestBack,
   onArrive,
+  posOut,
 }: {
   info: StudentInfo;
   onRequestGo: (id: string) => void;
   onRequestBack: (id: string) => void;
   onArrive: (id: string, where: "seat" | "yard") => void;
+  /** Ref dùng chung để camera bám theo: học sinh ghi vị trí hiện tại vào đây mỗi frame. */
+  posOut: React.MutableRefObject<Record<string, THREE.Vector3>>;
 }) {
   const group = useRef<THREE.Group>(null);
   const body = useRef<THREE.Group>(null);
@@ -769,6 +793,9 @@ function Student({
     }
 
     g.position.copy(posRef.current);
+    // Ghi vị trí hiện tại ra ref dùng chung để camera bám theo
+    const out = posOut.current[info.id];
+    if (out) out.copy(posRef.current);
   });
 
   const sitting = info.status === "sitting";
@@ -1306,13 +1333,105 @@ const INITIAL_STUDENTS: Omit<StudentInfo, "name" | "status" | "target">[] = [
   { id: "hs3", robe: "#4d7c3a", start: [0.8, 9.2], seat: [0, -5.9] },
 ];
 
+/* ------------------------------------------------------------------ */
+/* Camera "vào lớp": bám theo học sinh rồi chuyển vào trong lớp        */
+/* ------------------------------------------------------------------ */
+export type ViewMode = "yard" | "follow" | "classroom";
+
+/** Góc nhìn toàn cảnh sân trường (mặc định). */
+const YARD_POS = new THREE.Vector3(17, 10, 17);
+const YARD_TARGET = new THREE.Vector3(0, 2.4, 0);
+/** Góc nhìn vào lớp: đứng ngay trước cửa lớp (cửa mở), nhìn xuyên vào trong
+    thấy bảng đen + thầy + học sinh đang ngồi. Đứng ngoài cửa thay vì chui hẳn
+    vào trong để (1) khung hình đủ rộng chứa cả lớp — nhất là trên điện thoại
+    dọc, và (2) camera không phải xuyên qua tường khi chuyển từ ngoài sân vào.
+    Lớp học (SchoolBuilding) đặt ở [0,0,-4] nên cửa lớp ở z ≈ -0.75. */
+const CLASS_POS = new THREE.Vector3(0, 2.2, 0.5);
+const CLASS_TARGET = new THREE.Vector3(0.5, 1.6, -6);
+/** Camera bám sau lưng học sinh khi đi bộ (học sinh đi từ sân +z vào lớp -z). */
+const FOLLOW_OFFSET = new THREE.Vector3(0, 2.6, 5.0);
+
+/**
+ * Điều khiển camera theo chế độ xem. Dùng lerp mượt mỗi frame; khi đã tới
+ * nơi (trừ chế độ follow) thì thả ra để người dùng tự xoay/zoom.
+ * Không gọi controls.update() ở đây — OrbitControls (enableDamping) tự
+ * update mỗi frame, gọi thêm sẽ làm autoRotate quay gấp đôi.
+ */
+function CameraRig({
+  viewMode,
+  students,
+  studentPos,
+  controlsRef,
+}: {
+  viewMode: ViewMode;
+  students: StudentInfo[];
+  studentPos: React.MutableRefObject<Record<string, THREE.Vector3>>;
+  controlsRef: React.RefObject<OrbitControlsImpl | null>;
+}) {
+  const camera = useThree((s) => s.camera);
+  const animating = useRef(false);
+  const prevMode = useRef(viewMode);
+
+  // Đổi chế độ xem thì bắt đầu chuyển động camera
+  useEffect(() => {
+    if (prevMode.current !== viewMode) {
+      prevMode.current = viewMode;
+      animating.current = true;
+    }
+  }, [viewMode]);
+
+  useFrame((_, delta) => {
+    const controls = controlsRef.current;
+    if (!controls) return;
+    const k = 1 - Math.exp(-3.2 * delta);
+    let desiredPos: THREE.Vector3 | null = null;
+    let desiredTarget: THREE.Vector3 | null = null;
+
+    if (viewMode === "follow") {
+      const moving = students.find(
+        (s) => s.status === "walking" || s.status === "returning"
+      );
+      const p = moving ? studentPos.current[moving.id] : null;
+      if (p) {
+        desiredTarget = new THREE.Vector3(p.x, p.y + 1.3, p.z);
+        desiredPos = desiredTarget.clone().add(FOLLOW_OFFSET);
+      }
+    } else if (viewMode === "classroom") {
+      desiredPos = CLASS_POS;
+      desiredTarget = CLASS_TARGET;
+    } else {
+      desiredPos = YARD_POS;
+      desiredTarget = YARD_TARGET;
+    }
+
+    if (!desiredPos || !desiredTarget) return;
+
+    // Follow thì luôn bám theo; các chế độ khác chỉ lerp trong lúc chuyển động
+    if (viewMode === "follow" || animating.current) {
+      camera.position.lerp(desiredPos, k);
+      controls.target.lerp(desiredTarget, k);
+      if (viewMode !== "follow") {
+        const dPos = camera.position.distanceTo(desiredPos);
+        const dTgt = controls.target.distanceTo(desiredTarget);
+        if (dPos < 0.08 && dTgt < 0.08) animating.current = false;
+      }
+    }
+  });
+
+  return null;
+}
+
 function Scene({
   students,
+  viewMode,
+  studentPos,
   onRequestGo,
   onRequestBack,
   onArrive,
 }: {
   students: StudentInfo[];
+  viewMode: ViewMode;
+  studentPos: React.MutableRefObject<Record<string, THREE.Vector3>>;
   onRequestGo: (id: string) => void;
   onRequestBack: (id: string) => void;
   onArrive: (id: string, where: "seat" | "yard") => void;
@@ -1321,6 +1440,7 @@ function Scene({
   const goLessons = () => router.push("/bai-hoc");
   const goSchedule = () => router.push("/lich-hoc");
   const goTea = () => router.push("/tra-dao");
+  const controlsRef = useRef<OrbitControlsImpl | null>(null);
 
   return (
     <>
@@ -1403,8 +1523,16 @@ function Scene({
           onRequestGo={onRequestGo}
           onRequestBack={onRequestBack}
           onArrive={onArrive}
+          posOut={studentPos}
         />
       ))}
+
+      <CameraRig
+        viewMode={viewMode}
+        students={students}
+        studentPos={studentPos}
+        controlsRef={controlsRef}
+      />
 
       <Cloud position={[-14, 13, -10]} scale={1.4} />
       <Cloud position={[10, 15, -14]} scale={1.8} />
@@ -1412,14 +1540,15 @@ function Scene({
       <Cloud position={[-8, 16, 8]} scale={1.2} />
 
       <OrbitControls
+        ref={controlsRef}
         makeDefault
         target={[0, 2.4, 0]}
-        autoRotate
+        autoRotate={viewMode === "yard"}
         autoRotateSpeed={0.55}
         enableDamping
         dampingFactor={0.08}
         enablePan={false}
-        minDistance={9}
+        minDistance={2}
         maxDistance={30}
         minPolarAngle={0.2}
         maxPolarAngle={1.48}
@@ -1441,6 +1570,17 @@ export default function SchoolScene() {
   const [namingId, setNamingId] = useState<string | null>(null);
   const [nameInput, setNameInput] = useState("");
   const [suggestIdx, setSuggestIdx] = useState(0);
+  /** Chế độ camera: sân trường / bám theo học sinh / trong lớp học. */
+  const [viewMode, setViewMode] = useState<ViewMode>("yard");
+  /** Vị trí hiện tại của từng học sinh (học sinh tự ghi vào mỗi frame). */
+  const studentPos = useRef<Record<string, THREE.Vector3>>(
+    Object.fromEntries(
+      INITIAL_STUDENTS.map((s) => [
+        s.id,
+        new THREE.Vector3(s.start[0], 0, s.start[1]),
+      ])
+    )
+  );
 
   const namingStudent = students.find((s) => s.id === namingId) ?? null;
   const idleStudents = students.filter((s) => s.status === "idle");
@@ -1479,6 +1619,8 @@ export default function SchoolScene() {
           : s
       )
     );
+    // Học sinh bắt đầu đi vào lớp → camera bám theo
+    setViewMode("follow");
     setNamingId(null);
   }
 
@@ -1488,6 +1630,8 @@ export default function SchoolScene() {
         s.id === id ? { ...s, status: "returning", target: "yard" } : s
       )
     );
+    // Học sinh đi ra sân → camera bám theo ra
+    setViewMode("follow");
   }
 
   function handleArrive(id: string, where: "seat" | "yard") {
@@ -1498,6 +1642,17 @@ export default function SchoolScene() {
           : s
       )
     );
+    // Chỉ tự chuyển view khi đang ở chế độ follow (người dùng chưa tự bấm "Ra sân")
+    if (where === "seat") {
+      setViewMode((prev) => (prev === "follow" ? "classroom" : prev));
+    } else {
+      const stillSitting = students.some(
+        (s) => s.id !== id && s.status === "sitting"
+      );
+      setViewMode((prev) =>
+        prev === "follow" ? (stillSitting ? "classroom" : "yard") : prev
+      );
+    }
   }
 
   return (
@@ -1510,6 +1665,8 @@ export default function SchoolScene() {
       >
         <Scene
           students={students}
+          viewMode={viewMode}
+          studentPos={studentPos}
           onRequestGo={openNaming}
           onRequestBack={sendOut}
           onArrive={handleArrive}
@@ -1568,6 +1725,23 @@ export default function SchoolScene() {
               className="rounded-full bg-[#fdf9ec] px-4 py-2 text-sm font-extrabold text-[#b3372a] shadow-lg transition hover:bg-white"
             >
               🏃 Cho học sinh ra sân ({sittingStudents.length})
+            </button>
+          )}
+          {/* Nút xem lớp học / về sân (điều khiển camera) */}
+          {sittingStudents.length > 0 && viewMode !== "classroom" && (
+            <button
+              onClick={() => setViewMode("classroom")}
+              className="rounded-full bg-[#d9a441] px-4 py-2 text-sm font-extrabold text-[#2b2118] shadow-lg transition hover:bg-[#c98a2e]"
+            >
+              🏫 Vào xem lớp học
+            </button>
+          )}
+          {viewMode !== "yard" && (
+            <button
+              onClick={() => setViewMode("yard")}
+              className="rounded-full bg-[#2b2118]/85 px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#2b2118]"
+            >
+              🌳 Ra sân
             </button>
           )}
         </div>
