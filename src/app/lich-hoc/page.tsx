@@ -48,6 +48,8 @@ export default function LichHocPage() {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    // Giờ hiện tại chỉ có ở client — khởi tạo trong effect để tránh lệch hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(new Date());
     const t = setInterval(() => setNow(new Date()), 30000);
     return () => clearInterval(t);

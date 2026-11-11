@@ -9,6 +9,11 @@ import {
   allVocab,
   shuffle,
 } from "@/data/lessons";
+import {
+  randomRemark,
+  TEACHER_REMARKS_MISTAKE,
+  TEACHER_REMARKS_PRAISE,
+} from "@/data/teacher";
 
 type QuizState = "idle" | "quizzing" | "done";
 
@@ -22,16 +27,18 @@ export default function LuyenVietPage() {
   const [doneStrokes, setDoneStrokes] = useState(0);
   const [totalStrokes, setTotalStrokes] = useState(0);
   const [loadError, setLoadError] = useState(false);
+  const [remark, setRemark] = useState("");
 
   const chars = getLessonChars(lessons[lessonId - 1]);
   const vocabHit = allVocab.find((v) => v.zh.includes(char));
 
-  // Tạo writer 1 lần khi mount
+  // Tạo writer 1 lần khi mount (cần DOM + CDN, chỉ chạy ở client).
   useEffect(() => {
     if (!containerRef.current) return;
+    const el = containerRef.current;
     let writer: HanziWriter | null = null;
     try {
-      writer = HanziWriter.create(containerRef.current, char, {
+      writer = HanziWriter.create(el, char, {
         width: 320,
         height: 320,
         padding: 16,
@@ -42,6 +49,7 @@ export default function LuyenVietPage() {
       });
       writerRef.current = writer;
     } catch {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoadError(true);
     }
     return () => {
@@ -50,7 +58,7 @@ export default function LuyenVietPage() {
       } catch {
         /* ignore */
       }
-      if (containerRef.current) containerRef.current.innerHTML = "";
+      el.innerHTML = "";
       writerRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,6 +71,7 @@ export default function LuyenVietPage() {
     setQuizState("idle");
     setMistakes(0);
     setDoneStrokes(0);
+    setRemark("");
     try {
       writer.setCharacter(char);
       // Lấy tổng số nét từ dữ liệu chữ (nếu có)
@@ -83,10 +92,17 @@ export default function LuyenVietPage() {
     setQuizState("quizzing");
     setMistakes(0);
     setDoneStrokes(0);
+    setRemark("");
     writer.quiz({
-      onMistake: () => setMistakes((m) => m + 1),
+      onMistake: () => {
+        setMistakes((m) => m + 1);
+        setRemark(randomRemark(TEACHER_REMARKS_MISTAKE));
+      },
       onCorrectStroke: (d) => setDoneStrokes(d.strokeNum + 1),
-      onComplete: () => setQuizState("done"),
+      onComplete: () => {
+        setQuizState("done");
+        setRemark((r) => r || randomRemark(TEACHER_REMARKS_PRAISE));
+      },
     });
   }
 
@@ -173,6 +189,11 @@ export default function LuyenVietPage() {
           {quizState === "quizzing" && (
             <p className="mt-2 text-sm text-ink-soft">
               Tô theo viền mờ — viết đúng thứ tự nét thì mới qua nét tiếp theo.
+            </p>
+          )}
+          {remark && (
+            <p className="mt-3 rounded-xl bg-gold-soft/30 p-3 text-sm leading-relaxed text-ink">
+              <span className="font-black text-vermilion">👨‍🏫 Thầy nói:</span> “{remark}”
             </p>
           )}
         </div>

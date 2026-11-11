@@ -16,6 +16,18 @@ const FEATURES = [
     desc: "Tô theo từng nét, thầy chấm đúng/sai từng nét cho bạn.",
   },
   {
+    href: "/lop-hoc",
+    icon: "🏫",
+    title: "Lớp học",
+    desc: "Lớp mở 8:00, 14:00, 20:00 mỗi ngày — nghe thầy giảng, xem thầy nhận xét.",
+  },
+  {
+    href: "/doc-truyen",
+    icon: "📚",
+    title: "Đọc truyện theo cấp",
+    desc: "9 truyện ngắn HSK 1–3, bấm vào từ để xem nghĩa, nghe thầy đọc từng câu.",
+  },
+  {
     href: "/thi-hsk",
     icon: "📝",
     title: "Thi thử HSK",
@@ -53,8 +65,9 @@ export default function Home() {
             Thầy Đồ
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-base font-medium text-white drop-shadow md:text-lg">
-            Vào trường, ngồi chiếu nghe thầy giảng, luyện viết chữ Hán, thi
-            thử HSK — học chung với bạn bè khắp nơi.
+            Sân trường Văn Miếu với Khuê Văn Các, lớp học Điện Thái Hòa, trà
+            quán Hội An — vào trường, ngồi chiếu nghe thầy giảng, luyện viết
+            chữ Hán, thi thử HSK.
           </p>
         </div>
 
@@ -76,7 +89,8 @@ export default function Home() {
           </div>
           <p className="text-center text-xs font-semibold text-white/90 drop-shadow">
             🖱️ Kéo để xoay quanh trường · Lăn chuột để zoom · Bấm vào tòa lớp
-            học để vào lớp · Bấm vào cổng để xem lịch học
+            học để vào lớp · Bấm vào cổng để xem lịch học · Bấm vào một học sinh
+            để đặt tên và gọi bạn vào lớp
           </p>
         </div>
       </section>
@@ -129,8 +143,8 @@ export default function Home() {
               Sắp có thêm…
             </h3>
             <p className="mt-1 text-sm leading-relaxed text-ink-soft">
-              Sân trường 3D đi lại được, bạn học online cùng lúc, đọc truyện
-              theo cấp, và thi HSK có chấm điểm chi tiết.
+              Chấm phát âm, bảng vàng học sinh chăm chỉ, thêm truyện mới mỗi
+              tuần, và mở rộng sân trường ra phố cổ Hội An.
             </p>
           </div>
         </div>

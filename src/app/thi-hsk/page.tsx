@@ -43,7 +43,9 @@ export default function ThiHskPage() {
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState<{ q: Question; chosen: string }[]>([]);
 
+  // Câu hỏi bốc ngẫu nhiên ở client để tránh lệch hydration.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setQuestions(buildQuestions());
   }, []);
 

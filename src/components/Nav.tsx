@@ -5,8 +5,10 @@ import { usePathname } from "next/navigation";
 
 const LINKS = [
   { href: "/", label: "Trang chủ" },
+  { href: "/lop-hoc", label: "Lớp học" },
   { href: "/bai-hoc", label: "Bài học" },
   { href: "/luyen-viet", label: "Luyện viết" },
+  { href: "/doc-truyen", label: "Đọc truyện" },
   { href: "/thi-hsk", label: "Thi HSK" },
   { href: "/pomodoro", label: "Pomodoro" },
   { href: "/lich-hoc", label: "Lịch học" },

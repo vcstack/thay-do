@@ -7,6 +7,16 @@ const BREAK_SEC = 5 * 60;
 
 type Mode = "focus" | "break";
 
+/** Bạn cùng phòng tự học (mô phỏng để tạo cảm giác học chung). */
+const ROOMMATES = [
+  "Minh Anh", "Quốc Bảo", "Thu Hà", "Đức Anh",
+  "Lan Chi", "Hoàng Nam", "Phương Linh", "Tuấn Kiệt",
+];
+
+function randomOnline() {
+  return 18 + Math.floor(Math.random() * 24);
+}
+
 function fmt(total: number) {
   const m = Math.floor(total / 60);
   const s = total % 60;
@@ -19,7 +29,30 @@ export default function PomodoroPage() {
   const [running, setRunning] = useState(false);
   const [cycles, setCycles] = useState(0);
   const [message, setMessage] = useState("");
+  const [online, setOnline] = useState<number | null>(null);
+  const [mates, setMates] = useState<boolean[]>([]);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Số người đang học chung (mô phỏng) + trạng thái bạn cùng phòng.
+  // Khởi tạo trong effect (giá trị ngẫu nhiên, chỉ có ở client) để tránh lệch hydration.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setOnline(randomOnline());
+    setMates(ROOMMATES.map(() => Math.random() < 0.75));
+    const t = setInterval(() => {
+      setOnline((o) => {
+        if (o === null) return randomOnline();
+        return Math.min(48, Math.max(12, o + Math.floor(Math.random() * 5) - 2));
+      });
+    }, 20000);
+    const t2 = setInterval(() => {
+      setMates(ROOMMATES.map(() => Math.random() < 0.75));
+    }, 30000);
+    return () => {
+      clearInterval(t);
+      clearInterval(t2);
+    };
+  }, []);
 
   const total = mode === "focus" ? FOCUS_SEC : BREAK_SEC;
   const progress = 1 - secondsLeft / total;
@@ -149,6 +182,34 @@ export default function PomodoroPage() {
         Gợi ý: 1 phiên Pomodoro = học 1 bài mới hoặc ôn 10 từ vựng + luyện viết
         5 chữ.
       </p>
+
+      {/* Sân đọc sách — học chung */}
+      <div className="mt-8 rounded-2xl border-2 border-gold/40 bg-cream p-6 text-left shadow">
+        <h2 className="text-lg font-extrabold text-vermilion">📖 Sân đọc sách — đang học chung</h2>
+        <p className="mt-2 text-sm text-ink-soft">
+          <span className="font-black text-leaf">🟢 {online ?? "…"} người</span>{" "}
+          đang ngồi học cùng bạn lúc này. Ai cũng đang chạy Pomodoro 25/5 giống
+          bạn — đừng bỏ cuộc giữa chừng nhé!
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {ROOMMATES.map((name, i) => (
+            <span
+              key={name}
+              className={`rounded-full border-2 px-3 py-1.5 text-sm font-bold ${
+                mates[i]
+                  ? "border-leaf bg-leaf-soft/30 text-leaf"
+                  : "border-gold bg-gold-soft/30 text-ink-soft"
+              }`}
+            >
+              {mates[i] ? "📖" : "☕"} {name} · {mates[i] ? "đang tập trung" : "đang nghỉ"}
+            </span>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-ink-soft">
+          * Số người và tên bạn học là mô phỏng để tạo cảm giác học chung — chưa
+          có người thật online.
+        </p>
+      </div>
     </div>
   );
 }
