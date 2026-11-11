@@ -53,6 +53,7 @@ const ZONES: Zone[] = [
     desc: "Sân 3D — nơi học sinh đi lại, vào lớp.",
     places: [
       { name: "Sân trường 3D", href: "/", desc: "Kéo xoay, bấm vào học sinh để gọi vào lớp.", skills: [] },
+      { name: "Khu trà đạo", href: "/tra-dao", desc: "Ngồi chiếu thưởng trà, học nghi thức pha trà Trung Hoa.", skills: ["Nghe", "Nói"] },
       { name: "Đèn đá & ghế đá", href: "/", desc: "Ngồi nghỉ, ngắm cảnh sân trường.", skills: [] },
     ],
   },

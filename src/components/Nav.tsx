@@ -15,6 +15,7 @@ const LINKS = [
   { href: "/doc-truyen", label: "Đọc truyện" },
   { href: "/thi-hsk", label: "Thi HSK" },
   { href: "/pho-hoa", label: "Phố Hoa" },
+  { href: "/tra-dao", label: "Trà đạo" },
   { href: "/pomodoro", label: "Pomodoro" },
   { href: "/lich-hoc", label: "Lịch học" },
 ];

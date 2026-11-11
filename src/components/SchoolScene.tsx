@@ -861,6 +861,132 @@ function TeaHouse({ position, rotationY = 0 }: { position: [number, number, numb
 }
 
 /* ------------------------------------------------------------------ */
+/* Khu trà đạo: mái che, bàn trà thấp, ấm chén, đệm ngồi               */
+/* ------------------------------------------------------------------ */
+function TeaCeremony({
+  position,
+  rotationY = 0,
+  onEnter,
+}: {
+  position: [number, number, number];
+  rotationY?: number;
+  onEnter: () => void;
+}) {
+  const [hover, setHover] = useState(false);
+  return (
+    <group
+      position={position}
+      rotation={[0, rotationY, 0]}
+      onClick={(e) => {
+        e.stopPropagation();
+        onEnter();
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHover(true);
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={() => {
+        setHover(false);
+        document.body.style.cursor = "auto";
+      }}
+    >
+      {/* nền đá */}
+      <mesh receiveShadow position={[0, 0.12, 0]}>
+        <boxGeometry args={[4.6, 0.24, 4]} />
+        <meshStandardMaterial
+          color={hover ? "#ddd2b2" : "#cfc4a8"}
+          roughness={0.95}
+        />
+      </mesh>
+      {/* 4 cột gỗ đỡ mái che */}
+      {[
+        [-1.9, -1.6],
+        [1.9, -1.6],
+        [-1.9, 1.6],
+        [1.9, 1.6],
+      ].map(([x, z], i) => (
+        <mesh key={i} castShadow position={[x, 1.35, z]}>
+          <cylinderGeometry args={[0.11, 0.13, 2.7, 8]} />
+          <meshStandardMaterial color="#7a5230" roughness={0.85} />
+        </mesh>
+      ))}
+      {/* mái che 4 mặt màu ngói nâu */}
+      <mesh castShadow position={[0, 3.1, 0]} rotation={[0, Math.PI / 4, 0]}>
+        <coneGeometry args={[3.4, 1.3, 4]} />
+        <meshStandardMaterial color="#7a4a2b" roughness={0.7} flatShading />
+      </mesh>
+      <mesh position={[0, 3.85, 0]}>
+        <sphereGeometry args={[0.14, 10, 8]} />
+        <meshStandardMaterial color="#d9a441" metalness={0.5} roughness={0.35} />
+      </mesh>
+      {/* bàn trà thấp */}
+      <mesh castShadow receiveShadow position={[0, 0.55, 0]}>
+        <boxGeometry args={[2.2, 0.14, 1.2]} />
+        <meshStandardMaterial color="#8a6b45" roughness={0.85} />
+      </mesh>
+      {[
+        [-1, -0.45],
+        [1, -0.45],
+        [-1, 0.45],
+        [1, 0.45],
+      ].map(([x, z], i) => (
+        <mesh key={i} position={[x, 0.28, z]}>
+          <boxGeometry args={[0.12, 0.5, 0.12]} />
+          <meshStandardMaterial color="#6b5232" roughness={0.9} />
+        </mesh>
+      ))}
+      {/* ấm trà trên bàn */}
+      <mesh position={[0, 0.78, 0]}>
+        <sphereGeometry args={[0.17, 12, 10]} />
+        <meshStandardMaterial color="#b3372a" roughness={0.5} />
+      </mesh>
+      <mesh position={[0.2, 0.8, 0]} rotation={[0, 0, -0.7]}>
+        <cylinderGeometry args={[0.03, 0.04, 0.24, 6]} />
+        <meshStandardMaterial color="#b3372a" roughness={0.5} />
+      </mesh>
+      <mesh position={[-0.2, 0.82, 0]} rotation={[0, 0, 0.6]}>
+        <torusGeometry args={[0.09, 0.02, 8, 16, Math.PI]} />
+        <meshStandardMaterial color="#8f2a20" roughness={0.5} />
+      </mesh>
+      {/* 4 chén trà nhỏ */}
+      {[
+        [-0.7, 0.3],
+        [0.7, 0.3],
+        [-0.7, -0.35],
+        [0.7, -0.35],
+      ].map(([x, z], i) => (
+        <mesh key={i} position={[x, 0.68, z]}>
+          <cylinderGeometry args={[0.09, 0.07, 0.09, 10]} />
+          <meshStandardMaterial color="#f6ead2" roughness={0.4} />
+        </mesh>
+      ))}
+      {/* đệm ngồi 3 phía */}
+      {[
+        [-1.3, 1.25, "#b3372a"],
+        [1.3, 1.25, "#5d9b4a"],
+        [0, -1.35, "#d9a441"],
+      ].map(([x, z, c], i) => (
+        <mesh key={i} castShadow position={[x as number, 0.32, z as number]}>
+          <cylinderGeometry args={[0.55, 0.6, 0.16, 16]} />
+          <meshStandardMaterial color={c as string} roughness={0.9} />
+        </mesh>
+      ))}
+      {/* khóm trúc bên cạnh */}
+      {[-0.5, -0.2, 0.15].map((x, i) => (
+        <mesh key={i} position={[2.15 + x * 0.3, 1.1, -1.5]}>
+          <cylinderGeometry args={[0.04, 0.05, 2.1, 6]} />
+          <meshStandardMaterial color="#5d9b4a" roughness={0.8} />
+        </mesh>
+      ))}
+      {/* đèn lồng treo mái che */}
+      <Lantern position={[-1.9, 2.2, 1.9]} scale={0.55} color="#d93b2b" glow="#a11d10" />
+      <Lantern position={[1.9, 2.2, 1.9]} scale={0.55} color="#e8b23a" glow="#a87608" />
+    </group>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Khuê Văn Các (Văn Miếu): lầu 2 tầng, 4 cột, cửa sổ tròn             */
 /* ------------------------------------------------------------------ */
 function KhueVanCac({ position, rotationY = 0 }: { position: [number, number, number]; rotationY?: number }) {
@@ -1133,6 +1259,7 @@ function Scene({
   const router = useRouter();
   const goLessons = () => router.push("/bai-hoc");
   const goSchedule = () => router.push("/lich-hoc");
+  const goTea = () => router.push("/tra-dao");
 
   return (
     <>
@@ -1183,6 +1310,7 @@ function Scene({
       <SideHouse position={[-11.5, 0, -6]} rotationY={0.35} />
       <SideHouse position={[10.5, 0, -4]} rotationY={-0.4} />
       <TeaHouse position={[-11, 0, 5.5]} rotationY={0.5} />
+      <TeaCeremony position={[11.5, 0, 5.5]} rotationY={-0.5} onEnter={goTea} />
 
       {/* Khuê Văn Các giữa sân + bia tiến sĩ */}
       <KhueVanCac position={[-7.5, 0, 0.5]} rotationY={0.25} />

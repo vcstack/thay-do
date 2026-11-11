@@ -51,7 +51,7 @@ const TODAY_PATHS = [
   },
 ];
 
-/** 9 địa điểm trong trường. */
+/** 10 địa điểm trong trường. */
 const PLACES = [
   { icon: "🏫", zone: "Học xá", title: "Lớp HSK 1, 2, 3", desc: "82 buổi theo chặng HSK 3.0, giờ vào lớp cố định. Mỗi buổi nghe giảng, đọc theo, rồi thử viết chữ của buổi.", href: "/lop-hoc", cta: "Vào lớp HSK" },
   { icon: "🌱", zone: "Học xá", title: "Lớp Vỡ lòng", desc: "8 buổi bộ thủ cho người mới bắt đầu, cả lớp học chung một buổi mỗi ngày.", href: "/bai-hoc", cta: "Vào lớp Vỡ lòng" },
@@ -62,6 +62,7 @@ const PLACES = [
   { icon: "📖", zone: "Khu học", title: "Sân đọc sách", desc: "Tự học chung theo nhịp 25 phút học, 5 phút nghỉ, ngồi chiếu cạnh mọi người.", href: "/pomodoro", cta: "Vào sân đọc sách" },
   { icon: "📖", zone: "Phố Hoa", title: "Hiệu sách", desc: "Đọc to theo từng câu một, luyện phát âm và nghe hiểu.", href: "/doc-truyen", cta: "Vào hiệu sách" },
   { icon: "🏮", zone: "Phố Hoa", title: "Phố Hoa", desc: "Ra Trà quán, Sạp hoa quả, Quán mì gọi món và nói chuyện bằng tiếng Trung.", href: "/pho-hoa", cta: "Ra Phố Hoa" },
+  { icon: "🍵", zone: "Sân trường", title: "Trà đạo", desc: "Ngồi chiếu thưởng trà, học nghi thức pha trà từng bước, nghe thầy đọc thơ trà.", href: "/tra-dao", cta: "Vào khu trà đạo" },
 ];
 
 /** Bảng vàng tuần — dữ liệu mẫu minh họa. */
