@@ -1,0 +1,154 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const FOCUS_SEC = 25 * 60;
+const BREAK_SEC = 5 * 60;
+
+type Mode = "focus" | "break";
+
+function fmt(total: number) {
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+export default function PomodoroPage() {
+  const [mode, setMode] = useState<Mode>("focus");
+  const [secondsLeft, setSecondsLeft] = useState(FOCUS_SEC);
+  const [running, setRunning] = useState(false);
+  const [cycles, setCycles] = useState(0);
+  const [message, setMessage] = useState("");
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const total = mode === "focus" ? FOCUS_SEC : BREAK_SEC;
+  const progress = 1 - secondsLeft / total;
+
+  useEffect(() => {
+    if (!running) return;
+    timerRef.current = setInterval(() => {
+      setSecondsLeft((s) => {
+        if (s <= 1) {
+          // Hết giờ: đổi ca
+          if (mode === "focus") {
+            setCycles((c) => c + 1);
+            setMode("break");
+            setMessage("🎉 Hết 25 phút tập trung! Nghỉ 5 phút đi, uống nước, vươn vai.");
+            return BREAK_SEC;
+          }
+          setMode("focus");
+          setMessage("⏰ Hết giờ nghỉ! Quay lại học tiếp nào.");
+          return FOCUS_SEC;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [running, mode]);
+
+  function switchMode(m: Mode) {
+    setMode(m);
+    setSecondsLeft(m === "focus" ? FOCUS_SEC : BREAK_SEC);
+    setRunning(false);
+    setMessage("");
+  }
+
+  function reset() {
+    setSecondsLeft(mode === "focus" ? FOCUS_SEC : BREAK_SEC);
+    setRunning(false);
+    setMessage("");
+  }
+
+  // Vòng tròn tiến độ
+  const R = 120;
+  const C = 2 * Math.PI * R;
+
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-10 text-center">
+      <h1 className="text-3xl font-black text-vermilion">🍅 Pomodoro</h1>
+      <p className="mx-auto mt-2 max-w-lg text-ink-soft">
+        Học tập trung 25 phút, nghỉ 5 phút. Ngồi vào chiếu, tắt điện thoại,
+        chỉ học tiếng Trung thôi.
+      </p>
+
+      {/* Chuyển ca */}
+      <div className="mt-6 inline-flex rounded-full border-2 border-gold/50 bg-cream p-1 shadow">
+        <button
+          onClick={() => switchMode("focus")}
+          className={`rounded-full px-5 py-2 text-sm font-bold ${
+            mode === "focus" ? "bg-vermilion text-cream" : "text-ink"
+          }`}
+        >
+          📖 Học 25 phút
+        </button>
+        <button
+          onClick={() => switchMode("break")}
+          className={`rounded-full px-5 py-2 text-sm font-bold ${
+            mode === "break" ? "bg-leaf text-cream" : "text-ink"
+          }`}
+        >
+          ☕ Nghỉ 5 phút
+        </button>
+      </div>
+
+      {/* Đồng hồ */}
+      <div className="relative mx-auto mt-8 h-[280px] w-[280px]">
+        <svg viewBox="0 0 280 280" className="h-full w-full -rotate-90">
+          <circle cx="140" cy="140" r={R} fill="none" stroke="#e8c37a" strokeWidth="14" opacity="0.5" />
+          <circle
+            cx="140"
+            cy="140"
+            r={R}
+            fill="none"
+            stroke={mode === "focus" ? "#b3372a" : "#4d7c3a"}
+            strokeWidth="14"
+            strokeLinecap="round"
+            strokeDasharray={C}
+            strokeDashoffset={C * (1 - progress)}
+            className="transition-all duration-1000"
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <p className="text-6xl font-black tabular-nums text-ink">
+            {fmt(secondsLeft)}
+          </p>
+          <p className="mt-1 text-sm font-bold text-ink-soft">
+            {mode === "focus" ? "Đang tập trung học" : "Đang nghỉ ngơi"}
+          </p>
+        </div>
+      </div>
+
+      {/* Nút điều khiển */}
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          onClick={() => setRunning((r) => !r)}
+          className="rounded-full bg-vermilion px-8 py-3 text-base font-extrabold text-cream shadow hover:bg-vermilion-dark"
+        >
+          {running ? "⏸ Tạm dừng" : "▶ Bắt đầu"}
+        </button>
+        <button
+          onClick={reset}
+          className="rounded-full border-2 border-gold bg-cream px-6 py-3 text-base font-bold text-vermilion hover:bg-gold-soft/40"
+        >
+          ↺ Đặt lại
+        </button>
+      </div>
+
+      {message && (
+        <p className="mx-auto mt-5 max-w-md rounded-xl bg-leaf-soft/30 p-3 text-sm font-bold text-leaf">
+          {message}
+        </p>
+      )}
+
+      <p className="mt-6 text-sm font-bold text-ink-soft">
+        Đã hoàn thành: {cycles} phiên tập trung 🎯
+      </p>
+      <p className="mt-1 text-xs text-ink-soft">
+        Gợi ý: 1 phiên Pomodoro = học 1 bài mới hoặc ôn 10 từ vựng + luyện viết
+        5 chữ.
+      </p>
+    </div>
+  );
+}
