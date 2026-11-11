@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Billboard, Float, OrbitControls } from "@react-three/drei";
+import { Billboard, Float, OrbitControls, useGLTF } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useRouter } from "next/navigation";
 import * as THREE from "three";
@@ -43,60 +43,109 @@ function useSignTexture() {
   }, []);
 }
 
+
 /* ------------------------------------------------------------------ */
-/* Đèn lồng (đủ màu: đỏ, vàng, cam)                                    */
+/* Model .glb vẽ bằng Blender — load bằng useGLTF, clone mỗi lần dùng   */
+/* (để cùng 1 file dùng được nhiều chỗ: bia x2, cây x9, nhân vật...).   */
 /* ------------------------------------------------------------------ */
-function Lantern({
+const MODEL_URLS = {
+  school: "/models/school.glb",
+  gate: "/models/gate.glb",
+  khuevancac: "/models/khuevancac.glb",
+  stele: "/models/stele.glb",
+  teahouse: "/models/teahouse.glb",
+  teaceremony: "/models/teaceremony.glb",
+  treeGreen: "/models/tree_green.glb",
+  treePhuong: "/models/tree_phuong.glb",
+  treeBamboo: "/models/tree_bamboo.glb",
+  characters: "/models/characters.glb",
+} as const;
+
+// Tải trước để cảnh hiện nhanh, không chờ từng model.
+Object.values(MODEL_URLS).forEach((url) => useGLTF.preload(url));
+
+/** Clone 1 scene glTF, bật đổ bóng cho mọi mesh. */
+function useClonedScene(url: string) {
+  const { scene } = useGLTF(url);
+  return useMemo(() => {
+    const c = scene.clone();
+    c.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh) {
+        m.castShadow = true;
+        m.receiveShadow = true;
+      }
+    });
+    return c;
+  }, [scene]);
+}
+
+/** 1 model .glb đặt ở vị trí cho trước (có thể bấm + hover). */
+function GLBModel({
+  url,
   position,
+  rotationY = 0,
   scale = 1,
-  color = "#d93b2b",
-  glow = "#a11d10",
+  onEnter,
 }: {
+  url: string;
   position: [number, number, number];
+  rotationY?: number;
   scale?: number;
-  color?: string;
-  glow?: string;
+  onEnter?: () => void;
 }) {
+  const clone = useClonedScene(url);
+  const clickable = !!onEnter;
   return (
-    <Float speed={1.4} rotationIntensity={0.15} floatIntensity={0.5}>
-      <group position={position} scale={scale}>
-        {/* dây treo */}
-        <mesh position={[0, 0.55, 0]}>
-          <cylinderGeometry args={[0.02, 0.02, 0.5, 6]} />
-          <meshStandardMaterial color="#3a2a1a" />
-        </mesh>
-        {/* nắp vàng trên */}
-        <mesh position={[0, 0.3, 0]}>
-          <cylinderGeometry args={[0.12, 0.16, 0.1, 12]} />
-          <meshStandardMaterial color="#d9a441" metalness={0.4} roughness={0.4} />
-        </mesh>
-        {/* thân đèn */}
-        <mesh castShadow>
-          <sphereGeometry args={[0.42, 20, 16]} />
-          <meshStandardMaterial
-            color={color}
-            emissive={glow}
-            emissiveIntensity={0.55}
-            roughness={0.5}
-          />
-        </mesh>
-        {/* gân đèn */}
-        <mesh position={[0, 0, 0]} scale={[1.02, 0.55, 1.02]}>
-          <torusGeometry args={[0.42, 0.015, 8, 24]} />
-          <meshStandardMaterial color="#8f2a20" />
-        </mesh>
-        {/* tua rua vàng dưới */}
-        <mesh position={[0, -0.48, 0]}>
-          <cylinderGeometry args={[0.1, 0.13, 0.12, 12]} />
-          <meshStandardMaterial color="#d9a441" metalness={0.4} roughness={0.4} />
-        </mesh>
-        <mesh position={[0, -0.68, 0]}>
-          <cylinderGeometry args={[0.015, 0.015, 0.28, 6]} />
-          <meshStandardMaterial color="#e8c37a" />
-        </mesh>
-      </group>
-    </Float>
+    <group
+      position={position}
+      rotation={[0, rotationY, 0]}
+      scale={scale}
+      onClick={
+        clickable
+          ? (e) => {
+              e.stopPropagation();
+              onEnter!();
+            }
+          : undefined
+      }
+      onPointerOver={
+        clickable
+          ? (e) => {
+              e.stopPropagation();
+              document.body.style.cursor = "pointer";
+            }
+          : undefined
+      }
+      onPointerOut={
+        clickable
+          ? () => {
+              document.body.style.cursor = "auto";
+            }
+          : undefined
+      }
+    >
+      <primitive object={clone} />
+    </group>
   );
+}
+
+/** Clone 1 nhân vật trong characters.glb theo tên node (Student_M1.../Teacher). */
+function useCharacterModel(id: string) {
+  const { nodes } = useGLTF(MODEL_URLS.characters);
+  return useMemo(() => {
+    const n = (nodes as Record<string, THREE.Object3D>)[id];
+    if (!n) return null;
+    const c = n.clone();
+    c.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh) {
+        m.castShadow = true;
+        m.receiveShadow = true;
+      }
+    });
+    return c;
+  }, [nodes, id]);
 }
 
 /* ------------------------------------------------------------------ */
@@ -111,27 +160,12 @@ function Tree({
   scale?: number;
   blossom?: boolean;
 }) {
-  const leaf = blossom ? "#e85d3d" : "#5d9b4a";
-  const leaf2 = blossom ? "#f0764a" : "#7cb35a";
   return (
-    <group position={position} scale={scale}>
-      <mesh castShadow position={[0, 0.9, 0]}>
-        <cylinderGeometry args={[0.18, 0.3, 1.8, 8]} />
-        <meshStandardMaterial color="#7a5230" roughness={0.9} />
-      </mesh>
-      <mesh castShadow position={[0, 2.3, 0]}>
-        <sphereGeometry args={[1.15, 12, 10]} />
-        <meshStandardMaterial color={leaf} roughness={0.8} />
-      </mesh>
-      <mesh castShadow position={[0.7, 1.85, 0.3]}>
-        <sphereGeometry args={[0.8, 12, 10]} />
-        <meshStandardMaterial color={leaf2} roughness={0.8} />
-      </mesh>
-      <mesh castShadow position={[-0.65, 1.9, -0.25]}>
-        <sphereGeometry args={[0.75, 12, 10]} />
-        <meshStandardMaterial color={leaf} roughness={0.8} />
-      </mesh>
-    </group>
+    <GLBModel
+      url={blossom ? MODEL_URLS.treePhuong : MODEL_URLS.treeGreen}
+      position={position}
+      scale={scale}
+    />
   );
 }
 
@@ -189,90 +223,8 @@ function SideHouse({
 /* Cổng Văn Miếu: 3 cửa, mái ngói vàng 2 tầng                          */
 /* ------------------------------------------------------------------ */
 function Gate({ onEnter }: { onEnter: () => void }) {
-  const [hover, setHover] = useState(false);
   return (
-    <group
-      position={[0, 0, 10.5]}
-      onClick={(e) => {
-        e.stopPropagation();
-        onEnter();
-      }}
-      onPointerOver={(e) => {
-        e.stopPropagation();
-        setHover(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerOut={() => {
-        setHover(false);
-        document.body.style.cursor = "auto";
-      }}
-    >
-      {/* 4 cột đỏ tạo 3 cửa */}
-      {[-3.6, -1.2, 1.2, 3.6].map((x) => (
-        <mesh key={x} castShadow position={[x, 2.5, 0]}>
-          <cylinderGeometry args={[0.3, 0.36, 5, 12]} />
-          <meshStandardMaterial
-            color={hover ? "#c8402a" : "#a32e22"}
-            roughness={0.6}
-          />
-        </mesh>
-      ))}
-      {/* tường lửng 2 bên cửa phụ */}
-      {[-2.4, 2.4].map((x) => (
-        <mesh key={x} castShadow position={[x, 1.1, 0]}>
-          <boxGeometry args={[1.1, 2.2, 0.3]} />
-          <meshStandardMaterial color="#d9c9a3" roughness={0.9} />
-        </mesh>
-      ))}
-      {/* xà ngang */}
-      <mesh castShadow position={[0, 4.4, 0]}>
-        <boxGeometry args={[8.4, 0.4, 0.5]} />
-        <meshStandardMaterial color="#8f2a20" roughness={0.6} />
-      </mesh>
-      <mesh castShadow position={[0, 3.5, 0]}>
-        <boxGeometry args={[7.6, 0.3, 0.4]} />
-        <meshStandardMaterial color="#b3372a" roughness={0.6} />
-      </mesh>
-      {/* huy hiệu tròn giữa cổng */}
-      <mesh position={[0, 3.95, 0.28]}>
-        <torusGeometry args={[0.42, 0.07, 10, 24]} />
-        <meshStandardMaterial color="#d9a441" metalness={0.5} roughness={0.35} />
-      </mesh>
-      <mesh position={[0, 3.95, 0.28]}>
-        <circleGeometry args={[0.38, 24]} />
-        <meshStandardMaterial
-          color="#ffd98a"
-          emissive="#ffbf4d"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
-      {/* mái tầng 1 ngói vàng */}
-      <mesh castShadow position={[0, 5.15, 0]}>
-        <boxGeometry args={[9, 0.35, 1.8]} />
-        <meshStandardMaterial color="#d9a441" roughness={0.7} />
-      </mesh>
-      <mesh position={[0, 5.5, 0]}>
-        <boxGeometry args={[9.2, 0.18, 0.5]} />
-        <meshStandardMaterial color="#c98a2e" metalness={0.4} roughness={0.4} />
-      </mesh>
-      {/* mái tầng 2 thu nhỏ */}
-      <mesh castShadow position={[0, 6.1, 0]}>
-        <boxGeometry args={[5.4, 0.3, 1.4]} />
-        <meshStandardMaterial color="#c98a2e" roughness={0.7} />
-      </mesh>
-      <mesh position={[0, 6.45, 0]}>
-        <sphereGeometry args={[0.22, 12, 10]} />
-        <meshStandardMaterial
-          color="#e8b23a"
-          metalness={0.6}
-          roughness={0.25}
-          emissive="#8a5a10"
-          emissiveIntensity={0.3}
-        />
-      </mesh>
-      <Lantern position={[-2.4, 3.1, 0]} scale={0.85} />
-      <Lantern position={[2.4, 3.1, 0]} scale={0.85} />
-    </group>
+    <GLBModel url={MODEL_URLS.gate} position={[0, 0, 10.5]} onEnter={onEnter} />
   );
 }
 
@@ -281,7 +233,6 @@ function Gate({ onEnter }: { onEnter: () => void }) {
 /* ------------------------------------------------------------------ */
 function SchoolBuilding({ onEnter }: { onEnter: () => void }) {
   const sign = useSignTexture();
-  const [hover, setHover] = useState(false);
   return (
     <group
       position={[0, 0, -4]}
@@ -291,244 +242,20 @@ function SchoolBuilding({ onEnter }: { onEnter: () => void }) {
       }}
       onPointerOver={(e) => {
         e.stopPropagation();
-        setHover(true);
         document.body.style.cursor = "pointer";
       }}
       onPointerOut={() => {
-        setHover(false);
         document.body.style.cursor = "auto";
       }}
     >
-      {/* nền đá + bậc thang */}
-      <mesh receiveShadow position={[0, 0.3, 0]}>
-        <boxGeometry args={[12.5, 0.6, 9]} />
-        <meshStandardMaterial color="#cfc4a8" roughness={0.95} />
-      </mesh>
-      <mesh receiveShadow position={[0, 0.15, 5.1]}>
-        <boxGeometry args={[4.5, 0.3, 1]} />
-        <meshStandardMaterial color="#bfb294" roughness={0.95} />
-      </mesh>
-      <mesh receiveShadow position={[0, 0.05, 5.7]}>
-        <boxGeometry args={[4.5, 0.22, 0.8]} />
-        <meshStandardMaterial color="#b3a684" roughness={0.95} />
-      </mesh>
-      <mesh receiveShadow position={[0, -0.04, 6.3]}>
-        <boxGeometry args={[4.5, 0.16, 0.8]} />
-        <meshStandardMaterial color="#a89a78" roughness={0.95} />
-      </mesh>
-
-      {/* thân nhà: tường sau + tường 2 bên + tường trước có cửa ra vào */}
-      <mesh castShadow receiveShadow position={[0, 2.6, -3.25]}>
-        <boxGeometry args={[10, 4, 0.2]} />
-        <meshStandardMaterial
-          color={hover ? "#fbf3da" : "#f6ead2"}
-          roughness={0.9}
-        />
-      </mesh>
-      {[-4.9, 4.9].map((x) => (
-        <mesh key={x} castShadow receiveShadow position={[x, 2.6, 0]}>
-          <boxGeometry args={[0.2, 4, 6.3]} />
-          <meshStandardMaterial
-            color={hover ? "#fbf3da" : "#f6ead2"}
-            roughness={0.9}
-          />
-        </mesh>
-      ))}
-      {[-3.15, 3.15].map((x) => (
-        <mesh key={x} castShadow receiveShadow position={[x, 2.6, 3.25]}>
-          <boxGeometry args={[3.7, 4, 0.2]} />
-          <meshStandardMaterial
-            color={hover ? "#fbf3da" : "#f6ead2"}
-            roughness={0.9}
-          />
-        </mesh>
-      ))}
-      {/* đà trên cửa */}
-      <mesh castShadow receiveShadow position={[0, 4.3, 3.25]}>
-        <boxGeometry args={[2.6, 0.6, 0.2]} />
-        <meshStandardMaterial
-          color={hover ? "#fbf3da" : "#f6ead2"}
-          roughness={0.9}
-        />
-      </mesh>
-      {/* sàn gỗ trong lớp */}
-      <mesh receiveShadow position={[0, 0.56, 0]}>
-        <boxGeometry args={[9.8, 0.08, 6.3]} />
-        <meshStandardMaterial color="#c9a86a" roughness={0.85} />
-      </mesh>
-      {/* đèn ấm trong lớp */}
-      <pointLight position={[0, 3.8, 0]} intensity={24} color="#ffd98a" distance={14} decay={1.6} />
-
-      {/* cửa chính mở sang 2 bên */}
-      {[-1.35, 1.35].map((x) => (
-        <mesh
-          key={x}
-          castShadow
-          position={[x, 2.1, 3.55]}
-          rotation={[0, x < 0 ? 0.85 : -0.85, 0]}
-        >
-          <boxGeometry args={[1.15, 3.4, 0.1]} />
-          <meshStandardMaterial color="#8f2a20" roughness={0.6} />
-        </mesh>
-      ))}
-
-      {/* cột đỏ mặt tiền */}
-      {[-4.6, -1.6, 1.6, 4.6].map((x) => (
-        <mesh key={x} castShadow position={[x, 2.6, 3.3]}>
-          <cylinderGeometry args={[0.26, 0.3, 4, 12]} />
-          <meshStandardMaterial color="#b3372a" roughness={0.55} />
-        </mesh>
-      ))}
-
-      {/* cửa sổ sáng đèn */}
-      {[-3.1, 3.1].map((x) => (
-        <group key={x} position={[x, 2.7, 3.38]}>
-          <mesh>
-            <boxGeometry args={[1.9, 1.5, 0.1]} />
-            <meshStandardMaterial
-              color="#ffd98a"
-              emissive="#ffbf4d"
-              emissiveIntensity={0.85}
-            />
-          </mesh>
-          <mesh position={[0, 0, 0.08]}>
-            <boxGeometry args={[0.08, 1.5, 0.05]} />
-            <meshStandardMaterial color="#5a3a22" />
-          </mesh>
-          <mesh position={[0, 0, 0.08]}>
-            <boxGeometry args={[1.9, 0.08, 0.05]} />
-            <meshStandardMaterial color="#5a3a22" />
-          </mesh>
-        </group>
-      ))}
-
-      {/* bảng hiệu */}
+      <GLBModel url={MODEL_URLS.school} position={[0, 0, 0]} />
+      {/* bảng hiệu "Thầy Đồ" */}
       <mesh position={[0, 4.15, 3.42]}>
         <planeGeometry args={[3.6, 1.12]} />
         <meshStandardMaterial map={sign} roughness={0.7} />
       </mesh>
-
-      {/* mái tầng 1 ngói vàng (Điện Thái Hòa) */}
-      <mesh castShadow position={[0, 5.05, 0]}>
-        <boxGeometry args={[12.6, 0.5, 8.6]} />
-        <meshStandardMaterial color="#d9a441" roughness={0.7} />
-      </mesh>
-      {/* mái cong vểnh 4 góc */}
-      {[
-        [-6.1, 0, -4.1, 0.5],
-        [6.1, 0, -4.1, -0.5],
-        [-6.1, 0, 4.1, -0.5],
-        [6.1, 0, 4.1, 0.5],
-      ].map(([x, , z, r], i) => (
-        <mesh
-          key={i}
-          castShadow
-          position={[x, 5.25, z]}
-          rotation={[0, 0, r as number]}
-        >
-          <boxGeometry args={[1.3, 0.28, 1.1]} />
-          <meshStandardMaterial color="#c98a2e" roughness={0.7} />
-        </mesh>
-      ))}
-      {/* mái tầng 2 ngói vàng */}
-      <mesh castShadow position={[0, 6.15, 0]}>
-        <boxGeometry args={[8.4, 0.45, 5.6]} />
-        <meshStandardMaterial color="#c98a2e" roughness={0.7} />
-      </mesh>
-      {/* sống mái vàng + trái châu */}
-      <mesh position={[0, 6.55, 0]}>
-        <boxGeometry args={[8.6, 0.22, 0.5]} />
-        <meshStandardMaterial color="#d9a441" metalness={0.4} roughness={0.4} />
-      </mesh>
-      <mesh position={[0, 7, 0]}>
-        <sphereGeometry args={[0.34, 14, 12]} />
-        <meshStandardMaterial
-          color="#e8b23a"
-          metalness={0.6}
-          roughness={0.25}
-          emissive="#8a5a10"
-          emissiveIntensity={0.3}
-        />
-      </mesh>
-
-      {/* đèn lồng treo mái hiên */}
-      <Lantern position={[-3.4, 4.35, 3.5]} scale={0.9} />
-      <Lantern position={[3.4, 4.35, 3.5]} scale={0.9} />
-
-      {/* ---- Nội thất lớp học: bảng đen, bàn ghế, thầy ---- */}
-      {/* bảng đen */}
-      <group position={[0, 2.7, -3.08]}>
-        <mesh>
-          <boxGeometry args={[4.6, 1.9, 0.1]} />
-          <meshStandardMaterial color="#2e4a3a" roughness={0.85} />
-        </mesh>
-        <mesh position={[0, 0, 0.06]}>
-          <boxGeometry args={[4.7, 0.1, 0.04]} />
-          <meshStandardMaterial color="#d9a441" roughness={0.5} />
-        </mesh>
-        <mesh position={[0, -0.95, 0.06]}>
-          <boxGeometry args={[4.7, 0.1, 0.04]} />
-          <meshStandardMaterial color="#d9a441" roughness={0.5} />
-        </mesh>
-        {/* vài dòng phấn */}
-        {[-0.5, 0, 0.5].map((y, i) => (
-          <mesh key={i} position={[-0.6 + (i % 2) * 0.8, y, 0.06]}>
-            <boxGeometry args={[2.2 - i * 0.4, 0.05, 0.02]} />
-            <meshStandardMaterial color="#f6f1de" roughness={0.9} />
-          </mesh>
-        ))}
-      </group>
-      {/* bàn + ghế cho 3 chỗ ngồi */}
-      {[
-        { seat: [-2.2, -0.4] as const, desk: [-2.2, -1.3] as const },
-        { seat: [2.2, -0.4] as const, desk: [2.2, -1.3] as const },
-        { seat: [0, -1.9] as const, desk: [0, -2.7] as const },
-      ].map(({ seat, desk }, i) => (
-        <group key={i}>
-          {/* bàn */}
-          <mesh castShadow position={[desk[0], 1.32, desk[1]]}>
-            <boxGeometry args={[1.5, 0.08, 0.75]} />
-            <meshStandardMaterial color="#8a6b45" roughness={0.85} />
-          </mesh>
-          {[-0.6, 0.6].map((dx) => (
-            <mesh key={dx} position={[desk[0] + dx, 0.95, desk[1]]}>
-              <boxGeometry args={[0.08, 0.7, 0.6]} />
-              <meshStandardMaterial color="#6b5232" roughness={0.9} />
-            </mesh>
-          ))}
-          {/* ghế */}
-          <mesh castShadow position={[seat[0], 1.02, seat[1]]}>
-            <boxGeometry args={[0.55, 0.08, 0.55]} />
-            <meshStandardMaterial color="#7a5230" roughness={0.85} />
-          </mesh>
-          <mesh position={[seat[0], 1.35, seat[1] + 0.26]}>
-            <boxGeometry args={[0.55, 0.6, 0.08]} />
-            <meshStandardMaterial color="#7a5230" roughness={0.85} />
-          </mesh>
-        </group>
-      ))}
-      {/* bục giảng của thầy (trước mặt thầy, hướng về học sinh) */}
-      <group position={[3.5, 0.6, -1.5]}>
-        <mesh castShadow position={[0, 0.55, 0]}>
-          <boxGeometry args={[0.95, 0.1, 0.65]} />
-          <meshStandardMaterial color="#8a6b45" roughness={0.85} />
-        </mesh>
-        <mesh position={[0, 0.27, 0]}>
-          <boxGeometry args={[0.14, 0.55, 0.5]} />
-          <meshStandardMaterial color="#6b5232" roughness={0.9} />
-        </mesh>
-        {/* sách trên bục */}
-        <mesh position={[0, 0.64, 0]} rotation={[0, 0.2, 0]}>
-          <boxGeometry args={[0.5, 0.06, 0.35]} />
-          <meshStandardMaterial color="#b3372a" roughness={0.8} />
-        </mesh>
-        <mesh position={[0.05, 0.68, 0.02]} rotation={[0, -0.15, 0]}>
-          <boxGeometry args={[0.42, 0.05, 0.3]} />
-          <meshStandardMaterial color="#f6f1de" roughness={0.9} />
-        </mesh>
-      </group>
-      {/* thầy đứng lớp */}
-      <TeacherFigure position={[3.5, 0.6, -2.3]} />
+      {/* đèn ấm trong lớp */}
+      <pointLight position={[0, 3.8, 0]} intensity={24} color="#ffd98a" distance={14} decay={1.6} />
     </group>
   );
 }
@@ -539,45 +266,17 @@ function SchoolBuilding({ onEnter }: { onEnter: () => void }) {
 
 /** Thầy đứng lớp (tĩnh, đung đưa nhẹ). */
 function TeacherFigure({ position }: { position: [number, number, number] }) {
+  const model = useCharacterModel("Teacher");
   const g = useRef<THREE.Group>(null);
   useFrame((state) => {
     if (g.current) {
       g.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.12;
     }
   });
+  if (!model) return null;
   return (
     <group ref={g} position={position} scale={1.12}>
-      {/* chân */}
-      {[-0.14, 0.14].map((x) => (
-        <mesh key={x} position={[x, 0.25, 0]}>
-          <boxGeometry args={[0.17, 0.5, 0.17]} />
-          <meshStandardMaterial color="#2b2118" roughness={0.9} />
-        </mesh>
-      ))}
-      {/* áo dài đỏ sẫm */}
-      <mesh castShadow position={[0, 0.95, 0]}>
-        <cylinderGeometry args={[0.3, 0.42, 0.9, 10]} />
-        <meshStandardMaterial color="#8f2a20" roughness={0.8} />
-      </mesh>
-      {/* tay cầm thước */}
-      <mesh position={[0.42, 1.05, 0.15]} rotation={[0.5, 0, -0.4]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.6, 8]} />
-        <meshStandardMaterial color="#d9a441" metalness={0.4} roughness={0.4} />
-      </mesh>
-      {/* đầu + khăn xếp */}
-      <mesh castShadow position={[0, 1.62, 0]}>
-        <sphereGeometry args={[0.27, 16, 12]} />
-        <meshStandardMaterial color="#e8c39a" roughness={0.7} />
-      </mesh>
-      <mesh position={[0, 1.85, 0]}>
-        <cylinderGeometry args={[0.24, 0.28, 0.14, 12]} />
-        <meshStandardMaterial color="#2b2118" roughness={0.85} />
-      </mesh>
-      {/* râu */}
-      <mesh position={[0, 1.42, 0.24]}>
-        <boxGeometry args={[0.12, 0.22, 0.05]} />
-        <meshStandardMaterial color="#e8e0cc" roughness={0.9} />
-      </mesh>
+      <primitive object={model} />
     </group>
   );
 }
@@ -588,6 +287,8 @@ export interface StudentInfo {
   id: string;
   name: string;
   robe: string;
+  /** Tên node model Blender trong characters.glb (Student_M1.../Student_F3). */
+  model: string;
   start: [number, number];
   seat: [number, number];
   status: StudentStatus;
@@ -698,11 +399,9 @@ function Student({
 }) {
   const group = useRef<THREE.Group>(null);
   const body = useRef<THREE.Group>(null);
-  const legL = useRef<THREE.Group>(null);
-  const legR = useRef<THREE.Group>(null);
-  const armL = useRef<THREE.Group>(null);
-  const armR = useRef<THREE.Group>(null);
   const [hover, setHover] = useState(false);
+  // Model Blender của học sinh này (nam/nữ khác nhau, không trùng lặp).
+  const model = useCharacterModel(info.model);
 
   const path = useMemo(() => buildPath(info.start, info.seat), [info.start, info.seat]);
   const statusRef = useRef(info.status);
@@ -744,11 +443,10 @@ function Student({
     );
     if (body.current) {
       body.current.position.y = -0.42 * sitT.current + (moving ? Math.abs(Math.sin(t * 9)) * 0.05 : 0);
+      // Model GLB là 1 khối cứng nên không vung tay chân được — lắc nhẹ cả người khi đi.
+      body.current.rotation.z = moving ? Math.sin(t * 9) * 0.05 : 0;
+      body.current.rotation.x = moving ? 0.05 : 0;
     }
-    // Ngồi hẳn xuống thì giấu chân (áo dài phủ lên ghế)
-    const legsVisible = sitT.current < 0.5;
-    if (legL.current) legL.current.visible = legsVisible;
-    if (legR.current) legR.current.visible = legsVisible;
 
     if (moving) {
       const pts = targetRef.current === "seat" ? path : [...path].reverse();
@@ -775,18 +473,12 @@ function Student({
         while (diff < -Math.PI) diff += Math.PI * 2;
         g.rotation.y += diff * Math.min(1, delta * 8);
       }
-      // Vung chân tay khi đi
-      const swing = Math.sin(t * 9) * 0.55;
-      if (legL.current) legL.current.rotation.x = swing;
-      if (legR.current) legR.current.rotation.x = -swing;
-      if (armL.current) armL.current.rotation.x = -swing * 0.6;
-      if (armR.current) armR.current.rotation.x = swing * 0.6;
     } else {
-      // Đứng yên: chân tay về vị trí nghỉ, đầu hơi lắc
-      if (legL.current) legL.current.rotation.x *= 0.8;
-      if (legR.current) legR.current.rotation.x *= 0.8;
-      if (armL.current) armL.current.rotation.x *= 0.8;
-      if (armR.current) armR.current.rotation.x *= 0.8;
+      // Đứng yên: người về vị trí nghỉ
+      if (body.current) {
+        body.current.rotation.z *= 0.8;
+        body.current.rotation.x *= 0.8;
+      }
       if (st === "sitting") {
         g.rotation.y += (Math.PI - g.rotation.y) * Math.min(1, delta * 4);
       }
@@ -822,62 +514,9 @@ function Student({
         document.body.style.cursor = "auto";
       }}
     >
-      <group ref={body}>
-        {/* chân */}
-        <group ref={legL} position={[-0.13, 0.52, 0]}>
-          <mesh castShadow position={[0, -0.26, 0]}>
-            <boxGeometry args={[0.16, 0.52, 0.16]} />
-            <meshStandardMaterial color="#2b2118" roughness={0.9} />
-          </mesh>
-        </group>
-        <group ref={legR} position={[0.13, 0.52, 0]}>
-          <mesh castShadow position={[0, -0.26, 0]}>
-            <boxGeometry args={[0.16, 0.52, 0.16]} />
-            <meshStandardMaterial color="#2b2118" roughness={0.9} />
-          </mesh>
-        </group>
-        {/* áo dài */}
-        <mesh castShadow position={[0, 0.95, 0]}>
-          <cylinderGeometry args={[0.28, 0.4, 0.9, 10]} />
-          <meshStandardMaterial
-            color={hover ? "#ffffff" : info.robe}
-            roughness={0.8}
-            emissive={hover ? info.robe : "#000000"}
-            emissiveIntensity={hover ? 0.35 : 0}
-          />
-        </mesh>
-        {/* đai lưng vàng */}
-        <mesh position={[0, 0.72, 0]}>
-          <cylinderGeometry args={[0.34, 0.36, 0.08, 10]} />
-          <meshStandardMaterial color="#d9a441" metalness={0.4} roughness={0.4} />
-        </mesh>
-        {/* tay */}
-        <group ref={armL} position={[-0.36, 1.32, 0]}>
-          <mesh castShadow position={[0, -0.28, 0]}>
-            <cylinderGeometry args={[0.06, 0.06, 0.56, 8]} />
-            <meshStandardMaterial color={info.robe} roughness={0.8} />
-          </mesh>
-        </group>
-        <group ref={armR} position={[0.36, 1.32, 0]}>
-          <mesh castShadow position={[0, -0.28, 0]}>
-            <cylinderGeometry args={[0.06, 0.06, 0.56, 8]} />
-            <meshStandardMaterial color={info.robe} roughness={0.8} />
-          </mesh>
-        </group>
-        {/* đầu */}
-        <mesh castShadow position={[0, 1.62, 0]}>
-          <sphereGeometry args={[0.27, 16, 12]} />
-          <meshStandardMaterial color="#e8c39a" roughness={0.7} />
-        </mesh>
-        {/* mũ */}
-        <mesh position={[0, 1.86, 0]}>
-          <cylinderGeometry args={[0.22, 0.27, 0.13, 12]} />
-          <meshStandardMaterial color="#2b2118" roughness={0.85} />
-        </mesh>
-        <mesh position={[0, 1.98, 0]}>
-          <sphereGeometry args={[0.07, 8, 8]} />
-          <meshStandardMaterial color="#2b2118" roughness={0.85} />
-        </mesh>
+      <group ref={body} scale={hover ? 1.06 : 1}>
+        {/* Nhân vật vẽ bằng Blender (áo dài, khăn đóng/tóc, phụ kiện riêng) */}
+        {model ? <primitive object={model} /> : null}
       </group>
 
       {/* Bảng tên trên đầu (chỉ hiện khi đã đặt tên) */}
@@ -891,60 +530,7 @@ function Student({
 /* ------------------------------------------------------------------ */
 function TeaHouse({ position, rotationY = 0 }: { position: [number, number, number]; rotationY?: number }) {
   return (
-    <group position={position} rotation={[0, rotationY, 0]}>
-      {/* tường vàng Hội An */}
-      <mesh castShadow receiveShadow position={[0, 1.1, 0]}>
-        <boxGeometry args={[3.6, 2.2, 3]} />
-        <meshStandardMaterial color="#f0c75e" roughness={0.9} />
-      </mesh>
-      {/* mái ngói nâu */}
-      <mesh castShadow position={[0, 2.75, 0]} rotation={[0, Math.PI / 4, 0]}>
-        <coneGeometry args={[3, 1.5, 4]} />
-        <meshStandardMaterial color="#7a4a2b" roughness={0.7} flatShading />
-      </mesh>
-      <mesh position={[0, 3.55, 0]}>
-        <sphereGeometry args={[0.14, 10, 8]} />
-        <meshStandardMaterial color="#d9a441" metalness={0.5} roughness={0.35} />
-      </mesh>
-      {/* cửa mở + cửa sổ */}
-      <mesh position={[0, 0.85, 1.52]}>
-        <boxGeometry args={[1.1, 1.7, 0.1]} />
-        <meshStandardMaterial color="#8f2a20" roughness={0.7} />
-      </mesh>
-      <mesh position={[-1.15, 1.3, 1.52]}>
-        <boxGeometry args={[0.9, 0.9, 0.1]} />
-        <meshStandardMaterial color="#ffd98a" emissive="#ffbf4d" emissiveIntensity={0.7} />
-      </mesh>
-      {/* bàn trà + ghế đẩu + ấm trà ngoài hiên */}
-      <mesh castShadow position={[0, 0.72, 2.6]}>
-        <cylinderGeometry args={[0.75, 0.75, 0.08, 16]} />
-        <meshStandardMaterial color="#8a6b45" roughness={0.85} />
-      </mesh>
-      <mesh position={[0, 0.36, 2.6]}>
-        <cylinderGeometry args={[0.09, 0.12, 0.7, 8]} />
-        <meshStandardMaterial color="#6b5232" roughness={0.9} />
-      </mesh>
-      {[-0.9, 0.9].map((x) => (
-        <mesh key={x} castShadow position={[x, 0.25, 2.9]}>
-          <cylinderGeometry args={[0.24, 0.28, 0.5, 10]} />
-          <meshStandardMaterial color="#7a5230" roughness={0.85} />
-        </mesh>
-      ))}
-      {/* ấm trà */}
-      <mesh position={[0, 0.88, 2.6]}>
-        <sphereGeometry args={[0.16, 12, 10]} />
-        <meshStandardMaterial color="#b3372a" roughness={0.5} />
-      </mesh>
-      <mesh position={[0.18, 0.9, 2.6]} rotation={[0, 0, -0.7]}>
-        <cylinderGeometry args={[0.03, 0.04, 0.22, 6]} />
-        <meshStandardMaterial color="#b3372a" roughness={0.5} />
-      </mesh>
-      {/* đèn lồng đủ màu kiểu Hội An */}
-      <Lantern position={[0, 2.3, 1.7]} scale={0.7} color="#d93b2b" glow="#a11d10" />
-      <Lantern position={[-1.2, 2.1, 1.7]} scale={0.55} color="#e8b23a" glow="#a87608" />
-      <Lantern position={[1.2, 2.1, 1.7]} scale={0.55} color="#e8703a" glow="#a34a18" />
-      <Lantern position={[-0.6, 1.9, 2.2]} scale={0.45} color="#f2d06b" glow="#b08a1e" />
-    </group>
+    <GLBModel url={MODEL_URLS.teahouse} position={position} rotationY={rotationY} />
   );
 }
 
@@ -960,117 +546,13 @@ function TeaCeremony({
   rotationY?: number;
   onEnter: () => void;
 }) {
-  const [hover, setHover] = useState(false);
   return (
-    <group
+    <GLBModel
+      url={MODEL_URLS.teaceremony}
       position={position}
-      rotation={[0, rotationY, 0]}
-      onClick={(e) => {
-        e.stopPropagation();
-        onEnter();
-      }}
-      onPointerOver={(e) => {
-        e.stopPropagation();
-        setHover(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerOut={() => {
-        setHover(false);
-        document.body.style.cursor = "auto";
-      }}
-    >
-      {/* nền đá */}
-      <mesh receiveShadow position={[0, 0.12, 0]}>
-        <boxGeometry args={[4.6, 0.24, 4]} />
-        <meshStandardMaterial
-          color={hover ? "#ddd2b2" : "#cfc4a8"}
-          roughness={0.95}
-        />
-      </mesh>
-      {/* 4 cột gỗ đỡ mái che */}
-      {[
-        [-1.9, -1.6],
-        [1.9, -1.6],
-        [-1.9, 1.6],
-        [1.9, 1.6],
-      ].map(([x, z], i) => (
-        <mesh key={i} castShadow position={[x, 1.35, z]}>
-          <cylinderGeometry args={[0.11, 0.13, 2.7, 8]} />
-          <meshStandardMaterial color="#7a5230" roughness={0.85} />
-        </mesh>
-      ))}
-      {/* mái che 4 mặt màu ngói nâu */}
-      <mesh castShadow position={[0, 3.1, 0]} rotation={[0, Math.PI / 4, 0]}>
-        <coneGeometry args={[3.4, 1.3, 4]} />
-        <meshStandardMaterial color="#7a4a2b" roughness={0.7} flatShading />
-      </mesh>
-      <mesh position={[0, 3.85, 0]}>
-        <sphereGeometry args={[0.14, 10, 8]} />
-        <meshStandardMaterial color="#d9a441" metalness={0.5} roughness={0.35} />
-      </mesh>
-      {/* bàn trà thấp */}
-      <mesh castShadow receiveShadow position={[0, 0.55, 0]}>
-        <boxGeometry args={[2.2, 0.14, 1.2]} />
-        <meshStandardMaterial color="#8a6b45" roughness={0.85} />
-      </mesh>
-      {[
-        [-1, -0.45],
-        [1, -0.45],
-        [-1, 0.45],
-        [1, 0.45],
-      ].map(([x, z], i) => (
-        <mesh key={i} position={[x, 0.28, z]}>
-          <boxGeometry args={[0.12, 0.5, 0.12]} />
-          <meshStandardMaterial color="#6b5232" roughness={0.9} />
-        </mesh>
-      ))}
-      {/* ấm trà trên bàn */}
-      <mesh position={[0, 0.78, 0]}>
-        <sphereGeometry args={[0.17, 12, 10]} />
-        <meshStandardMaterial color="#b3372a" roughness={0.5} />
-      </mesh>
-      <mesh position={[0.2, 0.8, 0]} rotation={[0, 0, -0.7]}>
-        <cylinderGeometry args={[0.03, 0.04, 0.24, 6]} />
-        <meshStandardMaterial color="#b3372a" roughness={0.5} />
-      </mesh>
-      <mesh position={[-0.2, 0.82, 0]} rotation={[0, 0, 0.6]}>
-        <torusGeometry args={[0.09, 0.02, 8, 16, Math.PI]} />
-        <meshStandardMaterial color="#8f2a20" roughness={0.5} />
-      </mesh>
-      {/* 4 chén trà nhỏ */}
-      {[
-        [-0.7, 0.3],
-        [0.7, 0.3],
-        [-0.7, -0.35],
-        [0.7, -0.35],
-      ].map(([x, z], i) => (
-        <mesh key={i} position={[x, 0.68, z]}>
-          <cylinderGeometry args={[0.09, 0.07, 0.09, 10]} />
-          <meshStandardMaterial color="#f6ead2" roughness={0.4} />
-        </mesh>
-      ))}
-      {/* đệm ngồi 3 phía */}
-      {[
-        [-1.3, 1.25, "#b3372a"],
-        [1.3, 1.25, "#5d9b4a"],
-        [0, -1.35, "#d9a441"],
-      ].map(([x, z, c], i) => (
-        <mesh key={i} castShadow position={[x as number, 0.32, z as number]}>
-          <cylinderGeometry args={[0.55, 0.6, 0.16, 16]} />
-          <meshStandardMaterial color={c as string} roughness={0.9} />
-        </mesh>
-      ))}
-      {/* khóm trúc bên cạnh */}
-      {[-0.5, -0.2, 0.15].map((x, i) => (
-        <mesh key={i} position={[2.15 + x * 0.3, 1.1, -1.5]}>
-          <cylinderGeometry args={[0.04, 0.05, 2.1, 6]} />
-          <meshStandardMaterial color="#5d9b4a" roughness={0.8} />
-        </mesh>
-      ))}
-      {/* đèn lồng treo mái che */}
-      <Lantern position={[-1.9, 2.2, 1.9]} scale={0.55} color="#d93b2b" glow="#a11d10" />
-      <Lantern position={[1.9, 2.2, 1.9]} scale={0.55} color="#e8b23a" glow="#a87608" />
-    </group>
+      rotationY={rotationY}
+      onEnter={onEnter}
+    />
   );
 }
 
@@ -1079,95 +561,7 @@ function TeaCeremony({
 /* ------------------------------------------------------------------ */
 function KhueVanCac({ position, rotationY = 0 }: { position: [number, number, number]; rotationY?: number }) {
   return (
-    <group position={position} rotation={[0, rotationY, 0]}>
-      {/* nền đá + bậc */}
-      <mesh receiveShadow position={[0, 0.25, 0]}>
-        <boxGeometry args={[5.4, 0.5, 5.4]} />
-        <meshStandardMaterial color="#cfc4a8" roughness={0.95} />
-      </mesh>
-      <mesh receiveShadow position={[0, 0.08, 3]}>
-        <boxGeometry args={[2.6, 0.16, 0.8]} />
-        <meshStandardMaterial color="#bfb294" roughness={0.95} />
-      </mesh>
-      {/* tầng dưới: 4 cột đỏ */}
-      {[
-        [-1.7, -1.7],
-        [1.7, -1.7],
-        [-1.7, 1.7],
-        [1.7, 1.7],
-      ].map(([x, z], i) => (
-        <mesh key={i} castShadow position={[x, 2, z]}>
-          <cylinderGeometry args={[0.24, 0.28, 3, 12]} />
-          <meshStandardMaterial color="#b3372a" roughness={0.55} />
-        </mesh>
-      ))}
-      {/* sàn tầng 2 */}
-      <mesh castShadow position={[0, 3.65, 0]}>
-        <boxGeometry args={[4.6, 0.3, 4.6]} />
-        <meshStandardMaterial color="#8a6b45" roughness={0.85} />
-      </mesh>
-      {/* mái tầng 1 ngói vàng cong vểnh */}
-      <mesh castShadow position={[0, 4.1, 0]}>
-        <boxGeometry args={[5.6, 0.35, 5.6]} />
-        <meshStandardMaterial color="#d9a441" roughness={0.7} />
-      </mesh>
-      {[
-        [-2.7, -2.7, 0.5],
-        [2.7, -2.7, -0.5],
-        [-2.7, 2.7, -0.5],
-        [2.7, 2.7, 0.5],
-      ].map(([x, z, r], i) => (
-        <mesh
-          key={i}
-          castShadow
-          position={[x, 4.3, z]}
-          rotation={[0, 0, r as number]}
-        >
-          <boxGeometry args={[0.9, 0.22, 0.9]} />
-          <meshStandardMaterial color="#c98a2e" roughness={0.7} />
-        </mesh>
-      ))}
-      {/* tầng trên: tường kem + cửa sổ tròn 4 mặt */}
-      <mesh castShadow receiveShadow position={[0, 5, 0]}>
-        <boxGeometry args={[3.2, 1.7, 3.2]} />
-        <meshStandardMaterial color="#f6ead2" roughness={0.9} />
-      </mesh>
-      {[0, Math.PI / 2, Math.PI, -Math.PI / 2].map((ry, i) => (
-        <group key={i} position={[0, 5, 0]} rotation={[0, ry, 0]}>
-          <mesh position={[0, 0, 1.62]}>
-            <torusGeometry args={[0.45, 0.08, 10, 24]} />
-            <meshStandardMaterial color="#d9a441" metalness={0.4} roughness={0.4} />
-          </mesh>
-          <mesh position={[0, 0, 1.62]}>
-            <circleGeometry args={[0.42, 24]} />
-            <meshStandardMaterial
-              color="#2e5d4b"
-              emissive="#1d3d31"
-              emissiveIntensity={0.4}
-            />
-          </mesh>
-        </group>
-      ))}
-      {/* mái tầng 2 */}
-      <mesh castShadow position={[0, 6.15, 0]}>
-        <boxGeometry args={[4.4, 0.3, 4.4]} />
-        <meshStandardMaterial color="#c98a2e" roughness={0.7} />
-      </mesh>
-      <mesh position={[0, 6.5, 0]}>
-        <boxGeometry args={[4.6, 0.16, 0.4]} />
-        <meshStandardMaterial color="#d9a441" metalness={0.4} roughness={0.4} />
-      </mesh>
-      <mesh position={[0, 6.85, 0]}>
-        <sphereGeometry args={[0.24, 12, 10]} />
-        <meshStandardMaterial
-          color="#e8b23a"
-          metalness={0.6}
-          roughness={0.25}
-          emissive="#8a5a10"
-          emissiveIntensity={0.3}
-        />
-      </mesh>
-    </group>
+    <GLBModel url={MODEL_URLS.khuevancac} position={position} rotationY={rotationY} />
   );
 }
 
@@ -1176,33 +570,7 @@ function KhueVanCac({ position, rotationY = 0 }: { position: [number, number, nu
 /* ------------------------------------------------------------------ */
 function Stele({ position, rotationY = 0 }: { position: [number, number, number]; rotationY?: number }) {
   return (
-    <group position={position} rotation={[0, rotationY, 0]}>
-      {/* rùa đá */}
-      <mesh castShadow position={[0, 0.32, 0]} scale={[1, 0.45, 1.25]}>
-        <sphereGeometry args={[0.85, 16, 12]} />
-        <meshStandardMaterial color="#a89a78" roughness={0.95} />
-      </mesh>
-      <mesh castShadow position={[0, 0.45, 1.05]}>
-        <sphereGeometry args={[0.22, 10, 8]} />
-        <meshStandardMaterial color="#a89a78" roughness={0.95} />
-      </mesh>
-      {/* bia đá */}
-      <mesh castShadow position={[0, 1.35, 0]}>
-        <boxGeometry args={[0.28, 1.7, 1.15]} />
-        <meshStandardMaterial color="#b9ac8d" roughness={0.95} />
-      </mesh>
-      <mesh position={[0, 2.3, 0]}>
-        <boxGeometry args={[0.34, 0.18, 1.25]} />
-        <meshStandardMaterial color="#a89a78" roughness={0.95} />
-      </mesh>
-      {/* vài dòng chữ khắc */}
-      {[0.45, 0, -0.45].map((y, i) => (
-        <mesh key={i} position={[0.15, 1.35 + y, 0]}>
-          <boxGeometry args={[0.02, 0.06, 0.7]} />
-          <meshStandardMaterial color="#8a7a5c" roughness={0.9} />
-        </mesh>
-      ))}
-    </group>
+    <GLBModel url={MODEL_URLS.stele} position={position} rotationY={rotationY} />
   );
 }
 
@@ -1328,9 +696,9 @@ function Pond() {
 /* Cảnh chính                                                          */
 /* ------------------------------------------------------------------ */
 const INITIAL_STUDENTS: Omit<StudentInfo, "name" | "status" | "target">[] = [
-  { id: "hs1", robe: "#3a6ea5", start: [-3.6, 6.2], seat: [-2.2, -4.4] },
-  { id: "hs2", robe: "#b3372a", start: [3.4, 7.6], seat: [2.2, -4.4] },
-  { id: "hs3", robe: "#4d7c3a", start: [0.8, 9.2], seat: [0, -5.9] },
+  { id: "hs1", robe: "#3a6ea5", model: "Student_M1", start: [-3.6, 6.2], seat: [-2.2, -4.4] },
+  { id: "hs2", robe: "#e87a90", model: "Student_F1", start: [3.4, 7.6], seat: [2.2, -4.4] },
+  { id: "hs3", robe: "#4d7c3a", model: "Student_M3", start: [0.8, 9.2], seat: [0, -5.9] },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -1487,6 +855,8 @@ function Scene({
       ))}
 
       <SchoolBuilding onEnter={goLessons} />
+      {/* Ông thầy đồ đứng bục giảng trong lớp (tọa độ thế giới: lớp ở [0,0,-4]) */}
+      <TeacherFigure position={[3.5, 0.6, -6.3]} />
       <Gate onEnter={goSchedule} />
       <SideHouse position={[-11.5, 0, -6]} rotationY={0.35} />
       <SideHouse position={[10.5, 0, -4]} rotationY={-0.4} />
@@ -1508,6 +878,9 @@ function Scene({
       {/* cây cổ thụ */}
       <Tree position={[-15, 0, -2]} scale={1.7} />
       <Tree position={[14.5, 0, -1]} scale={1.6} />
+      {/* khóm trúc bên hồ sen và cạnh khu trà đạo */}
+      <GLBModel url={MODEL_URLS.treeBamboo} position={[11, 0, 1.5]} scale={0.9} />
+      <GLBModel url={MODEL_URLS.treeBamboo} position={[-9, 0, -8.5]} scale={1.1} />
 
       <StoneLantern position={[-4.6, 0, 5.6]} />
       <StoneLantern position={[4.9, 0, 5.2]} />
@@ -1663,14 +1036,17 @@ export default function SchoolScene() {
         camera={{ position: [17, 10, 17], fov: 42, near: 0.1, far: 120 }}
         gl={{ antialias: true }}
       >
-        <Scene
-          students={students}
-          viewMode={viewMode}
-          studentPos={studentPos}
-          onRequestGo={openNaming}
-          onRequestBack={sendOut}
-          onArrive={handleArrive}
-        />
+        {/* useGLTF tải model bất đồng bộ nên cần Suspense, không thì cả trang treo. */}
+        <Suspense fallback={null}>
+          <Scene
+            students={students}
+            viewMode={viewMode}
+            studentPos={studentPos}
+            onRequestGo={openNaming}
+            onRequestBack={sendOut}
+            onArrive={handleArrive}
+          />
+        </Suspense>
       </Canvas>
 
       {/* Lớp phủ HTML trên cảnh 3D */}
