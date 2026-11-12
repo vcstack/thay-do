@@ -7,6 +7,10 @@ export function generateStaticParams() {
   return lessons.map((l) => ({ id: String(l.id) }));
 }
 
+// Trang chi tiết bài học đọc params (id) nên cho phép navigation chặn
+// thay vì instant shell — tránh lỗi "params accessed outside of Suspense".
+export const instant = false;
+
 export default async function LessonDetail({
   params,
 }: {
