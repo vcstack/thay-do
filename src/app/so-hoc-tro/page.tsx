@@ -8,6 +8,8 @@ import {
   clearProgress,
   getAccount,
   getProgress,
+  getSyncStatus,
+  onAccountChange,
   type Account,
   type Progress,
 } from "@/lib/progress";
@@ -40,6 +42,7 @@ export default function SoHocTroPage() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     refresh();
+    return onAccountChange(refresh);
   }, []);
 
   function handleClear() {
@@ -88,6 +91,16 @@ export default function SoHocTroPage() {
         Sổ học trò lưu trên máy này. Đăng nhập (bằng tên) để giữ riêng tiến
         trình của mình.
       </p>
+      {getSyncStatus() === "cloud" ? (
+        <p className="mt-2 text-sm font-bold text-leaf">
+          ✅ Đã đồng bộ lên tài khoản thật — đổi máy, đổi điện thoại vẫn giữ sổ.
+        </p>
+      ) : getSyncStatus() === "local" ? (
+        <p className="mt-2 text-sm text-ink-soft">
+          Sổ đang chỉ lưu trên máy này — đăng nhập tài khoản thật (Google hoặc
+          email) để đồng bộ lên máy chủ.
+        </p>
+      ) : null}
 
       <div className="mt-6 rounded-2xl border-2 border-gold/40 bg-cream p-6 shadow">
         <p className="text-sm font-bold text-ink-soft">Học trò</p>

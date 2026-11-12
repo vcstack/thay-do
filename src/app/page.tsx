@@ -13,6 +13,7 @@ import {
   getNextClass,
 } from "@/data/schedule";
 import { loadGuestName } from "@/data/teacher";
+import { useOnlineCount } from "@/lib/presence";
 
 /** Hướng học hôm nay. */
 const TODAY_PATHS = [
@@ -102,7 +103,8 @@ const REMIND_KEY = "thaydo:remind-next-class";
 
 export default function Home() {
   const [now, setNow] = useState<Date | null>(null);
-  const [online, setOnline] = useState<number | null>(null);
+  // Số người online thật (Supabase Presence), fallback mô phỏng khi chưa cấu hình.
+  const { count: online, real: onlineReal } = useOnlineCount();
   const [guest, setGuest] = useState("");
   const [remindMsg, setRemindMsg] = useState("");
   const [account, setAccount] = useState<Account>({ id: "guest", name: "Khách" });
@@ -111,18 +113,12 @@ export default function Home() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(new Date());
-    setOnline(24 + Math.floor(Math.random() * 28));
     setGuest(loadGuestName());
     setAccount(getAccount());
     const t = setInterval(() => setNow(new Date()), 30000);
-    const t2 = setInterval(
-      () => setOnline((o) => (o === null ? o : Math.min(64, Math.max(14, o + Math.floor(Math.random() * 5) - 2)))),
-      20000
-    );
     const offAccount = onAccountChange(() => setAccount(getAccount()));
     return () => {
       clearInterval(t);
-      clearInterval(t2);
       offAccount();
     };
   }, []);
@@ -164,6 +160,7 @@ export default function Home() {
         </p>
         <p className="mt-2 text-sm font-bold text-leaf">
           🟢 {online ?? "…"} người đang online trong trường
+          {!onlineReal && online !== null ? " (mô phỏng)" : ""}
           {guest ? ` · Chào, ${guest}!` : ""}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">

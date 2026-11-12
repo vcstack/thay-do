@@ -11,6 +11,8 @@
   "dependencies": {
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.119.0",
     "hanzi-writer": "^3.7.3",
     "next": "16.4.6",
     "react": "19.3.0",

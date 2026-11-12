@@ -61,10 +61,39 @@ npm run start
 
 Dữ liệu bài học tái sử dụng từ app Học Tiếng Trung (`src/data/lessons.json`).
 
+## Đăng nhập thật + đồng bộ (Supabase)
+
+Web đã tích hợp Supabase (Auth + Postgres + Realtime). **Chưa cấu hình thì
+web vẫn chạy bình thường**: đăng nhập bằng tên trên máy này, số online mô
+phỏng, Pomodoro 1 mình — không crash, không lỗi.
+
+### Bật đăng nhập thật (5 bước)
+
+1. Tạo project miễn phí tại https://supabase.com/dashboard → **New project**.
+2. Lấy **Project URL** + **anon public key**: Project Settings → API.
+3. Copy `.env.local.example` thành `.env.local`, điền 2 giá trị trên, rồi
+   restart dev server (`npm run dev`).
+4. Tạo bảng tiến trình: Supabase Dashboard → **SQL Editor** → New query →
+   dán toàn bộ file `supabase-setup.sql` → Run. (Bảng `progress` + RLS: mỗi
+   người chỉ đọc/ghi được hàng của chính mình.)
+5. Bật đăng nhập Google (không bắt buộc): **Google Cloud Console** tạo
+   OAuth client (Web application), thêm Authorized redirect URI
+   `https://<project-ref>.supabase.co/auth/v1/callback`; rồi Supabase
+   Dashboard → **Authentication → Providers → Google** → bật, điền Client ID
+   + Client Secret. Nhớ thêm Site URL `http://localhost:3000` (dev) vào
+   Authentication → URL Configuration.
+
+Sau khi bật, web có: đăng nhập **Google** + **email/mật khẩu** (đăng ký có
+xác nhận email nếu project bật Confirm email); tiến trình tự đồng bộ lên
+bảng `progress` (đăng nhập lần đầu tự gộp tiến trình khách cũ lên tài khoản,
+không mất dữ liệu); số người online đếm thật bằng Realtime Presence; phòng
+Pomodoro chung (đăng nhập rồi vào `/pomodoro`, đặt tên phòng, ai bấm Bắt đầu
+thì cả phòng cùng chạy đồng hồ). Số online + phòng chung không cần bảng —
+dùng Presence/Broadcast, Realtime đã bật mặc định ở project mới.
+
 ## Hướng phát triển tiếp theo
 
-1. **Supabase** (auth + Postgres + Realtime): đăng nhập thật, lưu tiến độ học,
-   hiện số người đang online trong trường, học chung phòng Pomodoro.
+1. **Bảng vàng thật + số online trong cảnh 3D**: dùng chung Presence đã có.
 2. **3D nâng cấp**: hiệu ứng ngày/đêm, thêm khu phố cổ Hội An, nhân vật thầy
    đi lại trong sân.
 3. **Thi HSK theo cấp** (HSK1–HSK6) với ngân hàng câu hỏi riêng, lưu lịch sử

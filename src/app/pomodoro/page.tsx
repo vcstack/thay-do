@@ -3,6 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { CLASSICS } from "@/data/classics";
 import { speakZh } from "@/lib/speak";
+import { useAuth } from "@/lib/auth";
+import {
+  DEFAULT_ROOM,
+  slugRoom,
+  usePomodoroRoom,
+} from "@/lib/pomodoroRoom";
 import {
   startRain,
   stopRain,
@@ -49,9 +55,69 @@ export default function PomodoroPage() {
     chimes: false,
   });
 
-  // Số người đang học chung (mô phỏng) + trạng thái bạn cùng phòng.
+  // --- Phòng Pomodoro chung (Supabase Realtime) ---
+  // Chỉ dùng khi đã đăng nhập tài khoản thật; khách vẫn Pomodoro 1 mình
+  // với bạn cùng phòng mô phỏng như cũ.
+  const auth = useAuth();
+  const roomEnabled = auth.configured && !!auth.user;
+  const [roomInput, setRoomInput] = useState("Sân đọc sách");
+  const [roomId, setRoomId] = useState(DEFAULT_ROOM);
+  const room = usePomodoroRoom(roomId, roomEnabled, auth.displayName);
+  const remoteAtRef = useRef(0);
+
+  // Gửi trạng thái đồng hồ của mình cho cả phòng + cập nhật presence.
+  function pushState(mode: Mode, running: boolean, secs: number) {
+    if (!roomEnabled) return;
+    room.broadcast({
+      mode,
+      running,
+      endsAt: running ? Date.now() + secs * 1000 : null,
+      secondsLeft: secs,
+    });
+    room.updatePresence(mode, running);
+  }
+
+  // Đổi trạng thái đồng hồ ở máy mình + đồng bộ cho cả phòng.
+  function applyLocal(next: { mode: Mode; running: boolean; secondsLeft: number; message?: string }) {
+    setMode(next.mode);
+    setRunning(next.running);
+    setSecondsLeft(next.secondsLeft);
+    if (next.message !== undefined) setMessage(next.message);
+    pushState(next.mode, next.running, next.secondsLeft);
+  }
+
+  // Áp trạng thái đồng hồ từ người khác trong phòng (không broadcast lại).
+  function applyRemote(r: {
+    mode: Mode;
+    running: boolean;
+    endsAt: number | null;
+    secondsLeft: number;
+  }) {
+    setMode(r.mode);
+    setRunning(r.running);
+    if (r.running && r.endsAt) {
+      setSecondsLeft(Math.max(0, Math.round((r.endsAt - Date.now()) / 1000)));
+      setMessage("👥 Cả phòng đang học cùng nhau — cố lên!");
+    } else {
+      setSecondsLeft(r.secondsLeft);
+      setMessage("");
+    }
+    room.updatePresence(r.mode, r.running);
+  }
+
+  // Nhận trạng thái đồng hồ từ người khác trong phòng → áp theo.
+  useEffect(() => {
+    if (!room.remote || room.remote.at <= remoteAtRef.current) return;
+    remoteAtRef.current = room.remote.at;
+    applyRemote(room.remote);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [room.remote]);
+
+  // Số người đang học chung (mô phỏng) + trạng thái bạn cùng phòng —
+  // chỉ dùng khi KHÔNG ở phòng chung.
   // Khởi tạo trong effect (giá trị ngẫu nhiên, chỉ có ở client) để tránh lệch hydration.
   useEffect(() => {
+    if (roomEnabled) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setOnline(randomOnline());
     setMates(ROOMMATES.map(() => Math.random() < 0.75));
@@ -68,46 +134,78 @@ export default function PomodoroPage() {
       clearInterval(t);
       clearInterval(t2);
     };
-  }, []);
+  }, [roomEnabled]);
 
   const total = mode === "focus" ? FOCUS_SEC : BREAK_SEC;
   const progress = 1 - secondsLeft / total;
 
+  // Hết giờ: đổi ca, dừng đồng hồ và đồng bộ cho cả phòng.
+  function finishPhase() {
+    if (mode === "focus") {
+      setCycles((c) => c + 1);
+      applyLocal({
+        mode: "break",
+        running: false,
+        secondsLeft: BREAK_SEC,
+        message: "🎉 Hết 25 phút tập trung! Nghỉ 5 phút đi, uống nước, vươn vai.",
+      });
+    } else {
+      applyLocal({
+        mode: "focus",
+        running: false,
+        secondsLeft: FOCUS_SEC,
+        message: "⏰ Hết giờ nghỉ! Quay lại học tiếp nào.",
+      });
+    }
+  }
+
+  // Đồng hồ đếm ngược: mỗi giây trừ 1; về 0 thì đổi ca (xử lý trong
+  // callback của setInterval — event ngoài effect, không vi phạm lint).
+  const latestRef = useRef({ secondsLeft, finishPhase: () => {} });
+  useEffect(() => {
+    latestRef.current = { secondsLeft, finishPhase };
+  });
+
   useEffect(() => {
     if (!running) return;
     timerRef.current = setInterval(() => {
-      setSecondsLeft((s) => {
-        if (s <= 1) {
-          // Hết giờ: đổi ca
-          if (mode === "focus") {
-            setCycles((c) => c + 1);
-            setMode("break");
-            setMessage("🎉 Hết 25 phút tập trung! Nghỉ 5 phút đi, uống nước, vươn vai.");
-            return BREAK_SEC;
-          }
-          setMode("focus");
-          setMessage("⏰ Hết giờ nghỉ! Quay lại học tiếp nào.");
-          return FOCUS_SEC;
-        }
-        return s - 1;
-      });
+      if (latestRef.current.secondsLeft <= 1) {
+        latestRef.current.finishPhase();
+        return;
+      }
+      setSecondsLeft(latestRef.current.secondsLeft - 1);
     }, 1000);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [running, mode]);
+  }, [running]);
 
   function switchMode(m: Mode) {
-    setMode(m);
-    setSecondsLeft(m === "focus" ? FOCUS_SEC : BREAK_SEC);
-    setRunning(false);
-    setMessage("");
+    applyLocal({
+      mode: m,
+      running: false,
+      secondsLeft: m === "focus" ? FOCUS_SEC : BREAK_SEC,
+      message: "",
+    });
   }
 
   function reset() {
-    setSecondsLeft(mode === "focus" ? FOCUS_SEC : BREAK_SEC);
-    setRunning(false);
-    setMessage("");
+    applyLocal({
+      mode,
+      running: false,
+      secondsLeft: mode === "focus" ? FOCUS_SEC : BREAK_SEC,
+      message: "",
+    });
+  }
+
+  function toggleStart() {
+    if (running) {
+      applyLocal({ mode, running: false, secondsLeft, message: "" });
+    } else {
+      // Bắt đầu lại từ số giây còn lại (hết giờ thì bắt đầu ca mới).
+      const secs = secondsLeft > 0 ? secondsLeft : mode === "focus" ? FOCUS_SEC : BREAK_SEC;
+      applyLocal({ mode, running: true, secondsLeft: secs, message: "" });
+    }
   }
 
   // Vòng tròn tiến độ
@@ -172,7 +270,7 @@ export default function PomodoroPage() {
       {/* Nút điều khiển */}
       <div className="mt-6 flex justify-center gap-3">
         <button
-          onClick={() => setRunning((r) => !r)}
+          onClick={toggleStart}
           className="rounded-full bg-vermilion px-8 py-3 text-base font-extrabold text-cream shadow hover:bg-vermilion-dark"
         >
           {running ? "⏸ Tạm dừng" : "▶ Bắt đầu"}
@@ -202,29 +300,94 @@ export default function PomodoroPage() {
       {/* Sân đọc sách — học chung */}
       <div className="mt-8 rounded-2xl border-2 border-gold/40 bg-cream p-6 text-left shadow">
         <h2 className="text-lg font-extrabold text-vermilion">📖 Sân đọc sách — đang học chung</h2>
-        <p className="mt-2 text-sm text-ink-soft">
-          <span className="font-black text-leaf">🟢 {online ?? "…"} người</span>{" "}
-          đang ngồi học cùng bạn lúc này. Ai cũng đang chạy Pomodoro 25/5 giống
-          bạn — đừng bỏ cuộc giữa chừng nhé!
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {ROOMMATES.map((name, i) => (
-            <span
-              key={name}
-              className={`rounded-full border-2 px-3 py-1.5 text-sm font-bold ${
-                mates[i]
-                  ? "border-leaf bg-leaf-soft/30 text-leaf"
-                  : "border-gold bg-gold-soft/30 text-ink-soft"
-              }`}
-            >
-              {mates[i] ? "📖" : "☕"} {name} · {mates[i] ? "đang tập trung" : "đang nghỉ"}
-            </span>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-ink-soft">
-          * Số người và tên bạn học là mô phỏng để tạo cảm giác học chung — chưa
-          có người thật online.
-        </p>
+        {roomEnabled ? (
+          <>
+            <p className="mt-2 text-sm text-ink-soft">
+              {room.connected ? (
+                <>
+                  <span className="font-black text-leaf">
+                    🟢 {room.members.length + 1} người
+                  </span>{" "}
+                  đang ngồi trong phòng <span className="font-bold text-ink">{roomInput}</span> cùng
+                  bạn lúc này. Ai bấm Bắt đầu thì cả phòng cùng chạy đồng hồ.
+                </>
+              ) : (
+                "Đang nối vào phòng chung…"
+              )}
+            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <input
+                value={roomInput}
+                onChange={(e) => setRoomInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") setRoomId(slugRoom(roomInput));
+                }}
+                maxLength={30}
+                placeholder="Tên phòng, ví dụ: Sân đọc sách"
+                className="min-w-0 flex-1 rounded-lg border-2 border-gold/50 bg-white px-3 py-2 text-sm font-bold text-ink outline-none focus:border-vermilion"
+              />
+              <button
+                onClick={() => setRoomId(slugRoom(roomInput))}
+                className="rounded-full bg-vermilion px-4 py-2 text-sm font-bold text-cream shadow hover:bg-vermilion-dark"
+              >
+                Vào phòng →
+              </button>
+            </div>
+            {room.members.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {room.members.map((m) => (
+                  <span
+                    key={m.key}
+                    className={`rounded-full border-2 px-3 py-1.5 text-sm font-bold ${
+                      m.mode === "focus"
+                        ? "border-leaf bg-leaf-soft/30 text-leaf"
+                        : "border-gold bg-gold-soft/30 text-ink-soft"
+                    }`}
+                  >
+                    {m.running ? (m.mode === "focus" ? "📖" : "☕") : "⏸"} {m.name} ·{" "}
+                    {m.running
+                      ? m.mode === "focus"
+                        ? "đang tập trung"
+                        : "đang nghỉ"
+                      : "đang dừng"}
+                  </span>
+                ))}
+              </div>
+            )}
+            <p className="mt-3 text-xs text-ink-soft">
+              Phòng chung dùng tài khoản thật — tên trong phòng là tên tài khoản
+              của bạn. Đổi tên phòng để lập phòng riêng với bạn bè.
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="mt-2 text-sm text-ink-soft">
+              <span className="font-black text-leaf">🟢 {online ?? "…"} người</span>{" "}
+              đang ngồi học cùng bạn lúc này. Ai cũng đang chạy Pomodoro 25/5 giống
+              bạn — đừng bỏ cuộc giữa chừng nhé!
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {ROOMMATES.map((name, i) => (
+                <span
+                  key={name}
+                  className={`rounded-full border-2 px-3 py-1.5 text-sm font-bold ${
+                    mates[i]
+                      ? "border-leaf bg-leaf-soft/30 text-leaf"
+                      : "border-gold bg-gold-soft/30 text-ink-soft"
+                  }`}
+                >
+                  {mates[i] ? "📖" : "☕"} {name} · {mates[i] ? "đang tập trung" : "đang nghỉ"}
+                </span>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-ink-soft">
+              * Số người và tên bạn học là mô phỏng để tạo cảm giác học chung —{" "}
+              {auth.configured
+                ? "đăng nhập tài khoản thật để vào phòng Pomodoro chung với người thật."
+                : "chưa có người thật online."}
+            </p>
+          </>
+        )}
       </div>
 
       {/* Âm thanh nền */}

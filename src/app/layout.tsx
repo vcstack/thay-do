@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import { AuthProvider } from "@/lib/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +27,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Nav />
-        <main className="flex-1">{children}</main>
+        <AuthProvider>
+          <Nav />
+          <main className="flex-1">{children}</main>
+        </AuthProvider>
         <footer className="border-t-2 border-vermilion/20 bg-cream py-6 text-center text-sm text-ink-soft">
           <p className="font-bold text-vermilion">Thầy Đồ — Trường Học Tiếng Trung Ảo</p>
           <p className="mt-1">
