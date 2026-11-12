@@ -186,15 +186,20 @@ export default function Home() {
       </section>
 
       {/* ---------- Sân trường 3D ---------- */}
-      <section id="san-truong" className="relative h-[75svh] min-h-[540px] w-full scroll-mt-20 overflow-hidden">
+      <section id="san-truong" className="relative h-[62svh] min-h-[420px] w-full scroll-mt-20 overflow-hidden md:h-[75svh] md:min-h-[540px]">
         <div className="absolute inset-0">
           <SchoolSceneLoader />
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 bg-gradient-to-t from-black/45 via-black/15 to-transparent px-4 pb-5 pt-16">
-          <p className="text-center text-xs font-semibold text-white/90 drop-shadow">
+          <p className="hidden text-center text-xs font-semibold text-white/90 drop-shadow md:block">
             🖱️ Kéo để xoay quanh trường · Lăn chuột để zoom · Bấm vào tòa lớp
             học để vào lớp · Bấm vào cổng để xem lịch học · Bấm vào một học sinh
             để đặt tên và gọi bạn vào lớp
+          </p>
+          <p className="text-center text-xs font-semibold text-white/90 drop-shadow md:hidden">
+            👆 Chạm kéo để xoay trường · Chụm 2 ngón để zoom · Chạm tòa lớp
+            học để vào lớp · Chạm cổng để xem lịch · Chạm một học sinh để đặt
+            tên và gọi bạn vào lớp
           </p>
         </div>
       </section>

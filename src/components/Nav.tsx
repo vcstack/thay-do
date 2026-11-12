@@ -104,8 +104,8 @@ export default function Nav() {
           </Link>
         </div>
       </div>
-      {/* Menu cho điện thoại */}
-      <nav className="flex gap-1 overflow-x-auto px-4 pb-2 lg:hidden">
+      {/* Menu cho điện thoại: cuộn ngang, mép phải mờ dần để biết còn tab */}
+      <nav className="flex snap-x snap-mandatory gap-1 overflow-x-auto scroll-smooth px-4 pb-2 [mask-image:linear-gradient(to_right,black_88%,transparent)] lg:hidden">
         {LINKS.map((l) => {
           const active =
             l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
@@ -113,7 +113,7 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`whitespace-nowrap rounded-full px-3 py-1 text-sm font-semibold ${
+              className={`snap-start whitespace-nowrap rounded-full px-3 py-1 text-sm font-semibold ${
                 active ? "bg-vermilion text-cream" : "bg-gold-soft/30 text-ink"
               }`}
             >

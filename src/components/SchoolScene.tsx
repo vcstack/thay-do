@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Billboard, Environment, Float, Lightformer, OrbitControls, Sparkles, useGLTF } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -1542,6 +1542,10 @@ export default function SchoolScene() {
   const [suggestIdx, setSuggestIdx] = useState(0);
   /** Chế độ camera: sân trường / bám theo học sinh / trong lớp học. */
   const [viewMode, setViewMode] = useState<ViewMode>("yard");
+  /** UI riêng cho mobile: chip danh sách lớp, menu hành động ⋯, panel giảng bài mở rộng. */
+  const [classListOpen, setClassListOpen] = useState(false);
+  const [actionsOpen, setActionsOpen] = useState(false);
+  const [lectureExpanded, setLectureExpanded] = useState(false);
   /** Vị trí hiện tại của từng học sinh (học sinh tự ghi vào mỗi frame). */
   const studentPos = useRef<Record<string, THREE.Vector3>>(
     Object.fromEntries(
@@ -1583,16 +1587,18 @@ export default function SchoolScene() {
         }
       : null;
 
-  const stopLecture = useCallback(() => {
+  function stopLecture() {
     lectureToken.current += 1;
     lectureHandle.current?.stop();
     lectureHandle.current = null;
     setLecturing(false);
     setLectureIndex(0);
-  }, []);
+    setLectureExpanded(false);
+  }
 
   function startLecture() {
     if (sittingStudents.length === 0) return;
+    setActionsOpen(false);
     lectureToken.current += 1;
     lectureHandle.current?.stop();
     lectureHandle.current = null;
@@ -1678,6 +1684,7 @@ export default function SchoolScene() {
   function openNaming(id: string) {
     const st = students.find((s) => s.id === id);
     if (!st) return;
+    setActionsOpen(false);
     // Bấm vào bạn nào thì chọn bạn đó (để làm cử chỉ / mặc đồ sau này).
     setSelectedId(id);
     // Học sinh chưa có tên thì gợi ý tên khách (tên của người vào trường) trước.
@@ -1775,6 +1782,7 @@ export default function SchoolScene() {
   }
 
   function openWardrobeFor(id: string) {
+    setActionsOpen(false);
     setWardrobeTargetId(id);
     setSelectedId(id);
     setPickedOutfitId(outfitMap[id] ?? OUTFITS[0].id);
@@ -1783,6 +1791,7 @@ export default function SchoolScene() {
   }
 
   function toggleWardrobe() {
+    setActionsOpen(false);
     if (wardrobeOpen) {
       setWardrobeOpen(false);
       return;
@@ -1810,6 +1819,105 @@ export default function SchoolScene() {
       nonce: gestureNonce.current,
     });
   }
+
+  /* --- Nút hành động trên cảnh 3D (dùng chung cho cột desktop và sheet mobile) --- */
+  const actionControls = (
+    <>
+      {idleStudents.length > 0 && (
+        <button
+          onClick={() => openNaming(idleStudents[0].id)}
+          className="rounded-full bg-[#b3372a] px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#8f2a20]"
+        >
+          🚶 Cho học sinh vào lớp ({idleStudents.length})
+        </button>
+      )}
+      {sittingStudents.length > 0 && (
+        <button
+          onClick={() => sendOut(sittingStudents[0].id)}
+          className="rounded-full bg-[#fdf9ec] px-4 py-2 text-sm font-extrabold text-[#b3372a] shadow-lg transition hover:bg-white"
+        >
+          🏃 Cho học sinh ra sân ({sittingStudents.length})
+        </button>
+      )}
+      {/* Nút xem lớp học / về sân (điều khiển camera) */}
+      {sittingStudents.length > 0 && viewMode !== "classroom" && (
+        <button
+          onClick={() => setViewMode("classroom")}
+          className="rounded-full bg-[#d9a441] px-4 py-2 text-sm font-extrabold text-[#2b2118] shadow-lg transition hover:bg-[#c98a2e]"
+        >
+          🏫 Vào xem lớp học
+        </button>
+      )}
+      {/* Chọn bài giảng (đổi giữa chừng thì giảng lại từ đầu bài mới) */}
+      {sittingStudents.length > 0 && (
+        <select
+          value={lectureLessonId}
+          onChange={(e) => changeLesson(Number(e.target.value))}
+          aria-label="Chọn bài giảng"
+          className="rounded-full border-2 border-[#c98a2e] bg-[#fdf9ec] px-3 py-2 text-sm font-bold text-[#2b2118] shadow-lg outline-none"
+        >
+          {lessons.map((l) => (
+            <option key={l.id} value={l.id}>
+              Bài {l.id}: {l.titleVi}
+            </option>
+          ))}
+        </select>
+      )}
+      {/* Nút thầy giảng bài (cần có học sinh đang ngồi trong lớp) */}
+      {sittingStudents.length > 0 && !lecturing && (
+        <button
+          onClick={startLecture}
+          className="rounded-full bg-[#b3372a] px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#8f2a20]"
+        >
+          📖 Thầy giảng bài
+        </button>
+      )}
+      {viewMode !== "yard" && (
+        <button
+          onClick={() => setViewMode("yard")}
+          className="rounded-full bg-[#2b2118]/85 px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#2b2118]"
+        >
+          🌳 Ra sân
+        </button>
+      )}
+      {/* Nút tủ áo đổi trang phục */}
+      <button
+        onClick={toggleWardrobe}
+        className={`rounded-full px-4 py-2 text-sm font-extrabold shadow-lg transition ${
+          wardrobeOpen
+            ? "bg-[#8f2a20] text-[#fdf9ec]"
+            : "bg-[#fdf9ec] text-[#b3372a] hover:bg-white"
+        }`}
+      >
+        👘 Tủ áo{wardrobeOpen ? " ✕" : ""}
+      </button>
+      {/* Hàng nút cử chỉ cho học sinh đang được chọn */}
+      <div className="rounded-2xl bg-[#fdf9ec]/95 p-2 shadow-lg">
+        <p className="px-1 text-[11px] font-black text-[#b3372a]">
+          🎭 Cử chỉ —{" "}
+          {selectedStudent?.name || "bạn đầu tiên trong sân"}
+        </p>
+        <div className="mt-1.5 grid grid-cols-2 gap-1.5">
+          {(
+            [
+              ["bow", "🙇 Cúi chào"],
+              ["read", "📖 Đọc sách"],
+              ["grind", "🖋️ Mài mực"],
+              ["write", "✍️ Viết chữ"],
+            ] as [GestureKind, string][]
+          ).map(([kind, label]) => (
+            <button
+              key={kind}
+              onClick={() => doGesture(kind)}
+              className="rounded-full border border-[#c98a2e]/60 bg-white px-2 py-1.5 text-xs font-extrabold text-[#2b2118] transition hover:bg-[#e8c37a]/40"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <>
@@ -1841,8 +1949,25 @@ export default function SchoolScene() {
 
       {/* Lớp phủ HTML trên cảnh 3D */}
       <div className="pointer-events-none absolute inset-0 z-10">
-        {/* Danh sách lớp */}
-        <div className="pointer-events-auto absolute right-3 top-24 w-60 rounded-2xl border-2 border-[#c98a2e]/50 bg-[#fdf9ec]/95 p-3 shadow-lg">
+        {/* Danh sách lớp — mobile thu gọn thành chip bấm để mở, desktop luôn hiện panel */}
+        <div className="pointer-events-auto absolute right-3 top-3 md:hidden">
+          <button
+            onClick={() => setClassListOpen((o) => !o)}
+            aria-expanded={classListOpen}
+            aria-label="Mở danh sách lớp"
+            className="rounded-full border-2 border-[#c98a2e]/50 bg-[#fdf9ec]/95 px-3 py-1.5 text-xs font-black text-[#b3372a] shadow-lg"
+          >
+            🎒 Trong lớp ({sittingStudents.length}/{students.length}){" "}
+            {classListOpen ? "▴" : "▾"}
+          </button>
+        </div>
+        <div
+          className={`pointer-events-auto absolute right-3 w-60 rounded-2xl border-2 border-[#c98a2e]/50 bg-[#fdf9ec]/95 p-3 shadow-lg ${
+            classListOpen
+              ? "top-14 max-h-[45svh] overflow-y-auto"
+              : "hidden"
+          } md:top-24 md:block md:max-h-none md:overflow-visible`}
+        >
           <p className="text-sm font-black text-[#b3372a]">
             🎒 Trong lớp ({sittingStudents.length}/{students.length})
           </p>
@@ -1892,106 +2017,44 @@ export default function SchoolScene() {
           )}
         </div>
 
-        {/* Nút gọi vào / ra */}
-        <div className="pointer-events-auto absolute bottom-24 right-3 flex flex-col gap-2">
-          {idleStudents.length > 0 && (
-            <button
-              onClick={() => openNaming(idleStudents[0].id)}
-              className="rounded-full bg-[#b3372a] px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#8f2a20]"
-            >
-              🚶 Cho học sinh vào lớp ({idleStudents.length})
-            </button>
-          )}
-          {sittingStudents.length > 0 && (
-            <button
-              onClick={() => sendOut(sittingStudents[0].id)}
-              className="rounded-full bg-[#fdf9ec] px-4 py-2 text-sm font-extrabold text-[#b3372a] shadow-lg transition hover:bg-white"
-            >
-              🏃 Cho học sinh ra sân ({sittingStudents.length})
-            </button>
-          )}
-          {/* Nút xem lớp học / về sân (điều khiển camera) */}
-          {sittingStudents.length > 0 && viewMode !== "classroom" && (
-            <button
-              onClick={() => setViewMode("classroom")}
-              className="rounded-full bg-[#d9a441] px-4 py-2 text-sm font-extrabold text-[#2b2118] shadow-lg transition hover:bg-[#c98a2e]"
-            >
-              🏫 Vào xem lớp học
-            </button>
-          )}
-          {/* Chọn bài giảng (đổi giữa chừng thì giảng lại từ đầu bài mới) */}
-          {sittingStudents.length > 0 && (
-            <select
-              value={lectureLessonId}
-              onChange={(e) => changeLesson(Number(e.target.value))}
-              aria-label="Chọn bài giảng"
-              className="rounded-full border-2 border-[#c98a2e] bg-[#fdf9ec] px-3 py-2 text-sm font-bold text-[#2b2118] shadow-lg outline-none"
-            >
-              {lessons.map((l) => (
-                <option key={l.id} value={l.id}>
-                  Bài {l.id}: {l.titleVi}
-                </option>
-              ))}
-            </select>
-          )}
-          {/* Nút thầy giảng bài (cần có học sinh đang ngồi trong lớp) */}
-          {sittingStudents.length > 0 && !lecturing && (
-            <button
-              onClick={startLecture}
-              className="rounded-full bg-[#b3372a] px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#8f2a20]"
-            >
-              📖 Thầy giảng bài
-            </button>
-          )}
-          {viewMode !== "yard" && (
-            <button
-              onClick={() => setViewMode("yard")}
-              className="rounded-full bg-[#2b2118]/85 px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#2b2118]"
-            >
-              🌳 Ra sân
-            </button>
-          )}
-          {/* Nút tủ áo đổi trang phục */}
+        {/* Nút gọi vào / ra — desktop: cột nút bên phải; mobile: gom vào menu ⋯ */}
+        <div className="pointer-events-auto absolute bottom-24 right-3 hidden flex-col gap-2 md:flex">
+          {actionControls}
+        </div>
+
+        {/* Nút menu ⋯ trên mobile (ẩn khi đang mở sheet / tủ áo / panel giảng mở rộng) */}
+        {!actionsOpen && !lectureExpanded && !wardrobeOpen && (
           <button
-            onClick={toggleWardrobe}
-            className={`rounded-full px-4 py-2 text-sm font-extrabold shadow-lg transition ${
-              wardrobeOpen
-                ? "bg-[#8f2a20] text-[#fdf9ec]"
-                : "bg-[#fdf9ec] text-[#b3372a] hover:bg-white"
+            onClick={() => setActionsOpen(true)}
+            aria-label="Mở menu thao tác"
+            className={`pointer-events-auto absolute right-3 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-[#2b2118]/90 text-xl font-black text-[#fdf9ec] shadow-lg md:hidden ${
+              lecturing ? "bottom-40" : "bottom-24"
             }`}
           >
-            👘 Tủ áo{wardrobeOpen ? " ✕" : ""}
+            ⋯
           </button>
-          {/* Hàng nút cử chỉ cho học sinh đang được chọn */}
-          <div className="rounded-2xl bg-[#fdf9ec]/95 p-2 shadow-lg">
-            <p className="px-1 text-[11px] font-black text-[#b3372a]">
-              🎭 Cử chỉ —{" "}
-              {selectedStudent?.name || "bạn đầu tiên trong sân"}
-            </p>
-            <div className="mt-1.5 grid grid-cols-2 gap-1.5">
-              {(
-                [
-                  ["bow", "🙇 Cúi chào"],
-                  ["read", "📖 Đọc sách"],
-                  ["grind", "🖋️ Mài mực"],
-                  ["write", "✍️ Viết chữ"],
-                ] as [GestureKind, string][]
-              ).map(([kind, label]) => (
-                <button
-                  key={kind}
-                  onClick={() => doGesture(kind)}
-                  className="rounded-full border border-[#c98a2e]/60 bg-white px-2 py-1.5 text-xs font-extrabold text-[#2b2118] transition hover:bg-[#e8c37a]/40"
-                >
-                  {label}
-                </button>
-              ))}
+        )}
+
+        {/* Sheet thao tác trên mobile */}
+        {actionsOpen && (
+          <div className="pointer-events-auto absolute inset-x-0 bottom-0 z-20 max-h-[70svh] overflow-y-auto rounded-t-3xl border-t-2 border-[#c98a2e]/60 bg-[#fdf9ec] p-4 shadow-2xl md:hidden">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="text-sm font-black text-[#b3372a]">⚙️ Thao tác</p>
+              <button
+                onClick={() => setActionsOpen(false)}
+                aria-label="Đóng menu thao tác"
+                className="rounded-full px-2 py-0.5 text-sm font-black text-[#6b5a44] hover:bg-[#e8c37a]/50"
+              >
+                ✕
+              </button>
             </div>
+            <div className="flex flex-col gap-2">{actionControls}</div>
           </div>
-        </div>
+        )}
 
         {/* Panel bài giảng: từ đang giảng + tiến trình + nút dừng */}
         {lecturing && lecture && (
-          <div className="pointer-events-auto absolute bottom-24 left-3 w-72 rounded-2xl border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 p-4 shadow-xl">
+          <div className="pointer-events-auto absolute bottom-24 left-3 hidden w-72 md:block rounded-2xl border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 p-4 shadow-xl">
             <p className="text-sm font-black text-[#b3372a]">
               📖 Thầy đang giảng — Bài {lecture.lesson.id}:{" "}
               {lecture.lesson.titleVi}
@@ -2025,9 +2088,90 @@ export default function SchoolScene() {
           </div>
         )}
 
-        {/* Panel tủ áo đổi trang phục */}
+        {/* Panel giảng bài trên mobile: thanh gọn dock dưới, bấm để mở rộng
+            (ẩn khi đang mở tủ áo để 2 sheet không chồng nhau) */}
+        {lecturing && lecture && !wardrobeOpen && (
+          <div className="pointer-events-auto absolute inset-x-3 bottom-24 z-20 md:hidden">
+            {!lectureExpanded ? (
+              <div
+                onClick={() => setLectureExpanded(true)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") setLectureExpanded(true);
+                }}
+                className="flex cursor-pointer items-center gap-2 rounded-full border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 px-3 py-2 shadow-xl"
+              >
+                <span className="min-w-0 flex-1 truncate text-sm font-black text-[#b3372a]">
+                  📖 Bài {lecture.lesson.id} ·{" "}
+                  {lecture.lesson.vocab[lecture.index]?.zh}{" "}
+                  {lecture.lesson.vocab[lecture.index]?.py} —{" "}
+                  {lecture.lesson.vocab[lecture.index]?.vi} · Từ{" "}
+                  {lecture.index + 1}/{lecture.total}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    stopLecture();
+                  }}
+                  aria-label="Dừng giảng"
+                  className="shrink-0 rounded-full bg-[#2b2118] px-2.5 py-1 text-xs font-extrabold text-[#fdf9ec]"
+                >
+                  ⏹
+                </button>
+                <span className="shrink-0 text-xs font-black text-[#6b5a44]">
+                  ▴
+                </span>
+              </div>
+            ) : (
+              <div className="max-h-[55svh] overflow-y-auto rounded-2xl border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 p-4 shadow-xl">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-sm font-black text-[#b3372a]">
+                    📖 Thầy đang giảng — Bài {lecture.lesson.id}:{" "}
+                    {lecture.lesson.titleVi}
+                  </p>
+                  <button
+                    onClick={() => setLectureExpanded(false)}
+                    aria-label="Thu gọn panel giảng bài"
+                    className="shrink-0 rounded-full px-2 py-0.5 text-sm font-black text-[#6b5a44] hover:bg-[#e8c37a]/50"
+                  >
+                    ▾
+                  </button>
+                </div>
+                <p className="mt-2 text-center text-4xl font-black leading-tight text-[#2b2118]">
+                  {lecture.lesson.vocab[lecture.index]?.zh}
+                </p>
+                <p className="text-center text-sm font-bold text-[#6b5a44]">
+                  {lecture.lesson.vocab[lecture.index]?.py}
+                </p>
+                <p className="text-center text-base font-bold text-[#b3372a]">
+                  {lecture.lesson.vocab[lecture.index]?.vi}
+                </p>
+                <div className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-[#e8c37a]/50">
+                  <div
+                    className="h-full rounded-full bg-[#b3372a] transition-all duration-500"
+                    style={{
+                      width: `${((lecture.index + 1) / lecture.total) * 100}%`,
+                    }}
+                  />
+                </div>
+                <p className="mt-1 text-center text-xs font-bold text-[#6b5a44]">
+                  Từ {lecture.index + 1}/{lecture.total}
+                </p>
+                <button
+                  onClick={stopLecture}
+                  className="mt-3 w-full rounded-full bg-[#2b2118] px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow transition hover:bg-black"
+                >
+                  ⏹ Dừng giảng
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Panel tủ áo đổi trang phục — desktop: góc trái trên; mobile: sheet dưới */}
         {wardrobeOpen && wardrobeTarget && (
-          <div className="pointer-events-auto absolute left-3 top-24 w-72 rounded-2xl border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 p-4 shadow-xl">
+          <div className="pointer-events-auto absolute inset-x-3 bottom-24 max-h-[60svh] overflow-y-auto rounded-2xl border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 p-4 shadow-xl md:inset-x-auto md:bottom-auto md:left-3 md:top-24 md:max-h-none md:w-72 md:overflow-visible">
             <div className="flex items-center justify-between">
               <p className="text-sm font-black text-[#b3372a]">
                 👘 Tủ áo — {wardrobeTarget.name || "học sinh"}
