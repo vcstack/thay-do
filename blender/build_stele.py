@@ -7,9 +7,9 @@ from common import *
 OUT = os.path.expanduser("~/workspace/thay-do-web/public/models/stele.glb")
 clean()
 
-stone = mat("stone", "#a89a78", 0.95)
-stone_light = mat("stone_light", "#b9ac8d", 0.95)
-stone_dark = mat("stone_dark", "#8a7a5c", 0.9)
+stone = mat("stone", "#a89a78", 0.95, tex="stone")
+stone_light = mat("stone_light", "#b9ac8d", 0.95, tex="stone")
+stone_dark = mat("stone_dark", "#8a7a5c", 0.9, tex="stone")
 
 # ---- Rùa đá: mai dẹt + đầu + 4 chân + đuôi ----
 sphere("turtle_shell", (0, 0.32, 0), 0.85, stone,

@@ -23,8 +23,8 @@ def build_character(cid, robe_hex, skin_hex, gender="male", hair="khan_dong",
                     accessory=None, wide=False, sash_hex="#d9a441"):
     """Dựng 1 nhân vật, trả về Empty group. accessory: None|'book'|'fan'|'bag'|'staff'."""
     grp = group(cid)
-    robe = mat(f"robe_{cid}", robe_hex, 0.8)
-    robe_dark = mat(f"robe_dark_{cid}", robe_hex, 0.85)
+    robe = mat(f"robe_{cid}", robe_hex, 0.8, tex="fabric")
+    robe_dark = mat(f"robe_dark_{cid}", robe_hex, 0.85, tex="fabric")
     skin = mat(f"skin_{cid}", skin_hex, 0.7)
     pants = DARK_PANTS
 
@@ -62,10 +62,26 @@ def build_character(cid, robe_hex, skin_hex, gender="male", hair="khan_dong",
     # ---- Đầu ----
     parent(sphere(P(cid, "head"), (0, 1.62, 0), 0.27, skin,
                   scale=(1, 1.05, 0.95), segments=20, rings=14))
-    # ---- Mắt ----
+    # ---- Mắt: tròng trắng + con ngươi (nhìn có hồn hơn mắt đen đặc) ----
+    eye_white = mat(f"eyewhite_{cid}", "#fdfdf8", 0.4)
     for x in (-0.09, 0.09):
-        parent(sphere(P(cid, "eye"), (x, 1.65, 0.235), 0.028, BLACK,
+        parent(sphere(P(cid, "eye"), (x, 1.65, 0.232), 0.042, eye_white,
+                      segments=10, rings=8))
+        parent(sphere(P(cid, "pupil"), (x, 1.65, 0.262), 0.02, BLACK,
                       segments=8, rings=6))
+    # ---- Lông mày + mũi + miệng ----
+    for x in (-0.09, 0.09):
+        parent(box(P(cid, "brow"), (x, 1.72, 0.245), (0.09, 0.018, 0.02),
+                   BLACK, bevel_w=0.005, rz=-0.15 if x < 0 else 0.15))
+    parent(sphere(P(cid, "nose"), (0, 1.60, 0.255), 0.022, skin,
+                  segments=8, rings=6))
+    mouth_mat = mat(f"mouth_{cid}", "#8f2a20", 0.7)
+    parent(box(P(cid, "mouth"), (0, 1.52, 0.248), (0.075, 0.016, 0.02),
+               mouth_mat, bevel_w=0.005))
+    parent(sphere(P(cid, "mouth_l"), (-0.038, 1.525, 0.248), 0.012, mouth_mat,
+                  segments=8, rings=6))
+    parent(sphere(P(cid, "mouth_r"), (0.038, 1.525, 0.248), 0.012, mouth_mat,
+                  segments=8, rings=6))
 
     # ---- Tóc / mũ ----
     if hair == "khan_dong":

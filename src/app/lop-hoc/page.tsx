@@ -1,8 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { lessons } from "@/data/lessons";
+import { allSentences, lessons } from "@/data/lessons";
+import { speakZh } from "@/lib/speak";
+import {
+  isSpeechRecognitionSupported,
+  recognizeOnce,
+  scorePronunciation,
+  type PronunciationResult,
+} from "@/lib/recognize";
 import { randomRemark, TEACHER_REMARKS_MISTAKE, loadStudentNames } from "@/data/teacher";
 
 interface Slot {
@@ -80,6 +87,60 @@ export default function LopHocPage() {
   const [now, setNow] = useState<Date | null>(null);
   const [remark, setRemark] = useState("");
   const [studentNames, setStudentNames] = useState<Record<string, string>>({});
+  // --- Đọc to chấm phát âm ---
+  const [sentenceIdx, setSentenceIdx] = useState(0);
+  const [listening, setListening] = useState(false);
+  const [heardText, setHeardText] = useState("");
+  const [pronResult, setPronResult] = useState<PronunciationResult | null>(null);
+  const [pronError, setPronError] = useState("");
+  const stopRef = useRef<(() => void) | null>(null);
+
+  const sentence = allSentences[sentenceIdx];
+
+  function pickAnotherSentence() {
+    setSentenceIdx((prev) => {
+      let n = prev;
+      while (allSentences.length > 1 && n === prev) {
+        n = Math.floor(Math.random() * allSentences.length);
+      }
+      return n;
+    });
+    setHeardText("");
+    setPronResult(null);
+    setPronError("");
+  }
+
+  function startReading() {
+    if (!sentence) return;
+    if (!isSpeechRecognitionSupported()) {
+      setPronError(
+        "Trình duyệt này không hỗ trợ nhận dạng giọng nói — hãy dùng Chrome hoặc Edge trên máy tính hoặc điện thoại Android."
+      );
+      return;
+    }
+    setPronError("");
+    setHeardText("");
+    setPronResult(null);
+    setListening(true);
+    stopRef.current = recognizeOnce(
+      "zh-CN",
+      (t) => {
+        setHeardText(t);
+        setPronResult(scorePronunciation(sentence.zh, t));
+      },
+      (msg) => setPronError(msg),
+      () => setListening(false)
+    );
+  }
+
+  const teacherPronRemark =
+    pronResult === null
+      ? ""
+      : pronResult.score >= 90
+        ? "Giỏi quá! Phát âm chuẩn như người bản xứ rồi."
+        : pronResult.score >= 70
+          ? "Khá rồi, còn vài chữ chưa chuẩn — đọc lại mấy chữ đỏ nhé."
+          : "Đọc lại chậm hơn nhé, từng chữ một, thầy nghe lại cho.";
 
   useEffect(() => {
     // Giờ hiện tại + tên học sinh (localStorage) chỉ có ở client — khởi tạo
@@ -202,6 +263,100 @@ export default function LopHocPage() {
             📚 Đọc truyện
           </Link>
         </div>
+      </div>
+
+      {/* Đọc to chấm phát âm */}
+      <div className="mt-6 rounded-2xl border-2 border-gold/40 bg-cream p-6 shadow">
+        <h2 className="text-lg font-extrabold text-vermilion">🎤 Đọc to chấm phát âm</h2>
+        <p className="mt-1 text-sm text-ink-soft">
+          Thầy đưa một câu mẫu — nghe mẫu rồi đọc to, thầy chấm từng chữ cho.
+        </p>
+
+        {sentence && (
+          <>
+            <p className="mt-4 text-center text-3xl font-black leading-relaxed text-ink">
+              {sentence.zh}
+            </p>
+            <p className="mt-1 text-center text-sm font-semibold text-leaf">{sentence.py}</p>
+            <p className="mt-1 text-center text-sm text-ink-soft">{sentence.vi}</p>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <button
+                onClick={() => speakZh(sentence.zh)}
+                className="rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm font-bold text-vermilion hover:bg-gold-soft/40"
+              >
+                🔊 Nghe mẫu
+              </button>
+              {listening ? (
+                <button
+                  onClick={() => stopRef.current?.()}
+                  className="rounded-full bg-red-500 px-4 py-2 text-sm font-bold text-cream shadow hover:bg-red-600"
+                >
+                  ⏹️ Dừng nghe
+                </button>
+              ) : (
+                <button
+                  onClick={startReading}
+                  className="rounded-full bg-vermilion px-4 py-2 text-sm font-bold text-cream shadow hover:bg-vermilion-dark"
+                >
+                  🎤 Đọc to
+                </button>
+              )}
+              <button
+                onClick={pickAnotherSentence}
+                disabled={listening}
+                className="rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm font-bold text-vermilion hover:bg-gold-soft/40 disabled:opacity-50"
+              >
+                🔀 Đổi câu khác
+              </button>
+            </div>
+
+            {listening && (
+              <p className="mt-3 text-center text-sm font-bold text-vermilion">
+                🎤 Đang nghe… đọc to câu trên đi.
+              </p>
+            )}
+            {pronError && (
+              <p className="mt-3 rounded-xl bg-red-50 p-3 text-center text-sm font-semibold text-red-600">
+                {pronError}
+              </p>
+            )}
+            {heardText && pronResult && (
+              <div className="mt-4 rounded-xl bg-gold-soft/30 p-4">
+                <p className="text-sm text-ink-soft">
+                  Thầy nghe được: <span className="font-bold text-ink">“{heardText}”</span>
+                </p>
+                <p className="mt-2 text-center text-3xl font-black text-vermilion">
+                  {pronResult.score}%
+                </p>
+                <p className="mt-2 text-center text-2xl font-black leading-relaxed">
+                  {pronResult.perChar.map((p, i) => (
+                    <span
+                      key={i}
+                      className={p.ok ? "text-leaf" : "text-red-600 underline"}
+                      title={p.ok ? "Đúng" : "Chưa chuẩn"}
+                    >
+                      {p.ch}
+                    </span>
+                  ))}
+                </p>
+                <p className="mt-2 text-center text-sm text-ink-soft">
+                  <span className="font-bold text-leaf">■ Chữ xanh: đúng</span>
+                  {" · "}
+                  <span className="font-bold text-red-600">■ Chữ đỏ: chưa chuẩn</span>
+                </p>
+                <blockquote className="mt-3 rounded-xl bg-white/70 p-3 text-center text-base text-ink">
+                  👨‍🏫 “{teacherPronRemark}”
+                </blockquote>
+              </div>
+            )}
+          </>
+        )}
+
+        <p className="mt-4 text-center text-xs text-ink-soft">
+          Chấm bằng nhận dạng giọng nói của trình duyệt, không phải AI chuyên
+          nghiệp — chỉ để tham khảo.
+        </p>
       </div>
 
       {/* Thầy nhận xét */}

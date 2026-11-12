@@ -7,15 +7,15 @@ from common import *
 OUT = os.path.expanduser("~/workspace/thay-do-web/public/models/teahouse.glb")
 clean()
 
-wall_yellow = mat("wall_yellow", "#f0c75e", 0.9)
-roof_brown = mat("roof_brown", "#7a4a2b", 0.7)
-roof_brown2 = mat("roof_brown2", "#6b3d22", 0.7)
+wall_yellow = mat("wall_yellow", "#f0c75e", 0.9, tex="plaster")
+roof_brown = mat("roof_brown", "#7a4a2b", 0.7, tex="roof_brown")
+roof_brown2 = mat("roof_brown2", "#6b3d22", 0.7, tex="roof_brown")
 darkred = mat("darkred", "#8f2a20", 0.7)
 gold = mat("gold", "#d9a441", 0.4, 0.4)
 gold_bright = mat("gold_bright", "#e8b23a", 0.25, 0.6, emissive="#8a5a10", emissive_strength=0.3)
-wood = mat("wood", "#8a6b45", 0.85)
-wood_dark = mat("wood_dark", "#6b5232", 0.9)
-wood_mid = mat("wood_mid", "#7a5230", 0.85)
+wood = mat("wood", "#8a6b45", 0.85, tex="wood")
+wood_dark = mat("wood_dark", "#6b5232", 0.9, tex="wood")
+wood_mid = mat("wood_mid", "#7a5230", 0.85, tex="wood")
 window_glow = mat("window_glow", "#ffd98a", 0.4, 0.0, emissive="#ffbf4d", emissive_strength=0.7)
 red_pot = mat("red_pot", "#b3372a", 0.5)
 
@@ -27,6 +27,9 @@ box("base", (0, 0.15, 0), (3.8, 0.3, 3.2), mat("stone", "#cfc4a8", 0.95), bevel_
 # ---- Mái ngói nâu: diềm + chóp 4 mặt + góc vểnh + trái châu ----
 box("roof_eave", (0, 2.3, 0), (4.2, 0.3, 3.6), roof_brown2, bevel_w=0.04)
 hip_roof_ridge("roof", (0, 2.45, 0), 3.9, 3.3, 1.1, 1.6, roof_brown)
+tile_fringe("roof_tile_f", 2.47, -1.85, 1.85, 1.62, roof_brown2)
+tile_fringe("roof_tile_b", 2.47, -1.85, 1.85, -1.62, roof_brown2)
+ridge_caps("roof_ridge", -0.7, 0.7, 3.56, 0, roof_brown2)
 for cx, cz in ((-1.95, -1.65), (1.95, -1.65), (-1.95, 1.65), (1.95, 1.65)):
     d = (1.0 if cx > 0 else -1.0, 1.0 if cz > 0 else -1.0)
     n = (d[0] / 1.4142, d[1] / 1.4142)

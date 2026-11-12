@@ -25,7 +25,14 @@ def clean():
                 coll.remove(block)
 
 
-def mat(name, hexcolor, rough=0.8, metallic=0.0, emissive=None, emissive_strength=0.0):
+def mat(name, hexcolor, rough=0.8, metallic=0.0, emissive=None, emissive_strength=0.0,
+        tex=None, normal_strength=0.6):
+    """tex: tên texture procedural bake (roof_gold/roof_brown/wood/stone/
+    plaster/fabric/leaf) — xem pbr.py. Không có tex thì màu phẳng như cũ."""
+    if tex:
+        import pbr
+        return pbr.textured_mat(name, tex, hexcolor, rough, metallic,
+                                emissive, emissive_strength, normal_strength)
     m = bpy.data.materials.get(name)
     if m:
         return m
@@ -152,6 +159,7 @@ def hip_roof_ridge(name, loc, fx, fz, height, ridge_len, material):
     mesh.update()
     o = bpy.data.objects.new(name, mesh)
     bpy.context.scene.collection.objects.link(o)
+    uv_planar(o, 0.22, 0.22)
     return _finish(o, material, 0.0, smooth=False)
 
 
@@ -179,6 +187,7 @@ def frustum_roof(name, loc, fx, fz, tx, tz, height, material):
     mesh.update()
     o = bpy.data.objects.new(name, mesh)
     bpy.context.scene.collection.objects.link(o)
+    uv_planar(o, 0.22, 0.22)
     return _finish(o, material, 0.0, smooth=False)
 
 
@@ -265,6 +274,43 @@ def group(name):
     o = bpy.data.objects.new(name, None)
     bpy.context.scene.collection.objects.link(o)
     return o
+
+
+def uv_planar(obj, su=0.25, sv=0.25):
+    """Gán UV phẳng theo tọa độ Blender (x, z) cho mesh tự tạo (mái hông...),
+    để texture ảnh lặp đều thay vì kéo dãn."""
+    mesh = obj.data
+    uv_layer = mesh.uv_layers.new(name="UVMap")
+    for poly in mesh.polygons:
+        for li in poly.loop_indices:
+            v = mesh.vertices[mesh.loops[li].vertex_index]
+            uv_layer.data[li].uv = (v.co.x * su, v.co.z * sv)
+
+
+def tile_fringe(name, y, x0, x1, z, material, spacing=0.55):
+    """Hàng đầu ngói tròn dọc mép mái (trước/sau): nửa viên ngói nhô ra,
+    tạo silhouette từng viên thay vì mép phẳng."""
+    n = max(2, int((x1 - x0) / spacing) + 1)
+    for i in range(n):
+        x = x0 + (x1 - x0) * i / (n - 1)
+        sphere(f"{name}{i}", (x, y, z), 0.2, material,
+               scale=(1, 0.55, 1.5), segments=10, rings=8)
+
+
+def ridge_caps(name, x0, x1, y, z, material, spacing=0.5):
+    """Viên ngói úp dọc sống mái."""
+    n = max(2, int((x1 - x0) / spacing) + 1)
+    for i in range(n):
+        x = x0 + (x1 - x0) * i / (n - 1)
+        sphere(f"{name}{i}", (x, y, z), 0.19, material,
+               scale=(1.3, 0.5, 1), segments=10, rings=8)
+
+
+def column_bands(name, x, z, ys, r, material):
+    """Vòng chạm nổi quanh cột (hoa văn): vành torus mỏng ở các cao độ ys."""
+    for i, y in enumerate(ys):
+        torus(f"{name}{i}", (x, y, z), r + 0.02, 0.035, material,
+              rot=(0, 0, 0))  # torus mặc định đã nằm ngang, ôm quanh cột dọc
 
 
 def export_glb(path):

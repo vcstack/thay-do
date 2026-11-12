@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import GuestName from "@/components/GuestName";
 import SchoolMap from "@/components/SchoolMap";
+import LoginDialog from "@/components/LoginDialog";
+import { getAccount, onAccountChange, type Account } from "@/lib/progress";
 
 const LINKS = [
   { href: "/", label: "Trang chủ" },
@@ -18,11 +20,22 @@ const LINKS = [
   { href: "/tra-dao", label: "Trà đạo" },
   { href: "/pomodoro", label: "Pomodoro" },
   { href: "/lich-hoc", label: "Lịch học" },
+  { href: "/so-hoc-tro", label: "Sổ học trò" },
 ];
 
 export default function Nav() {
   const pathname = usePathname();
   const [showMap, setShowMap] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [account, setAccount] = useState<Account>({ id: "guest", name: "Khách" });
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setAccount(getAccount());
+    return onAccountChange(() => setAccount(getAccount()));
+  }, []);
+
+  const loggedIn = account.id !== "guest";
   return (
     <header className="sticky top-0 z-50 border-b-2 border-vermilion/20 bg-cream/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
@@ -59,6 +72,20 @@ export default function Nav() {
           })}
         </nav>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowLogin(true)}
+            className={`flex items-center gap-1.5 rounded-full border-2 px-3 py-1.5 text-sm font-bold transition ${
+              loggedIn
+                ? "border-vermilion bg-vermilion text-cream shadow"
+                : "border-gold bg-cream text-vermilion hover:bg-gold-soft/40"
+            }`}
+            title={loggedIn ? "Đổi tên / Đăng xuất" : "Đăng nhập giữ tiến trình"}
+          >
+            <span>🧑‍🎓</span>
+            <span className="max-w-24 truncate">
+              {loggedIn ? account.name : "Đăng nhập"}
+            </span>
+          </button>
           <button
             onClick={() => setShowMap(true)}
             className="rounded-full border-2 border-gold bg-cream px-3 py-1.5 text-sm font-bold text-vermilion transition hover:bg-gold-soft/40"
@@ -99,6 +126,11 @@ export default function Nav() {
         </span>
       </nav>
       {showMap && <SchoolMap onClose={() => setShowMap(false)} />}
+      <LoginDialog
+        open={showLogin}
+        onClose={() => setShowLogin(false)}
+        onDone={(a) => setAccount(a)}
+      />
     </header>
   );
 }

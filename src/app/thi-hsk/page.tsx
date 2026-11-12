@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { allVocab, lessons, shuffle, type Vocab } from "@/data/lessons";
+import { allSentences, allVocab, lessons, shuffle, type Vocab } from "@/data/lessons";
 import { speakZh } from "@/lib/speak";
+import { recordDay, recordExam } from "@/lib/progress";
+import {
+  isSpeechRecognitionSupported,
+  recognizeOnce,
+  scorePronunciation,
+  type PronunciationResult,
+} from "@/lib/recognize";
 
 interface Question {
-  kind: "zh-to-vi" | "vi-to-zh" | "listen";
+  kind: "zh-to-vi" | "vi-to-zh" | "listen" | "speak";
   prompt: string;
   promptSub?: string;
   audio?: string;
@@ -78,11 +85,21 @@ function buildMock(level: HskLevel): { questions: Question[]; timeLimitSec: numb
   return { questions: [...listenQs, ...readQs], timeLimitSec: 20 * 60 };
 }
 
-/** Đề kiểm tra 10 câu ngẫu nhiên. */
+/** Đề kiểm tra 10 câu: 8 câu trắc nghiệm + 2 câu đọc to chấm phát âm. */
 function buildCheck(): { questions: Question[]; timeLimitSec: number } {
-  const picked = shuffle(allVocab).slice(0, 10);
+  const picked = shuffle(allVocab).slice(0, 8);
+  const mcqs = picked.map((v, i) => (i % 2 === 0 ? zhToVi(v, allVocab) : viToZh(v, allVocab)));
+  const speakQs: Question[] = shuffle(allSentences)
+    .slice(0, 2)
+    .map((s) => ({
+      kind: "speak",
+      prompt: s.zh,
+      promptSub: s.py,
+      options: [],
+      answer: s.zh,
+    }));
   return {
-    questions: picked.map((v, i) => (i % 2 === 0 ? zhToVi(v, allVocab) : viToZh(v, allVocab))),
+    questions: shuffle([...mcqs, ...speakQs]),
     timeLimitSec: 0,
   };
 }
@@ -104,7 +121,7 @@ const MODES: { id: Mode; icon: string; title: string; desc: string }[] = [
     id: "check",
     icon: "📝",
     title: "Đề kiểm tra 10 câu",
-    desc: "10 câu ngẫu nhiên từ 200 từ vựng — kiểm tra nhanh trình độ của bạn.",
+    desc: "10 câu ngẫu nhiên từ 200 từ vựng — 8 câu trắc nghiệm và 2 câu đọc to chấm phát âm bằng mic.",
   },
 ];
 
@@ -123,12 +140,38 @@ export default function ThiHskPage() {
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [score, setScore] = useState(0);
-  const [answers, setAnswers] = useState<{ q: Question; chosen: string }[]>([]);
+  const [answers, setAnswers] = useState<
+    { q: Question; chosen: string; speakScore?: number; skipped?: boolean }[]
+  >([]);
   const [heard, setHeard] = useState(false);
+  // --- Câu đọc to (chỉ có ở Đề kiểm tra) ---
+  const [speakListening, setSpeakListening] = useState(false);
+  const [speakHeard, setSpeakHeard] = useState("");
+  const [speakResult, setSpeakResult] = useState<PronunciationResult | null>(null);
+  const [speakError, setSpeakError] = useState("");
+  const [speakSkipped, setSpeakSkipped] = useState(false);
+  const stopSpeakRef = useRef<(() => void) | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const done = questions !== null && idx >= questions.length;
   const q = questions?.[idx];
+  const recordedRef = useRef(false);
+
+  // Nộp bài xong thì ghi điểm vào Sổ học trò (mỗi lần nộp ghi 1 lần).
+  useEffect(() => {
+    if (!done || !questions || !mode) {
+      recordedRef.current = false;
+      return;
+    }
+    if (recordedRef.current) return;
+    recordedRef.current = true;
+    const skipped = answers.filter((a) => a.skipped).length;
+    const total = questions.length - skipped;
+    const modeId = mode === "mock" ? `mock-${level}` : mode;
+    recordExam(modeId, score, total);
+    recordDay();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [done]);
 
   const progress = useMemo(
     () =>
@@ -159,6 +202,15 @@ export default function ThiHskPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questions, done]);
 
+  function resetSpeakState() {
+    setSpeakListening(false);
+    setSpeakHeard("");
+    setSpeakResult(null);
+    setSpeakError("");
+    setSpeakSkipped(false);
+    stopSpeakRef.current = null;
+  }
+
   function start(m: Mode, lv: HskLevel = level) {
     const built = m === "short" ? buildShort() : m === "mock" ? buildMock(lv) : buildCheck();
     setMode(m);
@@ -170,6 +222,7 @@ export default function ThiHskPage() {
     setScore(0);
     setAnswers([]);
     setHeard(false);
+    resetSpeakState();
   }
 
   function choose(opt: string) {
@@ -183,6 +236,7 @@ export default function ThiHskPage() {
   function next() {
     setPicked(null);
     setHeard(false);
+    resetSpeakState();
     setIdx((i) => i + 1);
   }
 
@@ -193,6 +247,44 @@ export default function ThiHskPage() {
     setPicked(null);
     setScore(0);
     setAnswers([]);
+    resetSpeakState();
+  }
+
+  /** Câu đọc to: nghe mic, chấm bằng scorePronunciation, ≥70% tính là đúng. */
+  function startSpeak() {
+    if (!q || q.kind !== "speak" || picked !== null) return;
+    if (!isSpeechRecognitionSupported()) {
+      setSpeakError(
+        "Trình duyệt này không hỗ trợ nhận dạng giọng nói — hãy dùng Chrome hoặc Edge, hoặc bấm “Bỏ qua” bên dưới."
+      );
+      return;
+    }
+    setSpeakError("");
+    setSpeakHeard("");
+    setSpeakResult(null);
+    setSpeakListening(true);
+    stopSpeakRef.current = recognizeOnce(
+      "zh-CN",
+      (t) => {
+        const r = scorePronunciation(q.answer, t);
+        setSpeakHeard(t);
+        setSpeakResult(r);
+        const correct = r.score >= 70;
+        setPicked(t);
+        if (correct) setScore((s) => s + 1);
+        setAnswers((a) => [...a, { q, chosen: t, speakScore: r.score }]);
+      },
+      (msg) => setSpeakError(msg),
+      () => setSpeakListening(false)
+    );
+  }
+
+  /** Bỏ qua câu đọc to khi trình duyệt không hỗ trợ mic — không tính điểm. */
+  function skipSpeak() {
+    if (!q || q.kind !== "speak" || picked !== null) return;
+    setSpeakSkipped(true);
+    setPicked("⏭️ Đã bỏ qua");
+    setAnswers((a) => [...a, { q, chosen: "⏭️ Đã bỏ qua", skipped: true }]);
   }
 
   // ---------- Màn chọn chế độ ----------
@@ -246,15 +338,24 @@ export default function ThiHskPage() {
 
   // ---------- Màn kết quả ----------
   if (questions !== null && done) {
-    const pct = Math.round((score / questions.length) * 100);
+    const skippedCount = answers.filter((a) => a.skipped).length;
+    // Câu đọc to bị bỏ qua (trình duyệt không hỗ trợ mic) thì không tính điểm.
+    const totalCounted = questions.length - skippedCount;
+    const pct = totalCounted > 0 ? Math.round((score / totalCounted) * 100) : 0;
     const modeTitle = MODES.find((m) => m.id === mode)?.title ?? "Bài thi";
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">
         <div className="rounded-2xl border-2 border-gold/40 bg-cream p-8 text-center shadow">
           <p className="text-5xl">{pct >= 80 ? "🏆" : pct >= 50 ? "👍" : "💪"}</p>
           <h1 className="mt-3 text-3xl font-black text-vermilion">
-            {score}/{questions.length} câu đúng ({pct}%)
+            {score}/{totalCounted} câu đúng ({pct}%)
           </h1>
+          {skippedCount > 0 && (
+            <p className="mt-2 text-sm font-semibold text-ink-soft">
+              Đã bỏ qua {skippedCount} câu đọc to (trình duyệt không hỗ trợ
+              mic) — không tính vào điểm.
+            </p>
+          )}
           <p className="mt-2 text-ink-soft">
             {modeTitle} —{" "}
             {pct >= 80
@@ -282,12 +383,20 @@ export default function ThiHskPage() {
         <h2 className="mt-8 text-xl font-black text-ink">Xem lại các câu</h2>
         <div className="mt-3 space-y-3">
           {answers.map((a, i) => {
-            const correct = a.chosen === a.q.answer;
+            const correct = a.skipped
+              ? false
+              : a.q.kind === "speak"
+                ? (a.speakScore ?? 0) >= 70
+                : a.chosen === a.q.answer;
             return (
               <div
                 key={i}
                 className={`rounded-2xl border-2 p-4 ${
-                  correct ? "border-leaf/50 bg-leaf-soft/20" : "border-red-300 bg-red-50"
+                  a.skipped
+                    ? "border-gold/40 bg-cream"
+                    : correct
+                      ? "border-leaf/50 bg-leaf-soft/20"
+                      : "border-red-300 bg-red-50"
                 }`}
               >
                 <p className="text-sm font-bold text-ink-soft">
@@ -296,11 +405,33 @@ export default function ThiHskPage() {
                     ? `“${a.q.prompt}” nghĩa là gì?`
                     : a.q.kind === "vi-to-zh"
                       ? `“${a.q.prompt}” viết bằng chữ Hán nào?`
-                      : `Nghe “${a.q.audio}” rồi chọn nghĩa đúng.`}
+                      : a.q.kind === "listen"
+                        ? `Nghe “${a.q.audio}” rồi chọn nghĩa đúng.`
+                        : `Đọc to câu: “${a.q.prompt}”.`}
                 </p>
-                <p className="mt-1 text-lg font-black text-ink">Đáp án đúng: {a.q.answer}</p>
-                {!correct && (
-                  <p className="text-sm font-semibold text-red-600">Bạn chọn: {a.chosen}</p>
+                {a.q.kind === "speak" ? (
+                  a.skipped ? (
+                    <p className="mt-1 text-sm font-semibold text-ink-soft">
+                      Đã bỏ qua — trình duyệt không hỗ trợ mic, không tính điểm.
+                    </p>
+                  ) : (
+                    <>
+                      <p className="mt-1 text-lg font-black text-ink">
+                        Bạn đọc: “{a.chosen}” — {a.speakScore}%{" "}
+                        {(a.speakScore ?? 0) >= 70 ? "✅ Đạt" : "❌ Chưa đạt (cần ≥70%)"}
+                      </p>
+                      <p className="text-sm font-semibold text-ink-soft">
+                        Câu mẫu: {a.q.answer}
+                      </p>
+                    </>
+                  )
+                ) : (
+                  <>
+                    <p className="mt-1 text-lg font-black text-ink">Đáp án đúng: {a.q.answer}</p>
+                    {!correct && (
+                      <p className="text-sm font-semibold text-red-600">Bạn chọn: {a.chosen}</p>
+                    )}
+                  </>
                 )}
               </div>
             );
@@ -331,7 +462,11 @@ export default function ThiHskPage() {
         <div className="flex justify-between text-sm font-bold">
           <span>
             Câu {idx + 1}/{questions.length}
-            {q.kind === "listen" ? " · 🔊 Phần Nghe" : " · 📖 Phần Đọc"}
+            {q.kind === "listen"
+              ? " · 🔊 Phần Nghe"
+              : q.kind === "speak"
+                ? " · 🎤 Phần Nói"
+                : " · 📖 Phần Đọc"}
           </span>
           <span>
             Đúng: {score}
@@ -348,7 +483,84 @@ export default function ThiHskPage() {
 
       {/* Câu hỏi */}
       <div className="mt-6 rounded-2xl border-2 border-gold/40 bg-cream p-6 shadow">
-        {q.kind === "listen" ? (
+        {q.kind === "speak" ? (
+          <>
+            <p className="text-sm font-bold text-ink-soft">
+              Đọc to câu dưới đây cho thầy nghe. Nghe mẫu trước rồi đọc theo
+              nhé — đọc đúng từ 70% trở lên là được điểm.
+            </p>
+            <p className="mt-2 text-center text-4xl font-black leading-relaxed text-ink">
+              {q.prompt}
+            </p>
+            {q.promptSub && (
+              <p className="mt-1 text-center text-base font-semibold text-leaf">{q.promptSub}</p>
+            )}
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <button
+                onClick={() => speakZh(q.prompt)}
+                className="rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm font-bold text-vermilion hover:bg-gold-soft/40"
+              >
+                🔊 Nghe mẫu
+              </button>
+              {speakListening ? (
+                <button
+                  onClick={() => stopSpeakRef.current?.()}
+                  className="rounded-full bg-red-500 px-4 py-2 text-sm font-bold text-cream shadow hover:bg-red-600"
+                >
+                  ⏹️ Dừng nghe
+                </button>
+              ) : (
+                <button
+                  onClick={startSpeak}
+                  disabled={picked !== null}
+                  className="rounded-full bg-vermilion px-4 py-2 text-sm font-bold text-cream shadow hover:bg-vermilion-dark disabled:opacity-50"
+                >
+                  🎤 Đọc to
+                </button>
+              )}
+              {picked === null && (
+                <button
+                  onClick={skipSpeak}
+                  className="rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm font-bold text-ink-soft hover:bg-gold-soft/40"
+                >
+                  Bỏ qua (trình duyệt không hỗ trợ mic)
+                </button>
+              )}
+            </div>
+            {speakListening && (
+              <p className="mt-3 text-center text-sm font-bold text-vermilion">
+                🎤 Đang nghe… đọc to câu trên đi.
+              </p>
+            )}
+            {speakError && (
+              <p className="mt-3 rounded-xl bg-red-50 p-3 text-center text-sm font-semibold text-red-600">
+                {speakError}
+              </p>
+            )}
+            {speakHeard && speakResult && (
+              <div className="mt-4 rounded-xl bg-gold-soft/30 p-4 text-center">
+                <p className="text-sm text-ink-soft">
+                  Thầy nghe được: <span className="font-bold text-ink">“{speakHeard}”</span>
+                </p>
+                <p className="mt-1 text-3xl font-black text-vermilion">{speakResult.score}%</p>
+                <p className="mt-1 text-2xl font-black leading-relaxed">
+                  {speakResult.perChar.map((p, i) => (
+                    <span
+                      key={i}
+                      className={p.ok ? "text-leaf" : "text-red-600 underline"}
+                    >
+                      {p.ch}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            )}
+            <p className="mt-4 text-center text-xs text-ink-soft">
+              Chấm bằng nhận dạng giọng nói của trình duyệt, không phải AI chuyên
+              nghiệp — chỉ để tham khảo.
+            </p>
+          </>
+        ) : q.kind === "listen" ? (
           <>
             <p className="text-sm font-bold text-ink-soft">
               Nghe rồi chọn nghĩa đúng. Bấm loa để nghe lại.
@@ -380,8 +592,9 @@ export default function ThiHskPage() {
           </>
         )}
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          {q.options.map((opt) => {
+        {q.kind !== "speak" && (
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {q.options.map((opt) => {
             const isAnswer = opt === q.answer;
             const isPicked = opt === picked;
             let cls = "border-gold/50 bg-white hover:border-vermilion hover:bg-gold-soft/30";
@@ -400,16 +613,35 @@ export default function ThiHskPage() {
                 {opt}
               </button>
             );
-          })}
-        </div>
+            })}
+          </div>
+        )}
 
         {picked !== null && (
           <div className="mt-5 flex items-center justify-between gap-3">
-            <p className={`text-sm font-bold ${picked === q.answer ? "text-leaf" : "text-red-600"}`}>
-              {picked === q.answer
-                ? "✅ Đúng rồi!"
-                : `❌ Sai rồi — đáp án đúng là “${q.answer}”.`}
-            </p>
+            {q.kind === "speak" ? (
+              <p
+                className={`text-sm font-bold ${
+                  speakSkipped
+                    ? "text-ink-soft"
+                    : (speakResult?.score ?? 0) >= 70
+                      ? "text-leaf"
+                      : "text-red-600"
+                }`}
+              >
+                {speakSkipped
+                  ? "⏭️ Đã bỏ qua câu này — không tính điểm."
+                  : (speakResult?.score ?? 0) >= 70
+                    ? `✅ Đọc chuẩn ${speakResult?.score}% — được điểm!`
+                    : `❌ Mới được ${speakResult?.score ?? 0}% — cần từ 70% mới được điểm.`}
+              </p>
+            ) : (
+              <p className={`text-sm font-bold ${picked === q.answer ? "text-leaf" : "text-red-600"}`}>
+                {picked === q.answer
+                  ? "✅ Đúng rồi!"
+                  : `❌ Sai rồi — đáp án đúng là “${q.answer}”.`}
+              </p>
+            )}
             <button
               onClick={next}
               className="rounded-full bg-vermilion px-5 py-2 text-sm font-bold text-cream shadow hover:bg-vermilion-dark"

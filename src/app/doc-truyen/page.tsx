@@ -6,6 +6,7 @@ import { stories, getStory, STORY_LEVELS, type Story, type StoryLevel } from "@/
 import { PATTERN_TOPICS } from "@/data/patterns";
 import { allVocab, allSentences, shuffle, type Vocab } from "@/data/lessons";
 import { speakZh } from "@/lib/speak";
+import { recordDay, recordStory } from "@/lib/progress";
 
 /** Tách câu thành các từ theo từ điển từ vựng (khớp dài nhất). */
 function segment(zh: string, dict: Vocab[]): { text: string; vocab?: Vocab }[] {
@@ -110,6 +111,14 @@ export default function DocTruyenPage() {
     setHeard(false);
   }
 
+  /** Mở đọc 1 truyện — ghi vào Sổ học trò. */
+  function openStory(id: string) {
+    setOpenId(id);
+    setWord(null);
+    recordStory(id);
+    recordDay();
+  }
+
   const lqDone = listenQs !== null && lqIdx >= listenQs.length;
   const lq = listenQs?.[lqIdx];
 
@@ -169,7 +178,7 @@ export default function DocTruyenPage() {
               {list.map((s) => (
                 <button
                   key={s.id}
-                  onClick={() => { setOpenId(s.id); setWord(null); }}
+                  onClick={() => openStory(s.id)}
                   className="rounded-2xl border-2 border-gold/40 bg-cream p-5 text-left shadow transition hover:-translate-y-1 hover:border-vermilion"
                 >
                   <span className="rounded-full bg-leaf px-2 py-0.5 text-xs font-bold text-cream">{s.level}</span>
@@ -258,14 +267,14 @@ export default function DocTruyenPage() {
 
                 <div className="mt-6 flex justify-between gap-3">
                   <button
-                    onClick={() => { const p = stories[idx - 1]; if (p) { setOpenId(p.id); setWord(null); window.scrollTo({ top: 0 }); } }}
+                    onClick={() => { const p = stories[idx - 1]; if (p) { openStory(p.id); window.scrollTo({ top: 0 }); } }}
                     disabled={idx <= 0}
                     className="rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm font-bold text-vermilion disabled:opacity-40"
                   >
                     ← Truyện trước
                   </button>
                   <button
-                    onClick={() => { const n = stories[idx + 1]; if (n) { setOpenId(n.id); setWord(null); window.scrollTo({ top: 0 }); } }}
+                    onClick={() => { const n = stories[idx + 1]; if (n) { openStory(n.id); window.scrollTo({ top: 0 }); } }}
                     disabled={idx < 0 || idx >= stories.length - 1}
                     className="rounded-full bg-vermilion px-4 py-2 text-sm font-bold text-cream disabled:opacity-40"
                   >

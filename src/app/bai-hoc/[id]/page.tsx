@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLesson, lessons } from "@/data/lessons";
 import SpeakButton from "@/components/SpeakButton";
+import RecordLesson from "@/components/RecordLesson";
 
 export function generateStaticParams() {
   return lessons.map((l) => ({ id: String(l.id) }));
@@ -25,6 +26,7 @@ export default async function LessonDetail({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
+      <RecordLesson id={lesson.id} />
       <Link href="/bai-hoc" className="text-sm font-bold text-leaf hover:underline">
         ← Tất cả bài học
       </Link>

@@ -2,7 +2,7 @@
 
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Billboard, Float, OrbitControls, useGLTF } from "@react-three/drei";
+import { Billboard, Environment, Float, Lightformer, OrbitControls, Sparkles, useGLTF } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useRouter } from "next/navigation";
 import * as THREE from "three";
@@ -23,6 +23,13 @@ import {
   type Lesson,
   type Sentence,
 } from "@/data/lessons";
+import {
+  BASE_ROBE_BY_MODEL,
+  OUTFITS,
+  getOutfit,
+  loadOutfits,
+  saveOutfits,
+} from "@/data/outfits";
 import { speakQueue, type SpeakHandle, type SpeakItem } from "@/lib/speak";
 
 /* ------------------------------------------------------------------ */
@@ -142,23 +149,97 @@ function GLBModel({
   );
 }
 
-/** Clone 1 nhân vật trong characters.glb theo tên node (Student_M1.../Teacher). */
-function useCharacterModel(id: string) {
+/** Các mảnh của model học sinh (tên mesh sau tiền tố "<model>_", bỏ hậu tố
+    .001/.002 do Blender tự đánh số khi trùng tên): khớp đầu, khớp tay. */
+const HEAD_PARTS = new Set([
+  "head", "eye", "pupil", "brow", "nose", "mouth", "mouth_l", "mouth_r",
+  "khan", "khan_top", "khan_knot",
+  "hair", "bun", "bow_L", "bow_R", "braid",
+  "braid_knot0", "braid_knot1", "braid_knot2", "braid_bow",
+  "hair_lock_L", "hair_lock_R", "flower", "petal",
+]);
+const ARM_R_PARTS = new Set([
+  "arm_R", "hand_R", "book", "book_pages", "fan", "fan_handle",
+  "staff", "staff_top",
+]);
+const ARM_L_PARTS = new Set(["arm_L", "hand_L"]);
+/** Mảnh áo dài (đổi màu robe) / mảnh mũ-khăn + đai lưng (đổi màu hat). */
+const ROBE_PARTS = new Set([
+  "skirt", "panel_f", "panel_b", "torso", "collar", "arm_L", "arm_R",
+]);
+const HAT_PARTS = new Set([
+  "khan", "khan_top", "khan_knot",
+  "bow_L", "bow_R", "braid_bow", "flower", "petal", "belt",
+]);
+
+/**
+ * Clone 1 nhân vật trong characters.glb theo tên node (Student_M1.../Student_F3)
+ * rồi ghép các mảnh thành khớp quay như TeacherFigure: khớp cổ (đầu + khăn/tóc
+ * + mặt), khớp vai phải/trái (tay + sách/quạt cầm tay). Nhờ đó học sinh mới
+ * gật đầu, giơ tay làm cử chỉ được — model .glb gốc là 1 khối cứng.
+ */
+function useStudentRig(id: string) {
   const { nodes } = useGLTF(MODEL_URLS.characters);
   return useMemo(() => {
     const n = (nodes as Record<string, THREE.Object3D>)[id];
     if (!n) return null;
-    const c = n.clone();
-    c.traverse((o) => {
+    const model = n.clone();
+    model.traverse((o) => {
       const m = o as THREE.Mesh;
       if (m.isMesh) {
         m.castShadow = true;
         m.receiveShadow = true;
       }
     });
-    return c;
+    // Lấy danh sách con trực tiếp TRƯỚC khi gắn khớp (gắn khớp đổi parent).
+    const children = [...model.children];
+    const partOf = (o: THREE.Object3D) =>
+      o.name.replace(`${id}_`, "").replace(/\.\d+$/, "");
+    const pivot = (x: number, y: number, z: number) => {
+      const p = new THREE.Group();
+      p.position.set(x, y, z);
+      model.add(p);
+      return p;
+    };
+    // Khớp cổ (đầu + khăn/tóc + mặt gật cùng nhau), khớp vai phải/trái.
+    const head = pivot(0, 1.45, 0);
+    const armR = pivot(0.35, 1.35, 0);
+    const armL = pivot(-0.35, 1.35, 0);
+    for (const o of children) {
+      const part = partOf(o);
+      let p: THREE.Group | null = null;
+      if (HEAD_PARTS.has(part)) p = head;
+      else if (ARM_R_PARTS.has(part)) p = armR;
+      else if (ARM_L_PARTS.has(part)) p = armL;
+      if (!p) continue;
+      o.position.sub(p.position);
+      p.add(o);
+    }
+    return { model, rig: { head, armR, armL } };
   }, [nodes, id]);
 }
+
+/** Tỉ lệ màu cần nhân vào material có texture đã bake màu gốc:
+    texture = nền vải (xám gần trắng) × màu gốc, nên material.color =
+    màu mới / màu gốc sẽ cho đúng màu mới mà vẫn giữ vân vải. Chia đều
+    cho kênh lớn nhất nếu tỉ lệ vượt 1 để giữ đúng sắc (chỉ tối đi chút). */
+function tintRatio(targetHex: string, baseHex: string): THREE.Color {
+  const t = new THREE.Color(targetHex);
+  const b = new THREE.Color(baseHex);
+  const r = new THREE.Color(
+    t.r / Math.max(b.r, 0.05),
+    t.g / Math.max(b.g, 0.05),
+    t.b / Math.max(b.b, 0.05)
+  );
+  const m = Math.max(r.r, r.g, r.b);
+  if (m > 1) r.multiplyScalar(1 / m);
+  return r;
+}
+
+const sstep = (a: number, b: number, x: number) => {
+  const u = THREE.MathUtils.clamp((x - a) / (b - a), 0, 1);
+  return u * u * (3 - 2 * u);
+};
 
 /* ------------------------------------------------------------------ */
 /* Cây xanh / cây hoa                                                  */
@@ -326,6 +407,16 @@ function TeacherFigure({
       "Teacher_mustache",
       "Teacher_eye",
       "Teacher_eye.001",
+      // Mặt mới (build_characters): con ngươi, lông mày, mũi, miệng
+      // cũng phải gắn vào khớp cổ thì đầu gật mới mang theo cả mặt.
+      "Teacher_pupil",
+      "Teacher_pupil.001",
+      "Teacher_brow",
+      "Teacher_brow.001",
+      "Teacher_nose",
+      "Teacher_mouth",
+      "Teacher_mouth_l",
+      "Teacher_mouth_r",
     ]);
     const armR = pivot(0.35, 1.35, 0);
     attach(armR, ["Teacher_arm_R", "Teacher_hand_R"]);
@@ -468,6 +559,16 @@ function LectureBoard({ lecture }: { lecture: LectureState | null }) {
 
 export type StudentStatus = "idle" | "walking" | "sitting" | "returning";
 
+/** Cử chỉ học sinh làm trong vài giây rồi về tư thế bình thường. */
+export type GestureKind = "bow" | "read" | "grind" | "write";
+
+export const GESTURE_LABELS: Record<GestureKind, string> = {
+  bow: "Cúi chào",
+  read: "Đọc sách",
+  grind: "Mài mực",
+  write: "Viết chữ",
+};
+
 export interface StudentInfo {
   id: string;
   name: string;
@@ -567,15 +668,30 @@ function NameTag({
   );
 }
 
-/** Một học sinh: bấm vào để đặt tên rồi đi bộ vào lớp ngồi học. */
+/** Một học sinh: bấm vào để đặt tên rồi đi bộ vào lớp ngồi học.
+    Khi tủ áo đang mở thì bấm vào là mặc bộ đã chọn thay vì đặt tên. */
 function Student({
   info,
+  outfitId,
+  gesture,
+  selected,
+  wardrobeActive,
+  onApplyOutfit,
   onRequestGo,
   onRequestBack,
   onArrive,
   posOut,
 }: {
   info: StudentInfo;
+  /** Bộ trang phục đang mặc (id trong OUTFITS); không có = màu gốc của model. */
+  outfitId?: string;
+  /** Cử chỉ cần làm (cha chỉ đưa cho đúng 1 học sinh); nonce mới = làm lại. */
+  gesture: { kind: GestureKind; nonce: number } | null;
+  /** Học sinh đang được chọn (để làm cử chỉ / mặc đồ). */
+  selected: boolean;
+  /** Tủ áo đang mở: bấm vào học sinh là mặc bộ đã chọn. */
+  wardrobeActive: boolean;
+  onApplyOutfit: (id: string) => void;
   onRequestGo: (id: string) => void;
   onRequestBack: (id: string) => void;
   onArrive: (id: string, where: "seat" | "yard") => void;
@@ -585,8 +701,72 @@ function Student({
   const group = useRef<THREE.Group>(null);
   const body = useRef<THREE.Group>(null);
   const [hover, setHover] = useState(false);
-  // Model Blender của học sinh này (nam/nữ khác nhau, không trùng lặp).
-  const model = useCharacterModel(info.model);
+  // Model Blender của học sinh này (nam/nữ khác nhau, không trùng lặp),
+  // đã ghép khớp cổ/vai để gật đầu và giơ tay làm cử chỉ.
+  const rigged = useStudentRig(info.model);
+  const rigRef = useRef<{
+    head: THREE.Group;
+    armR: THREE.Group;
+    armL: THREE.Group;
+  } | null>(null);
+  useEffect(() => {
+    rigRef.current = rigged?.rig ?? null;
+  }, [rigged]);
+
+  // --- Tủ áo: đổi màu áo/mũ bằng cách nhân material.color ---
+  // Áo dài dùng material vải có texture đã bake màu gốc (xem data/outfits.ts)
+  // nên nhân với tỉ lệ (màu mới / màu gốc); mũ/khăn/đai lưng là material màu
+  // phẳng nên đặt thẳng màu mới. Material được clone 1 lần cho riêng mesh này
+  // (material gốc dùng chung cho nhân vật khác, vd. màu đen của tóc/mắt),
+  // màu gốc lưu lại để trả về khi bỏ bộ trang phục. Tóc đen giữ nguyên
+  // (không nhuộm) — chỉ đổi khăn đóng/nơ/hoa cài tóc và đai lưng.
+  const outfit = getOutfit(outfitId);
+  useEffect(() => {
+    if (!rigged) return;
+    const baseRobe = BASE_ROBE_BY_MODEL[info.model] ?? info.robe;
+    rigged.model.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (!m.isMesh || Array.isArray(m.material)) return;
+      const mat = m.material as THREE.MeshStandardMaterial;
+      if (!mat || !mat.color) return;
+      const part = o.name.replace(`${info.model}_`, "").replace(/\.\d+$/, "");
+      const isRobe = ROBE_PARTS.has(part);
+      const isHat = HAT_PARTS.has(part);
+      if (!isRobe && !isHat) return;
+      if (!m.userData.__outfitCloned) {
+        m.material = mat.clone();
+        m.userData.__outfitCloned = true;
+        m.userData.__origColor = mat.color.clone();
+      }
+      const mine = m.material as THREE.MeshStandardMaterial;
+      if (!outfit) {
+        mine.color.copy(m.userData.__origColor as THREE.Color);
+        return;
+      }
+      if (isRobe) {
+        // Có texture vải đã bake màu gốc → nhân tỉ lệ; không thì đặt thẳng.
+        mine.color.copy(
+          mine.map
+            ? tintRatio(outfit.robe, baseRobe)
+            : new THREE.Color(outfit.robe)
+        );
+      } else {
+        mine.color.set(outfit.hat);
+      }
+    });
+  }, [rigged, outfit, info.model, info.robe]);
+
+  // --- Cử chỉ: cha đổi nonce thì bắt đầu làm trong ~3,4 giây ---
+  const gestureRef = useRef<{ kind: GestureKind; t0: number | null } | null>(
+    null
+  );
+  const gestureNonceRef = useRef(0);
+  useEffect(() => {
+    if (gesture && gesture.nonce !== gestureNonceRef.current) {
+      gestureNonceRef.current = gesture.nonce;
+      gestureRef.current = { kind: gesture.kind, t0: null };
+    }
+  }, [gesture]);
 
   const path = useMemo(() => buildPath(info.start, info.seat), [info.start, info.seat]);
   const statusRef = useRef(info.status);
@@ -619,6 +799,50 @@ function Student({
     const st = statusRef.current;
     const moving = st === "walking" || st === "returning";
 
+    // Cử chỉ chỉ làm khi đang đứng ở sân hoặc đang ngồi; đang đi thì hủy.
+    // Bao ngoài (envelope) lên dần 0→0,25, giữ, xuống dần 0,7→1 trong 3,4 giây.
+    const gs = gestureRef.current;
+    let bowLean = 0;
+    let headPitch = 0;
+    let armLx = 0;
+    let armRx = 0;
+    let armRz = 0;
+    let gesturing = false;
+    if (gs && !moving && (st === "idle" || st === "sitting")) {
+      if (gs.t0 === null) gs.t0 = t;
+      const p = (t - gs.t0) / 3.4;
+      if (p >= 1) {
+        gestureRef.current = null;
+      } else {
+        gesturing = true;
+        const amp = sstep(0, 0.25, p) * (1 - sstep(0.7, 1, p));
+        switch (gs.kind) {
+          case "bow": // cúi gập người về trước rồi đứng thẳng lại
+            bowLean = 0.5 * amp;
+            headPitch = 0.15 * amp;
+            break;
+          case "read": // hai tay đưa lên trước ngực như cầm sách, đầu cúi nhẹ
+            armLx = -0.95 * amp;
+            armRx = -0.95 * amp;
+            headPitch = 0.28 * amp;
+            break;
+          case "grind": // tay phải xoay tròn nhẹ như mài mực
+            armRx = -0.75 * amp + 0.1 * amp * Math.sin(t * 5);
+            armRz = 0.14 * amp * Math.cos(t * 5);
+            headPitch = 0.18 * amp;
+            break;
+          case "write": // tay phải đưa lên xuống nhịp nhàng như viết chữ
+            armRx = -0.9 * amp + 0.06 * amp * Math.sin(t * 7);
+            armRz = 0.1 * amp * Math.sin(t * 7);
+            headPitch = 0.22 * amp;
+            bowLean = 0.08 * amp;
+            break;
+        }
+      }
+    } else if (gs) {
+      gestureRef.current = null;
+    }
+
     // Ngồi xuống / đứng lên (nội suy)
     const sitGoal = st === "sitting" ? 1 : 0;
     sitT.current = THREE.MathUtils.clamp(
@@ -628,9 +852,9 @@ function Student({
     );
     if (body.current) {
       body.current.position.y = -0.42 * sitT.current + (moving ? Math.abs(Math.sin(t * 9)) * 0.05 : 0);
-      // Model GLB là 1 khối cứng nên không vung tay chân được — lắc nhẹ cả người khi đi.
+      // Lắc nhẹ cả người khi đi; cúi chào thì gập thêm cả thân trên.
       body.current.rotation.z = moving ? Math.sin(t * 9) * 0.05 : 0;
-      body.current.rotation.x = moving ? 0.05 : 0;
+      body.current.rotation.x = (moving ? 0.05 : 0) + bowLean;
     }
 
     if (moving) {
@@ -659,14 +883,23 @@ function Student({
         g.rotation.y += diff * Math.min(1, delta * 8);
       }
     } else {
-      // Đứng yên: người về vị trí nghỉ
-      if (body.current) {
-        body.current.rotation.z *= 0.8;
-        body.current.rotation.x *= 0.8;
-      }
+      // Đứng yên: người về vị trí nghỉ (góc thân đã gán tuyệt đối ở trên).
       if (st === "sitting") {
         g.rotation.y += (Math.PI - g.rotation.y) * Math.min(1, delta * 4);
       }
+    }
+
+    // Khớp cổ/vai: đang làm cử chỉ thì theo tư thế cử chỉ, xong thì thả
+    // dần về tư thế nghỉ (nội suy để không giật).
+    const rig = rigRef.current;
+    if (rig) {
+      const k = gesturing ? 1 : 1 - Math.exp(-8 * delta);
+      const ease = (cur: number, target: number) => cur + (target - cur) * k;
+      rig.head.rotation.x = ease(rig.head.rotation.x, headPitch);
+      rig.armL.rotation.x = ease(rig.armL.rotation.x, armLx);
+      rig.armL.rotation.z = ease(rig.armL.rotation.z, 0);
+      rig.armR.rotation.x = ease(rig.armR.rotation.x, armRx);
+      rig.armR.rotation.z = ease(rig.armR.rotation.z, armRz);
     }
 
     g.position.copy(posRef.current);
@@ -684,12 +917,21 @@ function Student({
       position={[info.start[0], 0, info.start[1]]}
       onClick={(e) => {
         e.stopPropagation();
+        if (wardrobeActive) {
+          // Tủ áo đang mở: bấm vào bạn nào thì mặc bộ đã chọn cho bạn đó.
+          onApplyOutfit(info.id);
+          return;
+        }
         if (info.status === "idle") onRequestGo(info.id);
         else if (info.status === "sitting") onRequestBack(info.id);
       }}
       onPointerOver={(e) => {
         e.stopPropagation();
-        if (info.status === "idle" || info.status === "sitting") {
+        if (
+          wardrobeActive ||
+          info.status === "idle" ||
+          info.status === "sitting"
+        ) {
           setHover(true);
           document.body.style.cursor = "pointer";
         }
@@ -701,8 +943,21 @@ function Student({
     >
       <group ref={body} scale={hover ? 1.06 : 1}>
         {/* Nhân vật vẽ bằng Blender (áo dài, khăn đóng/tóc, phụ kiện riêng) */}
-        {model ? <primitive object={model} /> : null}
+        {rigged ? <primitive object={rigged.model} /> : null}
       </group>
+
+      {/* Vòng vàng dưới chân học sinh đang được chọn (để làm cử chỉ / mặc đồ) */}
+      {selected && (
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, 0]}>
+          <ringGeometry args={[0.55, 0.72, 32]} />
+          <meshBasicMaterial
+            color="#d9a441"
+            transparent
+            opacity={0.9}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      )}
 
       {/* Bảng tên trên đầu (chỉ hiện khi đã đặt tên) */}
       <NameTag name={info.name} position={[0, tagY, 0]} />
@@ -1044,6 +1299,11 @@ function Scene({
   studentPos,
   lecturing,
   lecture,
+  outfitMap,
+  gesture,
+  selectedId,
+  wardrobeOpen,
+  onApplyOutfit,
   onRequestGo,
   onRequestBack,
   onArrive,
@@ -1053,6 +1313,13 @@ function Scene({
   studentPos: React.MutableRefObject<Record<string, THREE.Vector3>>;
   lecturing: boolean;
   lecture: LectureState | null;
+  /** Trang phục đã chọn của từng học sinh ({ [studentId]: outfitId }). */
+  outfitMap: Record<string, string>;
+  /** Cử chỉ đang làm (chỉ 1 học sinh). */
+  gesture: { studentId: string; kind: GestureKind; nonce: number } | null;
+  selectedId: string | null;
+  wardrobeOpen: boolean;
+  onApplyOutfit: (id: string) => void;
   onRequestGo: (id: string) => void;
   onRequestBack: (id: string) => void;
   onArrive: (id: string, where: "seat" | "yard") => void;
@@ -1065,14 +1332,43 @@ function Scene({
 
   return (
     <>
-      <color attach="background" args={["#bfe0ee"]} />
-      <fog attach="fog" args={["#d7ecf5", 36, 72]} />
+      <color attach="background" args={["#c3e2f0"]} />
+      <fog attach="fog" args={["#cfe6f2", 30, 66]} />
 
-      <ambientLight intensity={0.75} />
-      <hemisphereLight args={["#cfe8f5", "#8fbf6a", 0.55]} />
+      {/* Môi trường ánh sáng (IBL) dựng ngay trong máy bằng Lightformer —
+          KHÔNG tải file HDR từ mạng, không làm web chậm. Ánh sáng ấm từ
+          trên cao + ánh lạnh phản chiếu từ bầu trời, model có chiều sâu hơn
+          hẳn so với chỉ dùng ambient/directional. */}
+      <Environment resolution={256} frames={1}>
+        <color attach="background" args={["#bfe0ee"]} />
+        <Lightformer
+          intensity={2.2}
+          position={[0, 5, 0]}
+          rotation-x={Math.PI / 2}
+          scale={[10, 10, 1]}
+          color="#fff2d0"
+        />
+        <Lightformer
+          intensity={1.1}
+          position={[-5, 3, -1]}
+          rotation-y={Math.PI / 2}
+          scale={[6, 3, 1]}
+          color="#cfe8f5"
+        />
+        <Lightformer
+          intensity={0.9}
+          position={[5, 2, 2]}
+          rotation-y={-Math.PI / 2}
+          scale={[6, 2, 1]}
+          color="#ffd9a0"
+        />
+      </Environment>
+
+      <ambientLight intensity={0.45} />
+      <hemisphereLight args={["#cfe8f5", "#8fbf6a", 0.4]} />
       <directionalLight
         position={[12, 16, 8]}
-        intensity={2.4}
+        intensity={2.0}
         color="#fff1d6"
         castShadow
         shadow-mapSize-width={2048}
@@ -1083,6 +1379,18 @@ function Scene({
         shadow-camera-bottom={-20}
         shadow-camera-far={50}
         shadow-bias={-0.0004}
+        shadow-normalBias={0.02}
+        shadow-radius={6}
+      />
+      {/* Hạt sáng nhẹ bay trên sân (phấn hoa/đom đóm ban ngày) */}
+      <Sparkles
+        count={70}
+        scale={[26, 5, 22]}
+        position={[0, 2.5, 2]}
+        size={2.2}
+        speed={0.25}
+        opacity={0.5}
+        color="#ffe9a8"
       />
 
       {/* mặt đất */}
@@ -1150,6 +1458,11 @@ function Scene({
         <Student
           key={s.id}
           info={s}
+          outfitId={outfitMap[s.id]}
+          gesture={gesture?.studentId === s.id ? gesture : null}
+          selected={selectedId === s.id}
+          wardrobeActive={wardrobeOpen}
+          onApplyOutfit={onApplyOutfit}
           onRequestGo={onRequestGo}
           onRequestBack={onRequestBack}
           onArrive={onArrive}
@@ -1192,13 +1505,38 @@ function Scene({
 export default function SchoolScene() {
   const [students, setStudents] = useState<StudentInfo[]>(() => {
     const saved = loadStudentNames();
-    return INITIAL_STUDENTS.map((s) => ({
-      ...s,
-      name: saved[s.id] ?? "",
-      status: "idle" as StudentStatus,
-      target: "seat" as const,
-    }));
+    const outfits = loadOutfits();
+    return INITIAL_STUDENTS.map((s) => {
+      const outfit = getOutfit(outfits[s.id]);
+      return {
+        ...s,
+        // Mặc lại bộ đã lưu từ lần trước (chấm màu trong danh sách cũng đổi theo).
+        robe: outfit ? outfit.robe : s.robe,
+        name: saved[s.id] ?? "",
+        status: "idle" as StudentStatus,
+        target: "seat" as const,
+      };
+    });
   });
+  /** Trang phục đã chọn của từng học sinh, lưu localStorage (thaydo:outfits). */
+  const [outfitMap, setOutfitMap] = useState<Record<string, string>>(() =>
+    loadOutfits()
+  );
+  /** Học sinh đang được chọn: bấm vào trong sân/lớp hoặc bấm tên trong danh
+      sách lớp; cử chỉ và tủ áo mặc định áp cho bạn này. */
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  /** Cử chỉ đang làm (chỉ 1 học sinh, nonce mới = làm lại từ đầu). */
+  const [gesture, setGesture] = useState<{
+    studentId: string;
+    kind: GestureKind;
+    nonce: number;
+  } | null>(null);
+  const gestureNonce = useRef(0);
+  /** Tủ áo: panel mở không, đang mặc cho bạn nào, đang chọn bộ nào. */
+  const [wardrobeOpen, setWardrobeOpen] = useState(false);
+  const [wardrobeTargetId, setWardrobeTargetId] = useState<string | null>(null);
+  const [pickedOutfitId, setPickedOutfitId] = useState<string>(OUTFITS[0].id);
+  const [wardrobeNote, setWardrobeNote] = useState("");
   const [namingId, setNamingId] = useState<string | null>(null);
   const [nameInput, setNameInput] = useState("");
   const [suggestIdx, setSuggestIdx] = useState(0);
@@ -1340,6 +1678,8 @@ export default function SchoolScene() {
   function openNaming(id: string) {
     const st = students.find((s) => s.id === id);
     if (!st) return;
+    // Bấm vào bạn nào thì chọn bạn đó (để làm cử chỉ / mặc đồ sau này).
+    setSelectedId(id);
     // Học sinh chưa có tên thì gợi ý tên khách (tên của người vào trường) trước.
     const suggestion =
       st.name ||
@@ -1373,6 +1713,8 @@ export default function SchoolScene() {
   }
 
   function sendOut(id: string) {
+    // Bấm vào bạn nào thì chọn bạn đó (để làm cử chỉ / mặc đồ sau này).
+    setSelectedId(id);
     // Nếu đây là học sinh cuối cùng trong lớp và thầy đang giảng → dừng giảng.
     if (
       lecturing &&
@@ -1411,6 +1753,64 @@ export default function SchoolScene() {
     }
   }
 
+  /* --- Tủ áo đổi trang phục --- */
+  const selectedStudent = students.find((s) => s.id === selectedId) ?? null;
+  const wardrobeTarget =
+    students.find((s) => s.id === wardrobeTargetId) ??
+    selectedStudent ??
+    students[0] ??
+    null;
+
+  function applyOutfit(studentId: string, outfitId: string) {
+    const outfit = getOutfit(outfitId);
+    if (!outfit) return;
+    const next = { ...outfitMap, [studentId]: outfitId };
+    setOutfitMap(next);
+    saveOutfits(next);
+    setStudents((prev) =>
+      prev.map((s) => (s.id === studentId ? { ...s, robe: outfit.robe } : s))
+    );
+    const st = students.find((s) => s.id === studentId);
+    setWardrobeNote(`Đã mặc “${outfit.name}” cho ${st?.name || "học sinh"}!`);
+  }
+
+  function openWardrobeFor(id: string) {
+    setWardrobeTargetId(id);
+    setSelectedId(id);
+    setPickedOutfitId(outfitMap[id] ?? OUTFITS[0].id);
+    setWardrobeNote("");
+    setWardrobeOpen(true);
+  }
+
+  function toggleWardrobe() {
+    if (wardrobeOpen) {
+      setWardrobeOpen(false);
+      return;
+    }
+    openWardrobeFor(selectedId ?? students[0]?.id ?? "");
+  }
+
+  /* --- Cử chỉ cho học sinh --- */
+  function doGesture(kind: GestureKind) {
+    // Ưu tiên bạn đang được chọn; nếu bạn đó đang đi bộ thì lấy bạn đầu
+    // tiên đang đứng ở sân hoặc đang ngồi (cử chỉ không làm lúc đang đi).
+    const target =
+      students.find(
+        (s) =>
+          s.id === selectedId &&
+          (s.status === "idle" || s.status === "sitting")
+      ) ??
+      students.find((s) => s.status === "idle" || s.status === "sitting");
+    if (!target) return;
+    setSelectedId(target.id);
+    gestureNonce.current += 1;
+    setGesture({
+      studentId: target.id,
+      kind,
+      nonce: gestureNonce.current,
+    });
+  }
+
   return (
     <>
       <Canvas
@@ -1427,6 +1827,11 @@ export default function SchoolScene() {
             studentPos={studentPos}
             lecturing={lecturing}
             lecture={lecture}
+            outfitMap={outfitMap}
+            gesture={gesture}
+            selectedId={selectedId}
+            wardrobeOpen={wardrobeOpen}
+            onApplyOutfit={(id) => applyOutfit(id, pickedOutfitId)}
             onRequestGo={openNaming}
             onRequestBack={sendOut}
             onArrive={handleArrive}
@@ -1437,15 +1842,22 @@ export default function SchoolScene() {
       {/* Lớp phủ HTML trên cảnh 3D */}
       <div className="pointer-events-none absolute inset-0 z-10">
         {/* Danh sách lớp */}
-        <div className="absolute right-3 top-24 w-56 rounded-2xl border-2 border-[#c98a2e]/50 bg-[#fdf9ec]/95 p-3 shadow-lg">
+        <div className="pointer-events-auto absolute right-3 top-24 w-60 rounded-2xl border-2 border-[#c98a2e]/50 bg-[#fdf9ec]/95 p-3 shadow-lg">
           <p className="text-sm font-black text-[#b3372a]">
             🎒 Trong lớp ({sittingStudents.length}/{students.length})
           </p>
           <ul className="mt-2 space-y-1 text-xs font-bold text-[#2b2118]">
             {students.map((s) => (
-              <li key={s.id} className="flex items-center gap-1.5">
+              <li
+                key={s.id}
+                onClick={() => setSelectedId(s.id)}
+                title="Bấm để chọn bạn này (làm cử chỉ / mặc đồ)"
+                className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-1 py-0.5 ${
+                  selectedId === s.id ? "bg-[#e8c37a]/60" : ""
+                }`}
+              >
                 <span
-                  className="inline-block h-3 w-3 rounded-full border border-black/20"
+                  className="inline-block h-3 w-3 shrink-0 rounded-full border border-black/20"
                   style={{ backgroundColor: s.robe }}
                 />
                 <span className="flex-1 truncate">
@@ -1460,6 +1872,16 @@ export default function SchoolScene() {
                         ? "🏃 đang ra sân"
                         : "🌳 ở sân"}
                 </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openWardrobeFor(s.id);
+                  }}
+                  title={`Đổi trang phục cho ${s.name || "học sinh"}`}
+                  className="shrink-0 rounded-full px-1.5 py-0.5 text-sm leading-none hover:bg-[#e8c37a]/70"
+                >
+                  👘
+                </button>
               </li>
             ))}
           </ul>
@@ -1529,6 +1951,42 @@ export default function SchoolScene() {
               🌳 Ra sân
             </button>
           )}
+          {/* Nút tủ áo đổi trang phục */}
+          <button
+            onClick={toggleWardrobe}
+            className={`rounded-full px-4 py-2 text-sm font-extrabold shadow-lg transition ${
+              wardrobeOpen
+                ? "bg-[#8f2a20] text-[#fdf9ec]"
+                : "bg-[#fdf9ec] text-[#b3372a] hover:bg-white"
+            }`}
+          >
+            👘 Tủ áo{wardrobeOpen ? " ✕" : ""}
+          </button>
+          {/* Hàng nút cử chỉ cho học sinh đang được chọn */}
+          <div className="rounded-2xl bg-[#fdf9ec]/95 p-2 shadow-lg">
+            <p className="px-1 text-[11px] font-black text-[#b3372a]">
+              🎭 Cử chỉ —{" "}
+              {selectedStudent?.name || "bạn đầu tiên trong sân"}
+            </p>
+            <div className="mt-1.5 grid grid-cols-2 gap-1.5">
+              {(
+                [
+                  ["bow", "🙇 Cúi chào"],
+                  ["read", "📖 Đọc sách"],
+                  ["grind", "🖋️ Mài mực"],
+                  ["write", "✍️ Viết chữ"],
+                ] as [GestureKind, string][]
+              ).map(([kind, label]) => (
+                <button
+                  key={kind}
+                  onClick={() => doGesture(kind)}
+                  className="rounded-full border border-[#c98a2e]/60 bg-white px-2 py-1.5 text-xs font-extrabold text-[#2b2118] transition hover:bg-[#e8c37a]/40"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Panel bài giảng: từ đang giảng + tiến trình + nút dừng */}
@@ -1564,6 +2022,82 @@ export default function SchoolScene() {
             >
               ⏹ Dừng giảng
             </button>
+          </div>
+        )}
+
+        {/* Panel tủ áo đổi trang phục */}
+        {wardrobeOpen && wardrobeTarget && (
+          <div className="pointer-events-auto absolute left-3 top-24 w-72 rounded-2xl border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 p-4 shadow-xl">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-black text-[#b3372a]">
+                👘 Tủ áo — {wardrobeTarget.name || "học sinh"}
+              </p>
+              <button
+                onClick={() => setWardrobeOpen(false)}
+                aria-label="Đóng tủ áo"
+                className="rounded-full px-2 py-0.5 text-sm font-black text-[#6b5a44] hover:bg-[#e8c37a]/50"
+              >
+                ✕
+              </button>
+            </div>
+            <p className="mt-1 text-[11px] leading-snug text-[#6b5a44]">
+              Chọn 1 bộ rồi bấm “Mặc bộ này”, hoặc bấm thẳng vào 1 học sinh
+              trong sân/lớp để mặc cho bạn đó.
+            </p>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              {OUTFITS.map((o) => {
+                const active = pickedOutfitId === o.id;
+                const wearing = outfitMap[wardrobeTarget.id] === o.id;
+                return (
+                  <button
+                    key={o.id}
+                    onClick={() => {
+                      setPickedOutfitId(o.id);
+                      setWardrobeNote("");
+                    }}
+                    className={`flex items-center gap-2 rounded-xl border-2 px-2.5 py-2 text-left text-xs font-extrabold transition ${
+                      active
+                        ? "border-[#b3372a] bg-[#e8c37a]/40 text-[#2b2118]"
+                        : "border-[#c98a2e]/40 bg-white text-[#2b2118] hover:border-[#c98a2e]"
+                    }`}
+                  >
+                    <span className="flex shrink-0 -space-x-1.5">
+                      <span
+                        className="inline-block h-5 w-5 rounded-full border border-black/20"
+                        style={{ backgroundColor: o.robe }}
+                        title="Màu áo"
+                      />
+                      <span
+                        className="inline-block h-5 w-5 rounded-full border border-black/20"
+                        style={{ backgroundColor: o.hat }}
+                        title="Màu mũ/khăn"
+                      />
+                    </span>
+                    <span className="leading-tight">
+                      {o.name}
+                      {wearing && (
+                        <span className="block text-[10px] font-bold text-[#4d7c3a]">
+                          ✓ đang mặc
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            <button
+              onClick={() =>
+                applyOutfit(wardrobeTarget.id, pickedOutfitId)
+              }
+              className="mt-3 w-full rounded-full bg-[#b3372a] px-4 py-2.5 text-sm font-extrabold text-[#fdf9ec] shadow transition hover:bg-[#8f2a20]"
+            >
+              Mặc bộ này cho {wardrobeTarget.name || "học sinh"}
+            </button>
+            {wardrobeNote && (
+              <p className="mt-2 text-center text-xs font-bold text-[#4d7c3a]">
+                {wardrobeNote}
+              </p>
+            )}
           </div>
         )}
 

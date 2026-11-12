@@ -26,26 +26,33 @@ def canopy(cx, cy, cz, blobs, mat_leaf, mat_leaf2, scale=1.0):
 
 def build_green():
     clean()
-    trunk(0, 0, 1.8, 0.3, mat("trunk", "#7a5230", 0.9))
+    trunk(0, 0, 1.8, 0.3, mat("trunk", "#7a5230", 0.9, tex="wood"))
+    # Canh cay xoe ra do tan la
+    for bx, bz in ((0.5, 0.2), (-0.45, -0.25), (0.1, -0.5)):
+        cyl("branch", (bx * 0.5, 2.0, bz * 0.5), 0.07, 0.11, 1.1, mat("trunk", "#7a5232", 0.9, tex="wood"), vertices=8, rz=bx * 0.5, rx=bz * 0.4)
     blobs = [
         (0, 2.3, 0, 1.15), (0.7, 1.85, 0.3, 0.8), (-0.65, 1.9, -0.25, 0.85),
         (0.3, 2.8, -0.2, 0.75), (-0.4, 2.6, 0.35, 0.7), (0, 2.0, 0.7, 0.65),
-        (-0.2, 2.1, -0.7, 0.6),
+        (-0.2, 2.1, -0.7, 0.6), (0.95, 2.3, -0.4, 0.55), (-0.95, 2.4, 0.45, 0.6),
+        (0.15, 3.1, 0.25, 0.55), (-0.25, 1.7, 0.15, 0.55), (0.5, 2.5, 0.75, 0.5),
     ]
-    canopy(0, 0, 0, blobs, mat("leaf", "#5d9b4a", 0.8), mat("leaf2", "#7cb35a", 0.8))
+    canopy(0, 0, 0, blobs, mat("leaf", "#5d9b4a", 0.8, tex="leaf"), mat("leaf2", "#7cb35a", 0.8, tex="leaf"))
     print("tree_green poly:", poly_count())
     export_glb(os.path.join(OUTDIR, "tree_green.glb"))
 
 
 def build_phuong():
     clean()
-    trunk(0, 0, 2.0, 0.32, mat("trunk", "#7a5230", 0.9))
+    trunk(0, 0, 2.0, 0.32, mat("trunk", "#7a5230", 0.9, tex="wood"))
+    for bx, bz in ((0.55, 0.25), (-0.5, -0.3), (0.15, -0.55)):
+        cyl("branch", (bx * 0.5, 2.2, bz * 0.5), 0.07, 0.12, 1.2, mat("trunk", "#7a5232", 0.9, tex="wood"), vertices=8, rz=bx * 0.5, rx=bz * 0.4)
     blobs = [
         (0, 2.5, 0, 1.3), (0.9, 2.0, 0.4, 0.9), (-0.85, 2.1, -0.3, 0.95),
         (0.4, 3.0, -0.3, 0.85), (-0.5, 2.9, 0.4, 0.8), (0.2, 2.2, 0.9, 0.75),
         (-0.3, 2.3, -0.9, 0.7), (1.2, 2.5, -0.5, 0.65), (-1.2, 2.4, 0.5, 0.6),
+        (0.7, 3.3, 0.3, 0.6), (-0.8, 3.2, -0.2, 0.6), (1.45, 2.2, 0.3, 0.5), (-1.45, 2.1, -0.4, 0.5),
     ]
-    canopy(0, 0, 0, blobs, mat("leaf", "#4d7c3a", 0.8), mat("leaf2", "#5d9b4a", 0.8))
+    canopy(0, 0, 0, blobs, mat("leaf", "#4d7c3a", 0.8, tex="leaf"), mat("leaf2", "#5d9b4a", 0.8, tex="leaf"))
     # Chùm hoa phượng đỏ cam rải trên tán
     flower = mat("flower", "#e85d3d", 0.7)
     flower2 = mat("flower2", "#f0764a", 0.7)

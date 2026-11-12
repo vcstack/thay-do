@@ -3,6 +3,26 @@
 import { useRef, useState } from "react";
 import { SPEAK_SPOTS, type SpeakSpot } from "@/data/speaking";
 import { speakZh } from "@/lib/speak";
+import { isSpeechRecognitionSupported, recognizeOnce } from "@/lib/recognize";
+
+/** Trả lời theo từ khóa cho chế độ "Nói tự do" — không phải AI trò chuyện thật. */
+const FREE_REPLIES: { keys: string[]; zh: string; vi: string }[] = [
+  { keys: ["谢谢"], zh: "不客气！", vi: "Không có gì!" },
+  { keys: ["多少钱", "多少"], zh: "这个不贵。你想买什么？", vi: "Cái này không đắt. Bạn muốn mua gì?" },
+  { keys: ["茶"], zh: "这儿的茶很好喝，你想喝一杯吗？", vi: "Trà ở đây rất ngon, bạn muốn uống một ly không?" },
+  { keys: ["你好", "您好"], zh: "你好！很高兴见到你。你叫什么名字？", vi: "Xin chào! Rất vui được gặp bạn. Bạn tên là gì?" },
+  { keys: ["再见"], zh: "再见！欢迎下次再来。", vi: "Tạm biệt! Lần sau lại đến nhé." },
+  { keys: ["面", "吃饭", "饿"], zh: "你饿了吗？前面的面馆很好吃。", vi: "Bạn đói à? Quán mì phía trước rất ngon." },
+];
+
+const FREE_DEFAULT = {
+  zh: "你说得很好！再多说一句吧。",
+  vi: "Bạn nói rất tốt! Nói thêm một câu nữa nhé.",
+};
+
+function freeReplyFor(heard: string): { zh: string; vi: string } {
+  return FREE_REPLIES.find((r) => r.keys.some((k) => heard.includes(k))) ?? FREE_DEFAULT;
+}
 
 /** Phố Hoa — luyện nói theo kịch bản ở các điểm trong phố. */
 export default function PhoHoaPage() {
@@ -14,6 +34,15 @@ export default function PhoHoaPage() {
   const [recMsg, setRecMsg] = useState("");
   const [recording, setRecording] = useState(false);
   const recogRef = useRef<unknown>(null);
+  // --- Chế độ "Nói tự do" ---
+  const [freeMode, setFreeMode] = useState(false);
+  const [freeListening, setFreeListening] = useState(false);
+  const [freeHeard, setFreeHeard] = useState("");
+  const [freeError, setFreeError] = useState("");
+  const [freeChat, setFreeChat] = useState<
+    { heard: string; replyZh: string; replyVi: string }[]
+  >([]);
+  const freeStopRef = useRef<(() => void) | null>(null);
 
   const step = spot?.steps[stepIdx];
 
@@ -24,6 +53,11 @@ export default function PhoHoaPage() {
     setScore(0);
     setDone(false);
     setRecMsg("");
+    setFreeMode(false);
+    setFreeListening(false);
+    setFreeHeard("");
+    setFreeError("");
+    setFreeChat([]);
   }
 
   function choose(i: number) {
@@ -96,6 +130,29 @@ export default function PhoHoaPage() {
     }
   }
 
+  /** Nói tự do: nghe bất cứ câu tiếng Trung nào rồi đáp lại theo từ khóa. */
+  function freeTalk() {
+    if (!isSpeechRecognitionSupported()) {
+      setFreeError(
+        "Trình duyệt này không hỗ trợ nhận dạng giọng nói — hãy dùng Chrome hoặc Edge trên máy tính hoặc điện thoại Android."
+      );
+      return;
+    }
+    setFreeError("");
+    setFreeListening(true);
+    freeStopRef.current = recognizeOnce(
+      "zh-CN",
+      (t) => {
+        const reply = freeReplyFor(t);
+        setFreeHeard(t);
+        setFreeChat((c) => [...c, { heard: t, replyZh: reply.zh, replyVi: reply.vi }]);
+        speakZh(reply.zh);
+      },
+      (msg) => setFreeError(msg),
+      () => setFreeListening(false)
+    );
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <h1 className="text-3xl font-black text-vermilion">🏮 Phố Hoa — Luyện nói</h1>
@@ -124,7 +181,108 @@ export default function PhoHoaPage() {
         </div>
       )}
 
-      {spot && !done && step && (
+      {/* Chuyển chế độ: theo kịch bản / nói tự do */}
+      {spot && (
+        <div className="mt-6 flex gap-2">
+          <button
+            onClick={() => setFreeMode(false)}
+            className={`rounded-full px-4 py-2 text-sm font-bold shadow ${
+              !freeMode
+                ? "bg-vermilion text-cream"
+                : "border-2 border-gold bg-cream text-vermilion hover:bg-gold-soft/40"
+            }`}
+          >
+            📖 Theo kịch bản
+          </button>
+          <button
+            onClick={() => setFreeMode(true)}
+            className={`rounded-full px-4 py-2 text-sm font-bold shadow ${
+              freeMode
+                ? "bg-vermilion text-cream"
+                : "border-2 border-gold bg-cream text-vermilion hover:bg-gold-soft/40"
+            }`}
+          >
+            🎤 Nói tự do
+          </button>
+        </div>
+      )}
+
+      {spot && freeMode && (
+        <div className="mt-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <button
+              onClick={() => setSpot(null)}
+              className="rounded-full border-2 border-gold bg-cream px-4 py-2 text-sm font-bold text-vermilion hover:bg-gold-soft/40"
+            >
+              ← Về phố Hoa
+            </button>
+            <p className="text-sm font-bold text-ink-soft">
+              {spot.icon} {spot.name} — nói tự do
+            </p>
+          </div>
+
+          <div className="mt-4 rounded-2xl border-2 border-gold/40 bg-cream p-6 shadow">
+            <h2 className="text-lg font-extrabold text-vermilion">🎤 Nói tự do</h2>
+            <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+              Nói bất cứ câu tiếng Trung nào — ví dụ chào hỏi, hỏi trà, hỏi
+              giá, nói cảm ơn. Hệ thống nghe rồi đáp lại bằng tiếng Trung.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {freeListening ? (
+                <button
+                  onClick={() => freeStopRef.current?.()}
+                  className="rounded-full bg-red-500 px-5 py-2.5 text-sm font-bold text-cream shadow hover:bg-red-600"
+                >
+                  ⏹️ Dừng nghe
+                </button>
+              ) : (
+                <button
+                  onClick={freeTalk}
+                  className="rounded-full bg-vermilion px-5 py-2.5 text-sm font-bold text-cream shadow hover:bg-vermilion-dark"
+                >
+                  🎤 Bấm để nói
+                </button>
+              )}
+            </div>
+            {freeListening && (
+              <p className="mt-3 text-sm font-bold text-vermilion">
+                🎤 Đang nghe… nói câu tiếng Trung của bạn đi.
+              </p>
+            )}
+            {freeError && (
+              <p className="mt-3 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-600">
+                {freeError}
+              </p>
+            )}
+            {freeChat.length > 0 && (
+              <div className="mt-4 space-y-3">
+                {freeChat.map((m, i) => (
+                  <div key={i} className="space-y-2">
+                    <p className="rounded-xl bg-gold-soft/30 p-3 text-sm leading-relaxed text-ink">
+                      <span className="font-bold text-vermilion">Bạn: </span>“{m.heard}”
+                    </p>
+                    <p className="rounded-xl bg-leaf-soft/30 p-3 text-sm leading-relaxed text-ink">
+                      <span className="font-bold text-leaf">{spot.name}: </span>
+                      <span className="font-black">{m.replyZh}</span>
+                      <span className="text-ink-soft"> — {m.replyVi}</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {freeChat.length === 0 && !freeHeard && (
+              <p className="mt-3 text-sm text-ink-soft">
+                Gợi ý: thử nói “你好”, “我想喝茶”, “多少钱” hoặc “谢谢”.
+              </p>
+            )}
+            <p className="mt-4 text-center text-xs text-ink-soft">
+              Nói tự do chỉ phản hồi theo từ khóa, không phải AI trò chuyện thật.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {spot && !done && step && !freeMode && (
         <div className="mt-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <button
@@ -210,7 +368,7 @@ export default function PhoHoaPage() {
         </div>
       )}
 
-      {spot && done && (
+      {spot && done && !freeMode && (
         <div className="mt-6 rounded-2xl border-2 border-gold/40 bg-cream p-8 text-center shadow">
           <p className="text-5xl">{score === spot.steps.length ? "🏆" : score >= 2 ? "👍" : "💪"}</p>
           <h2 className="mt-3 text-2xl font-black text-vermilion">

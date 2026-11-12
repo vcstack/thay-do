@@ -15,6 +15,7 @@ import {
   TEACHER_REMARKS_MISTAKE,
   TEACHER_REMARKS_PRAISE,
 } from "@/data/teacher";
+import { recordDay, recordWriting } from "@/lib/progress";
 
 type QuizState = "idle" | "quizzing" | "done";
 
@@ -126,6 +127,9 @@ export default function LuyenVietPage() {
       onComplete: () => {
         setQuizState("done");
         setRemark((r) => r || randomRemark(TEACHER_REMARKS_PRAISE));
+        // Tô xong 1 chữ thì ghi vào Sổ học trò.
+        recordWriting(char);
+        recordDay();
       },
     });
   }

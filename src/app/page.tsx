@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import SchoolSceneLoader from "@/components/SchoolSceneLoader";
+import LoginDialog from "@/components/LoginDialog";
+import { getAccount, onAccountChange, type Account } from "@/lib/progress";
 import {
   CLASS_SLOTS,
   TRACKS,
@@ -103,20 +105,25 @@ export default function Home() {
   const [online, setOnline] = useState<number | null>(null);
   const [guest, setGuest] = useState("");
   const [remindMsg, setRemindMsg] = useState("");
+  const [account, setAccount] = useState<Account>({ id: "guest", name: "Khách" });
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(new Date());
     setOnline(24 + Math.floor(Math.random() * 28));
     setGuest(loadGuestName());
+    setAccount(getAccount());
     const t = setInterval(() => setNow(new Date()), 30000);
     const t2 = setInterval(
       () => setOnline((o) => (o === null ? o : Math.min(64, Math.max(14, o + Math.floor(Math.random() * 5) - 2)))),
       20000
     );
+    const offAccount = onAccountChange(() => setAccount(getAccount()));
     return () => {
       clearInterval(t);
       clearInterval(t2);
+      offAccount();
     };
   }, []);
 
@@ -391,33 +398,50 @@ export default function Home() {
         </p>
       </section>
 
-      {/* ---------- Đăng nhập giữ tiến trình ---------- */}
+      {/* ---------- Sổ học trò ---------- */}
       <section className="mx-auto max-w-6xl px-4 pb-16">
         <div className="rounded-2xl border-2 border-gold/40 bg-cream p-8 text-center shadow">
-          <h2 className="text-2xl font-black text-ink">📒 Đã học ở máy khác?</h2>
+          <h2 className="text-2xl font-black text-ink">📒 Sổ học trò</h2>
           <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-ink-soft md:text-base">
-            Vào trường không cần tài khoản — cứ vào học là được. Tiến trình của
-            bạn (tên khách, tên học sinh trong lớp, số phiên Pomodoro) đang được
-            lưu ngay trên máy này. Đăng nhập sau này sẽ giúp giữ Sổ học trò và
-            học tiếp trên máy khác.
+            Vào trường không cần tài khoản — cứ vào học là được. Mỗi bài đã mở,
+            điểm thi, chữ đã tô và truyện đã đọc đều được thầy ghi vào Sổ học
+            trò, lưu ngay trên máy này. Đăng nhập bằng tên để giữ riêng sổ của
+            mình — không có tài khoản máy chủ, không dùng Google.
           </p>
-          {guest && (
+          {account.id !== "guest" ? (
             <p className="mt-3 text-sm font-bold text-leaf">
-              Bạn đang vào trường với tên khách: {guest} — bấm tên ở góc trên để đổi tên.
+              Bạn đang học với tên: {account.name} — sổ của bạn đang được ghi
+              riêng.
             </p>
+          ) : (
+            guest && (
+              <p className="mt-3 text-sm font-bold text-leaf">
+                Bạn đang vào trường với tên khách: {guest} — đăng nhập bằng tên
+                để có sổ riêng.
+              </p>
+            )
           )}
-          <button
-            onClick={() =>
-              alert(
-                "Tính năng đăng nhập chưa mở — hiện tại tiến trình của bạn vẫn được lưu trên máy này, cứ học thoải mái nhé!"
-              )
-            }
-            className="mt-5 rounded-full bg-vermilion px-6 py-3 font-bold text-cream shadow hover:bg-vermilion-dark"
-          >
-            🔑 Đăng nhập giữ tiến trình
-          </button>
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/so-hoc-tro"
+              className="rounded-full bg-vermilion px-6 py-3 font-bold text-cream shadow hover:bg-vermilion-dark"
+            >
+              📒 Mở Sổ học trò
+            </Link>
+            <button
+              onClick={() => setShowLogin(true)}
+              className="rounded-full border-2 border-gold bg-cream px-6 py-3 font-bold text-vermilion hover:bg-gold-soft/40"
+            >
+              🔑 {account.id !== "guest" ? "Đổi tên / Đăng xuất" : "Đăng nhập giữ tiến trình"}
+            </button>
+          </div>
         </div>
       </section>
+      <LoginDialog
+        open={showLogin}
+        onClose={() => setShowLogin(false)}
+        onDone={(a) => setAccount(a)}
+      />
     </div>
   );
 }

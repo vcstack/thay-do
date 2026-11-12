@@ -10,21 +10,21 @@ OUT = os.path.expanduser("~/workspace/thay-do-web/public/models/school.glb")
 clean()
 
 # ---- Vật liệu ----
-wall = mat("wall_cream", "#f6ead2", 0.9)
-wall_warm = mat("wall_warm", "#fbf3da", 0.9)
+wall = mat("wall_cream", "#f6ead2", 0.9, tex="plaster")
+wall_warm = mat("wall_warm", "#fbf3da", 0.9, tex="plaster")
 red = mat("red_col", "#b3372a", 0.55)
 darkred = mat("darkred", "#8f2a20", 0.6)
-gold = mat("gold", "#d9a441", 0.7)
-gold_dark = mat("gold_dark", "#c98a2e", 0.7)
+gold = mat("gold", "#d9a441", 0.7, tex="roof_gold")
+gold_dark = mat("gold_dark", "#c98a2e", 0.7, tex="roof_gold")
 gold_bright = mat("gold_bright", "#e8b23a", 0.25, 0.6, emissive="#8a5a10", emissive_strength=0.3)
-stone = mat("stone", "#cfc4a8", 0.95)
-stone2 = mat("stone2", "#bfb294", 0.95)
-stone3 = mat("stone3", "#b3a684", 0.95)
-stone4 = mat("stone4", "#a89a78", 0.95)
-wood = mat("wood", "#8a6b45", 0.85)
-wood_dark = mat("wood_dark", "#6b5232", 0.9)
-wood_floor = mat("wood_floor", "#c9a86a", 0.85)
-wood_mid = mat("wood_mid", "#7a5230", 0.85)
+stone = mat("stone", "#cfc4a8", 0.95, tex="stone")
+stone2 = mat("stone2", "#bfb294", 0.95, tex="stone")
+stone3 = mat("stone3", "#b3a684", 0.95, tex="stone")
+stone4 = mat("stone4", "#a89a78", 0.95, tex="stone")
+wood = mat("wood", "#8a6b45", 0.85, tex="wood")
+wood_dark = mat("wood_dark", "#6b5232", 0.9, tex="wood")
+wood_floor = mat("wood_floor", "#c9a86a", 0.85, tex="wood")
+wood_mid = mat("wood_mid", "#7a5230", 0.85, tex="wood")
 green_board = mat("green_board", "#2e4a3a", 0.85)
 chalk = mat("chalk", "#f6f1de", 0.9)
 window_glow = mat("window_glow", "#ffd98a", 0.4, 0.0, emissive="#ffbf4d", emissive_strength=0.85)
@@ -59,6 +59,7 @@ for x in (-4.6, -1.6, 1.6, 4.6):
     cyl("column", (x, 2.6, 3.3), 0.26, 0.3, 4, red, vertices=14)
     cyl("column_base", (x, 0.75, 3.3), 0.36, 0.4, 0.3, stone, vertices=14)
     cyl("column_cap", (x, 4.55, 3.3), 0.34, 0.28, 0.22, gold_dark, vertices=14)
+    column_bands("colband", x, 3.3, (1.7, 3.5), 0.27, gold_dark)
 
 # ---- Cửa sổ sáng đèn (2 bên) ----
 for x in (-3.1, 3.1):
@@ -70,6 +71,10 @@ for x in (-3.1, 3.1):
 # ---- Mái tầng 1: diềm mái + mái hông có sống mái + góc vểnh ----
 box("roof1_eave", (0, 5.05, 0), (12.6, 0.5, 8.6), gold_dark, bevel_w=0.04)
 hip_roof_ridge("roof1", (0, 5.3, 0), 12.2, 8.2, 2.0, 5.0, gold)
+# Dau ngoi doc mep mai truoc/sau + vien ngoi up doc song mai
+tile_fringe("roof1_tile_f", 5.32, -6.0, 6.0, 4.08, gold_dark)
+tile_fringe("roof1_tile_b", 5.32, -6.0, 6.0, -4.08, gold_dark)
+ridge_caps("roof1_ridge", -2.4, 2.4, 7.32, 0, gold_dark)
 for cx, cz in ((-6.1, -4.1), (6.1, -4.1), (-6.1, 4.1), (6.1, 4.1)):
     d = (1.0 if cx > 0 else -1.0, 1.0 if cz > 0 else -1.0)
     n = (d[0] / 1.4142, d[1] / 1.4142)
@@ -79,6 +84,9 @@ for cx, cz in ((-6.1, -4.1), (6.1, -4.1), (-6.1, 4.1), (6.1, 4.1)):
 box("upper_wall", (0, 6.1, 0), (6.0, 1.0, 4.0), wall, bevel_w=0.03)
 box("roof2_eave", (0, 6.6, 0), (7.0, 0.45, 4.4), gold_dark, bevel_w=0.04)
 hip_roof_ridge("roof2", (0, 6.825, 0), 7.0, 4.4, 1.4, 3.0, gold)
+tile_fringe("roof2_tile_f", 6.85, -3.4, 3.4, 2.18, gold_dark)
+tile_fringe("roof2_tile_b", 6.85, -3.4, 3.4, -2.18, gold_dark)
+ridge_caps("roof2_ridge", -1.4, 1.4, 8.24, 0, gold_dark)
 for cx, cz in ((-3.5, -2.2), (3.5, -2.2), (-3.5, 2.2), (3.5, 2.2)):
     d = (1.0 if cx > 0 else -1.0, 1.0 if cz > 0 else -1.0)
     n = (d[0] / 1.4142, d[1] / 1.4142)
