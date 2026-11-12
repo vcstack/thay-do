@@ -194,7 +194,7 @@ def build_character(cid, robe_hex, skin_hex, gender="male", hair="khan_dong",
     if accessory == "book":
         # Sách cầm tay phải (bìa đỏ + trang trắng)
         parent(box(P(cid, "book"), (0.40, 0.72, 0.10), (0.28, 0.05, 0.22),
-                   mat(f"book_{cid}", "#b3372a", 0.8), bevel_w=0.01, yaw=0.3))
+                   mat(f"book_{cid}", "#7d1e12", 0.8), bevel_w=0.01, yaw=0.3))
         parent(box(P(cid, "book_pages"), (0.40, 0.75, 0.10), (0.24, 0.04, 0.18),
                    WHITE, bevel_w=0.01, yaw=0.3))
     elif accessory == "fan":
@@ -218,7 +218,7 @@ def build_character(cid, robe_hex, skin_hex, gender="male", hair="khan_dong",
         parent(sphere(P(cid, "staff_top"), (0.44, 1.68, 0.10), 0.05, GOLD,
                       segments=10, rings=8))
         parent(box(P(cid, "book"), (-0.40, 0.72, 0.10), (0.28, 0.05, 0.22),
-                   mat(f"book_{cid}", "#b3372a", 0.8), bevel_w=0.01, yaw=-0.3))
+                   mat(f"book_{cid}", "#7d1e12", 0.8), bevel_w=0.01, yaw=-0.3))
         parent(box(P(cid, "book_pages"), (-0.40, 0.75, 0.10), (0.24, 0.04, 0.18),
                    WHITE, bevel_w=0.01, yaw=-0.3))
     return grp
@@ -226,14 +226,14 @@ def build_character(cid, robe_hex, skin_hex, gender="male", hair="khan_dong",
 
 # ---- 6 học sinh: 3 nam + 3 nữ, mỗi mẫu khác nhau rõ rệt ----
 build_character("Student_M1", "#3a6ea5", "#e8c39a", "male", "khan_dong", "book")
-build_character("Student_M2", "#b3372a", "#d9a97e", "male", "khan_dong", "fan")
+build_character("Student_M2", "#7d1e12", "#d9a97e", "male", "khan_dong", "fan")
 build_character("Student_M3", "#4d7c3a", "#f0cfa8", "male", "khan_dong", "bag")
 build_character("Student_F1", "#e87a90", "#f0cfa8", "female", "bun", "book")
 build_character("Student_F2", "#8a6fb8", "#e8c39a", "female", "braid", "fan")
 build_character("Student_F3", "#f6ead2", "#d9a97e", "female", "loose", "bag",
                 sash_hex="#d9a441")
 # ---- Thầy đồ: áo thụng rộng, râu trắng dài, khăn đóng to, gậy + sách ----
-build_character("Teacher", "#8f2a20", "#e8c39a", "teacher", "khan_dong", "staff",
+build_character("Teacher", "#571510", "#e8c39a", "teacher", "khan_dong", "staff",
                 wide=True)
 
 print("characters poly:", poly_count())

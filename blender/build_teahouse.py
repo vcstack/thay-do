@@ -13,15 +13,15 @@ clean()
 wall_cream = mat("wall_cream", "#f0e6cc", 0.9, tex="plaster")
 roof_dark = mat("roof_dark", "#ffffff", 0.75, tex="roof_dark")
 roof_dark2 = mat("roof_dark2", "#e8ddc8", 0.75, tex="roof_dark")
-darkred = mat("darkred", "#8f2a20", 0.7)
-red_bright = mat("red_bright", "#b3372a", 0.6)
+darkred = mat("darkred", "#571510", 0.7)
+red_bright = mat("red_bright", "#7d1e12", 0.6)
 gold = mat("gold", "#d9a441", 0.4, 0.4)
 gold_bright = mat("gold_bright", "#e8b23a", 0.25, 0.6, emissive="#8a5a10", emissive_strength=0.3)
 wood = mat("wood", "#8a6b45", 0.85, tex="wood")
 wood_dark = mat("wood_dark", "#5a3d24", 0.9, tex="wood")
 wood_mid = mat("wood_mid", "#7a5230", 0.85, tex="wood")
 window_glow = mat("window_glow", "#ffd98a", 0.4, 0.0, emissive="#ffbf4d", emissive_strength=0.7)
-red_pot = mat("red_pot", "#b3372a", 0.5)
+red_pot = mat("red_pot", "#7d1e12", 0.5)
 
 
 def sign_material():
@@ -95,8 +95,8 @@ cyl("teapot_spout", (0.18, 0.9, 2.6), 0.03, 0.04, 0.22, red_pot, vertices=6, rz=
 sphere("teapot_lid", (0, 1.0, 2.6), 0.06, gold, segments=10, rings=8)
 
 # ---- Đèn lồng đỏ sẫm 2 bên (không treo đèn giữa che biển hiệu) ----
-lantern("lantern_L", (-1.35, 2.15, 1.75), scale=0.55, color="#b3372a", glow="#8f2a20")
-lantern("lantern_R", (1.35, 2.15, 1.75), scale=0.55, color="#b3372a", glow="#8f2a20")
+lantern("lantern_L", (-1.35, 2.15, 1.75), scale=0.55, color="#7d1e12", glow="#571510")
+lantern("lantern_R", (1.35, 2.15, 1.75), scale=0.55, color="#7d1e12", glow="#571510")
 
 print("teahouse poly:", poly_count())
 export_glb(OUT)

@@ -151,12 +151,12 @@ export default function Home() {
   return (
     <div>
       {/* ---------- Hero ---------- */}
-      <section className="mx-auto max-w-6xl px-4 pb-10 pt-12 text-center">
-        <p className="text-6xl">師</p>
-        <p className="mt-3 text-sm font-bold uppercase tracking-[0.3em] text-gold">
+      <section className="mx-auto max-w-6xl px-4 pb-6 pt-6 text-center md:pb-10 md:pt-12">
+        <p className="text-5xl md:text-6xl">師</p>
+        <p className="mt-2 text-sm font-bold uppercase tracking-[0.3em] text-gold md:mt-3">
           Trường học tiếng Trung ảo
         </p>
-        <h1 className="mt-2 text-5xl font-black text-vermilion md:text-6xl">
+        <h1 className="mt-2 text-4xl font-black text-vermilion md:text-6xl">
           TRƯỜNG THẦY ĐỒ
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-base font-medium text-ink-soft md:text-lg">

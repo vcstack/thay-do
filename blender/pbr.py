@@ -2,7 +2,7 @@
 # Dùng trong mat(..., tex="wood") của common.py. Texture đã là ảnh thật
 # (procedural bake) nên glTF exporter nhúng được vào .glb.
 import bpy
-from common import hex2rgb
+from common import hex2rgb, hex2rgb_linear
 import gen_textures
 
 # Độ lặp texture theo từng loại (Mapping scale).
@@ -48,7 +48,7 @@ def textured_mat(name, texkey, tint_hex, rough=0.8, metallic=0.0,
     bsdf.inputs["Roughness"].default_value = rough
     bsdf.inputs["Metallic"].default_value = metallic
     if emissive:
-        bsdf.inputs["Emission Color"].default_value = (*hex2rgb(emissive), 1.0)
+        bsdf.inputs["Emission Color"].default_value = (*hex2rgb_linear(emissive), 1.0)
         bsdf.inputs["Emission Strength"].default_value = emissive_strength
 
     tex_coord = nt.nodes.new("ShaderNodeTexCoord")

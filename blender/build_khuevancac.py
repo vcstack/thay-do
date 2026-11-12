@@ -8,7 +8,7 @@ OUT = os.path.expanduser("~/workspace/thay-do-web/public/models/khuevancac.glb")
 clean()
 
 wall = mat("wall_cream", "#f0e6cc", 0.9, tex="plaster")
-red = mat("red_col", "#8f2a20", 0.55, tex="wood")
+red = mat("red_col", "#571510", 0.55, tex="wood")
 gold = mat("gold", "#d9a441", 0.7, tex="roof_gold")
 gold_dark = mat("gold_dark", "#c98a2e", 0.7, tex="roof_gold")
 gold_bright = mat("gold_bright", "#e8b23a", 0.25, 0.6, emissive="#8a5a10", emissive_strength=0.3)

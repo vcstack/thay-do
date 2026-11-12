@@ -15,8 +15,8 @@ roof_dark = mat("roof_dark", "#ffffff", 0.75, tex="roof_dark")
 roof_dark2 = mat("roof_dark2", "#e8ddc8", 0.75, tex="roof_dark")
 gold = mat("gold", "#d9a441", 0.4, 0.4)
 gold_bright = mat("gold_bright", "#e8b23a", 0.25, 0.6, emissive="#8a5a10", emissive_strength=0.3)
-red_pot = mat("red_pot", "#b3372a", 0.5)
-darkred = mat("darkred", "#8f2a20", 0.5)
+red_pot = mat("red_pot", "#7d1e12", 0.5)
+darkred = mat("darkred", "#571510", 0.5)
 cup_white = mat("cup_white", "#f6ead2", 0.4)
 bamboo_green = mat("bamboo_green", "#5d9b4a", 0.8)
 
@@ -58,7 +58,7 @@ for x, z in ((-0.7, 0.3), (0.7, 0.3), (-0.7, -0.35), (0.7, -0.35)):
     cyl("tea", (x, 0.71, z), 0.07, 0.07, 0.02, mat("tea", "#8a5a20", 0.3), vertices=12)
 
 # ---- Đệm ngồi 3 phía ----
-for x, z, c in ((-1.3, 1.25, "#b3372a"), (1.3, 1.25, "#5d9b4a"), (0, -1.35, "#d9a441")):
+for x, z, c in ((-1.3, 1.25, "#7d1e12"), (1.3, 1.25, "#5d9b4a"), (0, -1.35, "#d9a441")):
     cyl("cushion", (x, 0.32, z), 0.55, 0.6, 0.16, mat("cushion_" + c.lstrip("#"), c, 0.9), vertices=16)
 
 # ---- Khóm trúc bên cạnh ----
@@ -69,8 +69,8 @@ for i, x in enumerate((-0.5, -0.2, 0.15)):
            scale=(1, 0.5, 0.4), segments=10, rings=8)
 
 # ---- Đèn lồng đỏ sẫm treo mái che ----
-lantern("lantern_L", (-1.9, 2.2, 1.9), scale=0.55, color="#8f2a20", glow="#6e1a12")
-lantern("lantern_R", (1.9, 2.2, 1.9), scale=0.55, color="#b3372a", glow="#8f2a20")
+lantern("lantern_L", (-1.9, 2.2, 1.9), scale=0.55, color="#571510", glow="#6e1a12")
+lantern("lantern_R", (1.9, 2.2, 1.9), scale=0.55, color="#7d1e12", glow="#571510")
 
 print("teaceremony poly:", poly_count())
 export_glb(OUT)

@@ -10,6 +10,21 @@ def hex2rgb(h):
     return tuple(int(h[i:i + 2], 16) / 255.0 for i in (0, 2, 4))
 
 
+def hex2rgb_linear(h):
+    """Hex sRGB -> giá trị tuyến tính cho socket màu của Principled BSDF.
+
+    Trước đây dùng thẳng hex2rgb (sRGB) cho Base Color nên glTF exporter
+    ghi màu sáng gấp ~2 lần -> cột đỏ #8f2a20 render ra hồng salmon trên
+    web. Socket màu của Blender/glTF chờ giá trị tuyến tính, phải chuyển
+    đổi sRGB -> linear ở đây. Riêng phần bake tint vào ảnh texture
+    (pbr.py) vẫn dùng hex2rgb vì phép nhân diễn ra trong không gian sRGB
+    của ảnh (ảnh đã gắn colorspace sRGB).
+    """
+    def srgb_to_linear(c):
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    return tuple(srgb_to_linear(c) for c in hex2rgb(h))
+
+
 def T(x, y, z):
     """three.js (x, y-up, z) -> Blender (x, -z, y)."""
     return (x, -z, y)
@@ -39,11 +54,11 @@ def mat(name, hexcolor, rough=0.8, metallic=0.0, emissive=None, emissive_strengt
     m = bpy.data.materials.new(name)
     m.use_nodes = True
     bsdf = m.node_tree.nodes["Principled BSDF"]
-    bsdf.inputs["Base Color"].default_value = (*hex2rgb(hexcolor), 1.0)
+    bsdf.inputs["Base Color"].default_value = (*hex2rgb_linear(hexcolor), 1.0)
     bsdf.inputs["Roughness"].default_value = rough
     bsdf.inputs["Metallic"].default_value = metallic
     if emissive:
-        bsdf.inputs["Emission Color"].default_value = (*hex2rgb(emissive), 1.0)
+        bsdf.inputs["Emission Color"].default_value = (*hex2rgb_linear(emissive), 1.0)
         bsdf.inputs["Emission Strength"].default_value = emissive_strength
     return m
 
@@ -257,7 +272,7 @@ def lantern(name, loc, scale=1.0, color="#d93b2b", glow="#a11d10"):
            mat("lantern_" + color.lstrip("#"), color, 0.5, 0.0,
                emissive=glow, emissive_strength=0.15),
            scale=(1, 0.92, 1), segments=20, rings=14)
-    torus(name + "_rib", loc, 0.42 * s, 0.015 * s, mat("darkred", "#8f2a20", 0.6),
+    torus(name + "_rib", loc, 0.42 * s, 0.015 * s, mat("darkred", "#571510", 0.6),
           rot=(math.pi / 2, 0, 0))
     cyl(name + "_tassel_cap", (loc[0], loc[1] - 0.48 * s, loc[2]), 0.1 * s, 0.13 * s,
         0.12 * s, mat("gold", "#d9a441", 0.4, 0.4), vertices=12)
