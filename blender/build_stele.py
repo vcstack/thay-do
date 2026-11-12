@@ -11,6 +11,9 @@ stone = mat("stone", "#a89a78", 0.95, tex="stone")
 stone_light = mat("stone_light", "#b9ac8d", 0.95, tex="stone")
 stone_dark = mat("stone_dark", "#8a7a5c", 0.9, tex="stone")
 
+# ---- Bệ đá dưới rùa ----
+box("plinth", (0, 0.1, 0), (2.4, 0.2, 2.6), stone_dark, bevel_w=0.03)
+
 # ---- Rùa đá: mai dẹt + đầu + 4 chân + đuôi ----
 sphere("turtle_shell", (0, 0.32, 0), 0.85, stone,
        scale=(1, 0.45, 1.25), segments=20, rings=14)

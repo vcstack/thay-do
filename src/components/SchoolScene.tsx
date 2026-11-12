@@ -78,6 +78,7 @@ const MODEL_URLS = {
   treePhuong: "/models/tree_phuong.glb",
   treeBamboo: "/models/tree_bamboo.glb",
   characters: "/models/characters.glb",
+  capybara: "/models/capybara.glb",
 } as const;
 
 // Tải trước để cảnh hiện nhanh, không chờ từng model.
@@ -975,6 +976,31 @@ function TeaHouse({ position, rotationY = 0 }: { position: [number, number, numb
 }
 
 /* ------------------------------------------------------------------ */
+/* NPC capybara ngồi trước trà quán (giống bên xiehanzi) — bấm vào để   */
+/* tới trang Trà đạo. Nhún nhẹ bằng Float cho có sức sống.              */
+/* ------------------------------------------------------------------ */
+function Capybara({
+  position,
+  rotationY = 0,
+  onEnter,
+}: {
+  position: [number, number, number];
+  rotationY?: number;
+  onEnter: () => void;
+}) {
+  return (
+    <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.35}>
+      <GLBModel
+        url={MODEL_URLS.capybara}
+        position={position}
+        rotationY={rotationY}
+        onEnter={onEnter}
+      />
+    </Float>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Khu trà đạo: mái che, bàn trà thấp, ấm chén, đệm ngồi               */
 /* ------------------------------------------------------------------ */
 function TeaCeremony({
@@ -1332,15 +1358,15 @@ function Scene({
 
   return (
     <>
-      <color attach="background" args={["#c3e2f0"]} />
-      <fog attach="fog" args={["#cfe6f2", 30, 66]} />
+      <color attach="background" args={["#e9dfc2"]} />
+      <fog attach="fog" args={["#e8dcc0", 30, 66]} />
 
       {/* Môi trường ánh sáng (IBL) dựng ngay trong máy bằng Lightformer —
           KHÔNG tải file HDR từ mạng, không làm web chậm. Ánh sáng ấm từ
           trên cao + ánh lạnh phản chiếu từ bầu trời, model có chiều sâu hơn
           hẳn so với chỉ dùng ambient/directional. */}
       <Environment resolution={256} frames={1}>
-        <color attach="background" args={["#bfe0ee"]} />
+        <color attach="background" args={["#e8dcc8"]} />
         <Lightformer
           intensity={2.2}
           position={[0, 5, 0]}
@@ -1365,7 +1391,7 @@ function Scene({
       </Environment>
 
       <ambientLight intensity={0.45} />
-      <hemisphereLight args={["#cfe8f5", "#8fbf6a", 0.4]} />
+      <hemisphereLight args={["#ffe8c0", "#a08a5a", 0.4]} />
       <directionalLight
         position={[12, 16, 8]}
         intensity={2.0}
@@ -1426,6 +1452,7 @@ function Scene({
       <SideHouse position={[-11.5, 0, -6]} rotationY={0.35} />
       <SideHouse position={[10.5, 0, -4]} rotationY={-0.4} />
       <TeaHouse position={[-11, 0, 5.5]} rotationY={0.5} />
+      <Capybara position={[-9.2, 0, 7.2]} rotationY={2.0} onEnter={goTea} />
       <TeaCeremony position={[11.5, 0, 5.5]} rotationY={-0.5} onEnter={goTea} />
 
       {/* Khuê Văn Các giữa sân + bia tiến sĩ */}

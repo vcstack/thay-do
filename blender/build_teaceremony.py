@@ -9,10 +9,10 @@ clean()
 
 stone = mat("stone", "#cfc4a8", 0.95, tex="stone")
 wood = mat("wood", "#8a6b45", 0.85, tex="wood")
-wood_dark = mat("wood_dark", "#6b5232", 0.9, tex="wood")
+wood_dark = mat("wood_dark", "#5a3d24", 0.9, tex="wood")
 wood_mid = mat("wood_mid", "#7a5230", 0.85, tex="wood")
-roof_brown = mat("roof_brown", "#7a4a2b", 0.7, tex="roof_brown")
-roof_brown2 = mat("roof_brown2", "#6b3d22", 0.7, tex="roof_brown")
+roof_dark = mat("roof_dark", "#ffffff", 0.75, tex="roof_dark")
+roof_dark2 = mat("roof_dark2", "#e8ddc8", 0.75, tex="roof_dark")
 gold = mat("gold", "#d9a441", 0.4, 0.4)
 gold_bright = mat("gold_bright", "#e8b23a", 0.25, 0.6, emissive="#8a5a10", emissive_strength=0.3)
 red_pot = mat("red_pot", "#b3372a", 0.5)
@@ -28,16 +28,17 @@ for x, z in ((-1.9, -1.6), (1.9, -1.6), (-1.9, 1.6), (1.9, 1.6)):
     cyl("column", (x, 1.35, z), 0.11, 0.13, 2.7, wood_mid, vertices=10)
     cyl("column_base", (x, 0.35, z), 0.17, 0.2, 0.22, stone, vertices=10)
 
-# ---- Mái che: diềm + chóp 4 mặt + góc vểnh + trái châu ----
-box("roof_eave", (0, 2.75, 0), (4.6, 0.3, 4.2), roof_brown2, bevel_w=0.04)
-hip_roof_ridge("roof", (0, 2.9, 0), 4.3, 3.9, 1.1, 1.8, roof_brown)
-tile_fringe("roof_tile_f", 2.92, -2.05, 2.05, 1.92, roof_brown2)
-tile_fringe("roof_tile_b", 2.92, -2.05, 2.05, -1.92, roof_brown2)
-ridge_caps("roof_ridge", -0.8, 0.8, 4.01, 0, roof_brown2)
+# ---- Mái che: diềm gỗ tối + chóp ngói tối + góc vểnh nhỏ + trái châu ----
+box("roof_eave", (0, 2.75, 0), (4.6, 0.3, 4.2), wood_dark, bevel_w=0.04)
+hip_roof_ridge("roof", (0, 2.9, 0), 4.3, 3.9, 1.1, 1.8, roof_dark)
+tile_fringe("roof_tile_f", 2.92, -2.05, 2.05, 1.92, roof_dark2)
+tile_fringe("roof_tile_b", 2.92, -2.05, 2.05, -1.92, roof_dark2)
+ridge_caps("roof_ridge", -0.8, 0.8, 4.01, 0, roof_dark2)
 for cx, cz in ((-2.15, -1.95), (2.15, -1.95), (-2.15, 1.95), (2.15, 1.95)):
     d = (1.0 if cx > 0 else -1.0, 1.0 if cz > 0 else -1.0)
     n = (d[0] / 1.4142, d[1] / 1.4142)
-    corner_horn("roof_horn", (cx, 2.95, cz), n, roof_brown2, length=0.6, tilt=0.5)
+    corner_horn("roof_horn", (cx, 2.95, cz), n, roof_dark2, length=0.5, tilt=0.5,
+                radius=0.09)
 gold_finial("finial", (0, 4.05, 0), r=0.14)
 
 # ---- Bàn trà thấp + chân ----
@@ -67,9 +68,9 @@ for i, x in enumerate((-0.5, -0.2, 0.15)):
     sphere(f"bamboo_leaf{i}", (2.15 + x * 0.3, 2.2, -1.5), 0.22, bamboo_green,
            scale=(1, 0.5, 0.4), segments=10, rings=8)
 
-# ---- Đèn lồng treo mái che ----
-lantern("lantern_L", (-1.9, 2.2, 1.9), scale=0.55, color="#d93b2b", glow="#a11d10")
-lantern("lantern_R", (1.9, 2.2, 1.9), scale=0.55, color="#e8b23a", glow="#a87608")
+# ---- Đèn lồng đỏ sẫm treo mái che ----
+lantern("lantern_L", (-1.9, 2.2, 1.9), scale=0.55, color="#8f2a20", glow="#6e1a12")
+lantern("lantern_R", (1.9, 2.2, 1.9), scale=0.55, color="#b3372a", glow="#8f2a20")
 
 print("teaceremony poly:", poly_count())
 export_glb(OUT)

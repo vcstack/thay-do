@@ -9,6 +9,7 @@ import gen_textures
 REPEAT = {
     "roof_gold": (5, 3),
     "roof_brown": (5, 3),
+    "roof_dark": (5, 3),
     "wood": (2, 2),
     "stone": (2, 2),
     "plaster": (2, 2),

@@ -255,7 +255,7 @@ def lantern(name, loc, scale=1.0, color="#d93b2b", glow="#a11d10"):
         mat("gold", "#d9a441", 0.4, 0.4), vertices=12)
     sphere(name + "_body", loc, 0.42 * s,
            mat("lantern_" + color.lstrip("#"), color, 0.5, 0.0,
-               emissive=glow, emissive_strength=0.3),
+               emissive=glow, emissive_strength=0.15),
            scale=(1, 0.92, 1), segments=20, rings=14)
     torus(name + "_rib", loc, 0.42 * s, 0.015 * s, mat("darkred", "#8f2a20", 0.6),
           rot=(math.pi / 2, 0, 0))
@@ -287,23 +287,66 @@ def uv_planar(obj, su=0.25, sv=0.25):
             uv_layer.data[li].uv = (v.co.x * su, v.co.z * sv)
 
 
-def tile_fringe(name, y, x0, x1, z, material, spacing=0.55):
-    """Hàng đầu ngói tròn dọc mép mái (trước/sau): nửa viên ngói nhô ra,
-    tạo silhouette từng viên thay vì mép phẳng."""
+def tile_fringe(name, y, x0, x1, z, material, spacing=0.32):
+    """Hàng đầu ngói tròn dọc mép mái (trước/sau): viên nhỏ, dẹt, tối màu —
+    đọc là ngói chứ không phải hàng bánh (bán kính cũ 0.2 quá to)."""
     n = max(2, int((x1 - x0) / spacing) + 1)
     for i in range(n):
         x = x0 + (x1 - x0) * i / (n - 1)
-        sphere(f"{name}{i}", (x, y, z), 0.2, material,
-               scale=(1, 0.55, 1.5), segments=10, rings=8)
+        sphere(f"{name}{i}", (x, y, z), 0.12, material,
+               scale=(1, 0.5, 1.3), segments=8, rings=6)
 
 
-def ridge_caps(name, x0, x1, y, z, material, spacing=0.5):
-    """Viên ngói úp dọc sống mái."""
+def ridge_caps(name, x0, x1, y, z, material, spacing=0.3):
+    """Viên ngói úp dọc sống mái — nhỏ, tinh tế."""
     n = max(2, int((x1 - x0) / spacing) + 1)
     for i in range(n):
         x = x0 + (x1 - x0) * i / (n - 1)
-        sphere(f"{name}{i}", (x, y, z), 0.19, material,
-               scale=(1.3, 0.5, 1), segments=10, rings=8)
+        sphere(f"{name}{i}", (x, y, z), 0.12, material,
+               scale=(1.25, 0.45, 1), segments=8, rings=6)
+
+
+def lattice_window(name, loc, w, h, glow_mat, frame_mat, bar_mat,
+                   cols=3, rows=2, lintel_mat=None):
+    """Cửa sổ có khung gỗ chia ô (không để tấm trắng trơn): tấm sáng đèn lùi
+    vào trong, khung ngoài + song dọc/ngang + đà trên (lintel). Mặt trước (+z)."""
+    x, y, z = loc
+    box(name + "_glow", (x, y, z), (w, h, 0.06), glow_mat, bevel_w=0.01)
+    ft = 0.09  # độ dày khung
+    box(name + "_frame_t", (x, y + h / 2, z + 0.03), (w + ft * 2, ft, 0.08), frame_mat)
+    box(name + "_frame_b", (x, y - h / 2, z + 0.03), (w + ft * 2, ft, 0.08), frame_mat)
+    box(name + "_frame_l", (x - w / 2, y, z + 0.03), (ft, h, 0.08), frame_mat)
+    box(name + "_frame_r", (x + w / 2, y, z + 0.03), (ft, h, 0.08), frame_mat)
+    for i in range(1, cols):
+        bx = x - w / 2 + w * i / cols
+        box(f"{name}_bar_v{i}", (bx, y, z + 0.05), (0.06, h, 0.05), bar_mat)
+    for j in range(1, rows):
+        by = y - h / 2 + h * j / rows
+        box(f"{name}_bar_h{j}", (x, by, z + 0.05), (w, 0.06, 0.05), bar_mat)
+    if lintel_mat:
+        box(name + "_lintel", (x, y + h / 2 + 0.14, z + 0.03),
+            (w + 0.5, 0.12, 0.12), lintel_mat, bevel_w=0.02)
+
+
+def panel_door(name, loc, w, h, door_mat, frame_mat, knob_mat, yaw=0.0):
+    """Cửa gỗ có khung + nẹp dọc/ngang + tay nắm + đà trên. Mặt trước (+z)."""
+    x, y, z = loc
+    ft = 0.1
+    box(name + "_frame_t", (x, y + h / 2, z - 0.01), (w + ft * 2, ft, 0.08), frame_mat)
+    box(name + "_frame_l", (x - w / 2, y, z - 0.01), (ft, h, 0.08), frame_mat)
+    box(name + "_frame_r", (x + w / 2, y, z - 0.01), (ft, h, 0.08), frame_mat)
+    box(name, (x, y, z), (w, h, 0.1), door_mat, bevel_w=0.02, yaw=yaw)
+    # Nẹp dọc 2 thanh + nẹp ngang 2 thanh (nổi trên mặt cửa)
+    for dx in (-w / 4, w / 4):
+        box(f"{name}_batten_v{int(dx * 100)}", (x + dx, y, z + 0.06),
+            (0.07, h * 0.92, 0.04), frame_mat, yaw=yaw)
+    for dy in (-h / 4, h / 4):
+        box(f"{name}_batten_h{int(dy * 100)}", (x, y + dy, z + 0.06),
+            (w * 0.92, 0.07, 0.04), frame_mat, yaw=yaw)
+    sphere(name + "_knob", (x + w * 0.32, y, z + 0.1), 0.06, knob_mat,
+           segments=10, rings=8)
+    box(name + "_lintel", (x, y + h / 2 + 0.15, z), (w + 0.5, 0.12, 0.14),
+        frame_mat, bevel_w=0.02)
 
 
 def column_bands(name, x, z, ys, r, material):

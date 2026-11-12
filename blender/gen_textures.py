@@ -113,6 +113,11 @@ def get_texture(key):
         base, dark = _hx("#7a4a2b"), _hx("#4a2c17")
         return _make(key, lambda h: _roof_color(h, base, dark),
                      lambda: _roof_height(), 1.6)
+    if key == "roof_dark":
+        # Mái ngói tối kiểu xiehanzi: nâu đen trầm, rãnh ngói vẫn đọc được.
+        base, dark = _hx("#4a3d31"), _hx("#2a231c")
+        return _make(key, lambda h: _roof_color(h, base, dark),
+                     lambda: _roof_height(), 1.6)
     if key == "wood":
         return _make(key, _wood_color, _wood_height, 0.8)
     if key == "stone":
