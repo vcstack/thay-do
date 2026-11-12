@@ -500,7 +500,8 @@ export interface LectureState {
 
 /** Bảng đen trong lớp: khi thầy đang giảng thì hiện chữ của từ đang giảng
     (chữ Hán to + pinyin + nghĩa Việt) vẽ lên canvas texture, đặt ngay trước
-    mặt bảng đen có sẵn trong model school.glb (tâm bảng ở [0, 2.70, -7.08]).
+    mặt bảng đen có sẵn trong model school.glb (tâm bảng ở [0, 2.70, -3.08],
+    mặt trước bảng ở z ≈ -3.03).
     Không giảng thì ẩn đi để lộ bảng gốc. */
 function LectureBoard({ lecture }: { lecture: LectureState | null }) {
   const texture = useMemo(() => {
@@ -551,7 +552,7 @@ function LectureBoard({ lecture }: { lecture: LectureState | null }) {
 
   if (!lecture || !texture) return null;
   return (
-    <mesh position={[0, 2.7, -6.97]}>
+    <mesh position={[0, 2.7, -3.0]}>
       <planeGeometry args={[4.4, 1.8]} />
       <meshBasicMaterial map={texture} />
     </mesh>
@@ -587,12 +588,18 @@ type Vec3 = [number, number, number];
 function buildPath(start: [number, number], seat: [number, number]): Vec3[] {
   const [sx, sz] = start;
   const [tx, tz] = seat;
+  // Đi từ sân lên bậc thang (bậc ở z 6.3/5.7/5.1), qua cửa lớp đang mở
+  // (khe cửa x ∈ [-1.3, 1.3] ở z=3.25) rồi mới tới ghế — không xuyên
+  // nền nhà (nền cao 0.6) hay tường.
   return [
     [sx, 0, sz],
-    [sx * 0.4, 0, 5.4],
-    [0, 0, 2.2],
+    [sx * 0.4, 0, 6.6],
+    [0, 0.08, 6.3],
+    [0, 0.2, 5.7],
+    [0, 0.35, 5.1],
+    [0, 0.6, 4.3],
+    [0, 0.6, 2.2],
     [0, 0.6, 0.6],
-    [0, 0.6, -2.0],
     [tx, 0.6, tz],
   ];
 }
@@ -1162,9 +1169,9 @@ function Pond() {
 /* Cảnh chính                                                          */
 /* ------------------------------------------------------------------ */
 const INITIAL_STUDENTS: Omit<StudentInfo, "name" | "status" | "target">[] = [
-  { id: "hs1", robe: "#3a6ea5", model: "Student_M1", start: [-3.6, 6.2], seat: [-2.2, -4.4] },
-  { id: "hs2", robe: "#e87a90", model: "Student_F1", start: [3.4, 7.6], seat: [2.2, -4.4] },
-  { id: "hs3", robe: "#4d7c3a", model: "Student_M3", start: [0.8, 9.2], seat: [0, -5.9] },
+  { id: "hs1", robe: "#3a6ea5", model: "Student_M1", start: [-3.6, 6.2], seat: [-2.2, -0.4] },
+  { id: "hs2", robe: "#e87a90", model: "Student_F1", start: [3.4, 7.6], seat: [2.2, -0.4] },
+  { id: "hs3", robe: "#4d7c3a", model: "Student_M3", start: [0.8, 9.2], seat: [0, -1.9] },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -1217,9 +1224,10 @@ const YARD_TARGET = new THREE.Vector3(0, 2.4, 0);
     Camera ở tầm mắt học sinh ngồi (~1.75), mục tiêu là giữa bảng đen. */
 const CLASS_POS = new THREE.Vector3(-2.2, 1.75, -2.2);
 const CLASS_TARGET = new THREE.Vector3(0, 2.2, -7.0);
-/** Điểm trung gian khi bay vào lớp: đứng trước cửa lớp đang mở (cửa ở z ≈ -0.75,
-    khe cửa x ∈ [-0.94, 0.94]) rồi mới vào ghế — để camera không xuyên tường. */
-const DOOR_POS = new THREE.Vector3(0, 2.2, 0.5);
+/** Điểm trung gian khi bay vào lớp: đứng trước cửa lớp đang mở (cửa ở
+    z=3.25, khe cửa x ∈ [-1.3, 1.3]) rồi mới vào ghế — đường thẳng từ trước
+    cửa tới ghế đi qua khe cửa, camera không xuyên tường. */
+const DOOR_POS = new THREE.Vector3(0, 2.2, 5.5);
 const DOOR_TARGET = new THREE.Vector3(0, 1.8, -4);
 /** Camera bám sau lưng học sinh khi đi bộ (học sinh đi từ sân +z vào lớp -z). */
 const FOLLOW_OFFSET = new THREE.Vector3(0, 2.6, 5.0);
@@ -1254,7 +1262,9 @@ function CameraRig({
       animating.current = true;
       // Bay vào lớp từ ngoài sân/cửa thì đi qua cửa lớp, tránh xuyên tường
       // (đường thẳng từ chỗ học sinh vừa đi vào tới ghế có thể cắt tường).
-      viaDoor.current = viewMode === "classroom" && camera.position.z > -0.5;
+      // Cửa lớp ở z=3.25: camera còn ở ngoài (z > 3.5) thì bay tới trước cửa
+      // trước, tới gần cửa mới đi thẳng vào ghế.
+      viaDoor.current = viewMode === "classroom" && camera.position.z > 3.5;
       // Rời lớp: nới khoảng cách tối đa để camera bay ra được sân
       // (giới hạn 6 trong lớp được đặt lại khi vào tới ghế, xem dưới).
       const controls = controlsRef.current;
@@ -1281,13 +1291,17 @@ function CameraRig({
         desiredPos = desiredTarget.clone().add(FOLLOW_OFFSET);
       }
     } else if (viewMode === "classroom") {
-      if (viaDoor.current && camera.position.z > -1.0) {
-        // Chưa vào trong: bay tới trước cửa lớp, nhìn xuyên vào trong.
+      if (viaDoor.current) {
+        // Chưa tới trước cửa: bay tới trước cửa lớp, nhìn xuyên vào trong.
+        // Tới gần cửa thì đi thẳng vào ghế (đường thẳng từ trước cửa tới
+        // ghế đi qua khe cửa, không xuyên tường).
         desiredPos = DOOR_POS;
         desiredTarget = DOOR_TARGET;
+        if (camera.position.distanceTo(DOOR_POS) < 0.4) {
+          viaDoor.current = false;
+        }
       } else {
         // Đã qua cửa: vào ghế ngồi, nhìn về phía thầy và bảng đen.
-        viaDoor.current = false;
         desiredPos = CLASS_POS;
         desiredTarget = CLASS_TARGET;
       }
@@ -1442,8 +1456,9 @@ function Scene({
       ))}
 
       <SchoolBuilding onEnter={goLessons} />
-      {/* Ông thầy đồ đứng bục giảng trong lớp (tọa độ thế giới: lớp ở [0,0,-4]) */}
-      <TeacherFigure position={[3.5, 0.6, -6.3]} lecturing={lecturing} />
+      {/* Ông thầy đồ đứng bục giảng trong lớp (bục ở [3.5, -1.5] trong model
+          school.glb đặt tại gốc tọa độ — thầy đứng ngay trước bục). */}
+      <TeacherFigure position={[3.5, 0.6, -2.3]} lecturing={lecturing} />
       {/* Bảng đen đổi nội dung theo từ thầy đang giảng */}
       <LectureBoard lecture={lecture} />
       {/* Bàn + ghế của học sinh (người xem) cuối lớp bên trái */}
@@ -1866,8 +1881,9 @@ export default function SchoolScene() {
           🏃 Cho học sinh ra sân ({sittingStudents.length})
         </button>
       )}
-      {/* Nút xem lớp học / về sân (điều khiển camera) */}
-      {sittingStudents.length > 0 && viewMode !== "classroom" && (
+      {/* Nút xem lớp học / về sân (điều khiển camera) — luôn bấm được để
+          vào xem trong lớp, kể cả khi chưa có học sinh nào ngồi. */}
+      {viewMode !== "classroom" && (
         <button
           onClick={() => setViewMode("classroom")}
           className="rounded-full bg-[#d9a441] px-4 py-2 text-sm font-extrabold text-[#2b2118] shadow-lg transition hover:bg-[#c98a2e]"
