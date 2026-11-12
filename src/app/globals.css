@@ -35,3 +35,12 @@ body {
   background: #c98a2e;
   border-radius: 6px;
 }
+
+/* Canvas 3D: chặn trình duyệt mobile chiếm cử chỉ chạm (cuộn trang /
+   zoom trang) để kéo xoay và chụm zoom luôn tới được OrbitControls.
+   OrbitControls chỉ set touch-action: none trên div bọc ngoài (không
+   phải chính canvas), nên trên Chrome mobile thật cử chỉ vẫn có thể
+   bị trình duyệt giữ lại — đặt trực tiếp lên canvas cho chắc. */
+#san-truong canvas {
+  touch-action: none;
+}
