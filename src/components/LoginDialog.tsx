@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { getAccount, login, logout, type Account } from "@/lib/progress";
 
 /**
@@ -18,6 +19,15 @@ export default function LoginDialog({
 }) {
   const [account, setAccount] = useState<Account>({ id: "guest", name: "Khách" });
   const [draft, setDraft] = useState("");
+  // Render qua portal ra document.body: dialog đang nằm trong <header> có
+  // backdrop-blur, mà backdrop-filter tạo containing block cho phần tử
+  // fixed nên dialog bị neo theo header, không phủ kín viewport được.
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -27,7 +37,7 @@ export default function LoginDialog({
     setDraft(a.id === "guest" ? "" : a.name);
   }, [open ]);
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
   const loggedIn = account.id !== "guest";
 
@@ -43,7 +53,7 @@ export default function LoginDialog({
     onClose();
   }
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 px-4"
       onClick={onClose}
@@ -109,6 +119,7 @@ export default function LoginDialog({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

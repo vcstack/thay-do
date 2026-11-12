@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { CLASS_SLOTS, DAI_KHOA_HOURS, fmtTime, liveClasses } from "@/data/schedule";
 
@@ -88,6 +89,15 @@ export default function SchoolMap({ onClose }: { onClose: () => void }) {
   const [tab, setTab] = useState<Tab>("map");
   const [skill, setSkill] = useState<(typeof SKILLS)[number]>("Tất cả");
   const [now, setNow] = useState<Date | null>(null);
+  // Render qua portal ra document.body: modal đang nằm trong <header> có
+  // backdrop-blur, mà backdrop-filter tạo containing block cho phần tử
+  // fixed nên modal bị neo theo header, không phủ kín viewport được.
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -102,7 +112,9 @@ export default function SchoolMap({ onClose }: { onClose: () => void }) {
     places: skill === "Tất cả" ? z.places : z.places.filter((p) => p.skills.includes(skill as Skill)),
   })).filter((z) => z.places.length > 0);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4"
       onClick={onClose}
@@ -246,6 +258,7 @@ export default function SchoolMap({ onClose }: { onClose: () => void }) {
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
