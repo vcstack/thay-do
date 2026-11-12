@@ -518,4 +518,212 @@ export const SPEAK_SPOTS: SpeakSpot[] = [
       },
     ],
   },
+  {
+    id: "tiem-hoa",
+    name: "Tiệm hoa",
+    icon: "🌸",
+    desc: "Mua một bó hoa tặng mẹ, hỏi giá từng loại hoa.",
+    steps: [
+      {
+        speaker: "Cô bán hoa",
+        zh: "你好！你想买什么花？",
+        py: "Nǐ hǎo! Nǐ xiǎng mǎi shénme huā?",
+        vi: "Xin chào! Bạn muốn mua hoa gì?",
+        options: [
+          { zh: "我想买玫瑰花。", py: "Wǒ xiǎng mǎi méiguī huā.", vi: "Tôi muốn mua hoa hồng.", correct: true, feedback: "Hoa hồng tặng mẹ là hợp nhất, cô bán hoa khen bạn có hiếu." },
+          { zh: "我要买一碗面。", py: "Wǒ yào yì wǎn miàn.", vi: "Tôi muốn một bát mì.", correct: false, feedback: "Tiệm hoa chỉ bán hoa thôi, mì thì ra quán mì ăn sau." },
+          { zh: "我不知道。", py: "Wǒ bù zhīdào.", vi: "Tôi không biết.", correct: false, feedback: "Chưa biết mua hoa gì thì mua hoa hồng tặng mẹ nhé." },
+        ],
+      },
+      {
+        speaker: "Cô bán hoa",
+        zh: "玫瑰花很漂亮。你要买几枝？",
+        py: "Méiguī huā hěn piàoliang. Nǐ yào mǎi jǐ zhī?",
+        vi: "Hoa hồng rất đẹp. Bạn muốn mua mấy cành?",
+        options: [
+          { zh: "我要买三枝。", py: "Wǒ yào mǎi sān zhī.", vi: "Tôi muốn mua ba cành.", correct: true, feedback: "Ba cành hoa hồng vừa đẹp, cô bán hoa gói ngay cho bạn." },
+          { zh: "我要一本书。", py: "Wǒ yào yì běn shū.", vi: "Tôi muốn một quyển sách.", correct: false, feedback: "Tiệm hoa không bán sách, nói số cành hoa bạn muốn mua đi." },
+          { zh: "我不喜欢花。", py: "Wǒ bù xǐhuān huā.", vi: "Tôi không thích hoa.", correct: false, feedback: "Không thích hoa thì vào tiệm hoa làm gì? Mua ba cành tặng mẹ thử xem." },
+        ],
+      },
+      {
+        speaker: "Cô bán hoa",
+        zh: "一枝十块钱，一共三十块钱。",
+        py: "Yì zhī shí kuài qián, yígòng sānshí kuài qián.",
+        vi: "Một cành mười đồng, tổng cộng ba mươi đồng.",
+        options: [
+          { zh: "好的，给你钱。", py: "Hǎo de, gěi nǐ qián.", vi: "Được, đưa tiền cho bạn đây.", correct: true, feedback: "Trả tiền xong là có hoa đẹp mang về tặng mẹ rồi!" },
+          { zh: "太贵了，我不买了。", py: "Tài guì le, wǒ bù mǎi le.", vi: "Đắt quá, tôi không mua nữa.", correct: false, feedback: "Hoa hồng tươi thế này mà mười đồng một cành là hợp lý rồi." },
+          { zh: "我走了。", py: "Wǒ zǒu le.", vi: "Tôi đi đây.", correct: false, feedback: "Chưa trả tiền đã đi à? Đưa tiền rồi hãy lấy hoa." },
+        ],
+      },
+      {
+        speaker: "Cô bán hoa",
+        zh: "花很漂亮，你妈妈一定喜欢！",
+        py: "Huā hěn piàoliang, nǐ māma yídìng xǐhuān!",
+        vi: "Hoa rất đẹp, mẹ bạn nhất định sẽ thích!",
+        options: [
+          { zh: "谢谢！再见！", py: "Xièxie! Zàijiàn!", vi: "Cảm ơn! Tạm biệt!", correct: true, feedback: "Mang hoa về tặng mẹ đi, mẹ bạn sẽ vui lắm đấy." },
+          { zh: "我不喜欢玫瑰花。", py: "Wǒ bù xǐhuān méiguī huā.", vi: "Tôi không thích hoa hồng.", correct: false, feedback: "Hoa đã mua rồi, mang về tặng mẹ rồi hãy nói thích hay không." },
+          { zh: "多少钱？", py: "Duōshao qián?", vi: "Bao nhiêu tiền?", correct: false, feedback: "Đã trả tiền rồi mà, giờ chỉ cần nói cảm ơn và tạm biệt." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ben-xe",
+    name: "Bến xe",
+    icon: "🚌",
+    desc: "Hỏi xe buýt đi đâu, mấy giờ chạy và mua vé lên xe.",
+    steps: [
+      {
+        speaker: "Bác tài xế",
+        zh: "你好！你要去哪里？",
+        py: "Nǐ hǎo! Nǐ yào qù nǎlǐ?",
+        vi: "Xin chào! Bạn muốn đi đâu?",
+        options: [
+          { zh: "我要去学校。", py: "Wǒ yào qù xuéxiào.", vi: "Tôi muốn đến trường.", correct: true, feedback: "Nói rõ đi đâu, bác tài mới chỉ đúng xe cho bạn." },
+          { zh: "我要买花。", py: "Wǒ yào mǎi huā.", vi: "Tôi muốn mua hoa.", correct: false, feedback: "Bến xe không bán hoa đâu, tiệm hoa ở cuối phố cơ." },
+          { zh: "我不知道。", py: "Wǒ bù zhīdào.", vi: "Tôi không biết.", correct: false, feedback: "Muốn đi học thì nói là đi trường đi nào." },
+        ],
+      },
+      {
+        speaker: "Bác tài xế",
+        zh: "去学校坐三路车。",
+        py: "Qù xuéxiào zuò sān lù chē.",
+        vi: "Đi đến trường thì đi xe buýt số 3.",
+        options: [
+          { zh: "三路车几点开？", py: "Sān lù chē jǐ diǎn kāi?", vi: "Xe số 3 mấy giờ chạy?", correct: true, feedback: "Hỏi giờ xe chạy thế mới đúng, khỏi phải đứng đợi lâu." },
+          { zh: "我要一杯咖啡。", py: "Wǒ yào yì bēi kāfēi.", vi: "Tôi muốn một ly cà phê.", correct: false, feedback: "Bến xe không bán cà phê, hỏi giờ xe chạy đi." },
+          { zh: "我不坐车。", py: "Wǒ bú zuò chē.", vi: "Tôi không đi xe.", correct: false, feedback: "Không đi xe thì ra bến xe làm gì? Hỏi giờ xe chạy đi." },
+        ],
+      },
+      {
+        speaker: "Bác tài xế",
+        zh: "八点开车，一张票两块钱。",
+        py: "Bā diǎn kāi chē, yì zhāng piào liǎng kuài qián.",
+        vi: "Tám giờ chạy, một vé hai đồng.",
+        options: [
+          { zh: "好的，我买一张票。", py: "Hǎo de, wǒ mǎi yì zhāng piào.", vi: "Được, tôi mua một vé.", correct: true, feedback: "Mua vé xong rồi, tám giờ xe chạy, nhớ đến sớm nhé." },
+          { zh: "太贵了！", py: "Tài guì le!", vi: "Đắt quá!", correct: false, feedback: "Hai đồng một vé xe buýt là rẻ rồi, đừng trả giá ở bến xe." },
+          { zh: "我要回家。", py: "Wǒ yào huí jiā.", vi: "Tôi muốn về nhà.", correct: false, feedback: "Vé còn chưa mua xong đã về à? Mua vé rồi hãy đi." },
+        ],
+      },
+      {
+        speaker: "Bác tài xế",
+        zh: "车来了，请上车！",
+        py: "Chē lái le, qǐng shàng chē!",
+        vi: "Xe đến rồi, mời lên xe!",
+        options: [
+          { zh: "谢谢！", py: "Xièxie!", vi: "Cảm ơn!", correct: true, feedback: "Lên xe thôi! Chúc bạn đi học vui vẻ." },
+          { zh: "再见！", py: "Zàijiàn!", vi: "Tạm biệt!", correct: false, feedback: "Xe vừa mới đến, lên xe đã rồi hãy tạm biệt bác tài." },
+          { zh: "我不去学校。", py: "Wǒ bú qù xuéxiào.", vi: "Tôi không đi trường nữa.", correct: false, feedback: "Vé đã mua rồi, lên xe đi học đi nào." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "cong-vien",
+    name: "Công viên",
+    icon: "🌳",
+    desc: "Gặp bạn mới trong công viên, hỏi đường và rủ nhau tập thể dục.",
+    steps: [
+      {
+        speaker: "Bạn mới quen",
+        zh: "你好！你也来公园吗？",
+        py: "Nǐ hǎo! Nǐ yě lái gōngyuàn ma?",
+        vi: "Xin chào! Bạn cũng đến công viên à?",
+        options: [
+          { zh: "是，我来公园跑步。", py: "Shì, wǒ lái gōngyuàn pǎobù.", vi: "Đúng, tôi đến công viên chạy bộ.", correct: true, feedback: "Trả lời thế là bắt chuyện được ngay, bạn mới rất vui." },
+          { zh: "我要买票。", py: "Wǒ yào mǎi piào.", vi: "Tôi muốn mua vé.", correct: false, feedback: "Công viên vào cửa miễn phí, không cần mua vé đâu." },
+          { zh: "我不知道。", py: "Wǒ bù zhīdào.", vi: "Tôi không biết.", correct: false, feedback: "Bạn đến công viên chạy bộ mà, nói thế đi." },
+        ],
+      },
+      {
+        speaker: "Bạn mới quen",
+        zh: "公园很大，你知道湖在哪里吗？",
+        py: "Gōngyuàn hěn dà, nǐ zhīdào hú zài nǎlǐ ma?",
+        vi: "Công viên rất lớn, bạn biết hồ ở đâu không?",
+        options: [
+          { zh: "湖在前面，往前走。", py: "Hú zài qiánmiàn, wǎng qián zǒu.", vi: "Hồ ở phía trước, đi thẳng về phía trước.", correct: true, feedback: "Chỉ đường rõ ràng thế này, bạn mới cảm ơn bạn lắm." },
+          { zh: "我要一碗面。", py: "Wǒ yào yì wǎn miàn.", vi: "Tôi muốn một bát mì.", correct: false, feedback: "Đang chỉ đường ra hồ mà, mì thì ra quán ăn sau." },
+          { zh: "我不喜欢公园。", py: "Wǒ bù xǐhuān gōngyuàn.", vi: "Tôi không thích công viên.", correct: false, feedback: "Không thích công viên thì bạn đến đây chạy bộ làm gì?" },
+        ],
+      },
+      {
+        speaker: "Bạn mới quen",
+        zh: "明天早上我们一起跑步，好吗？",
+        py: "Míngtiān zǎoshang wǒmen yìqǐ pǎobù, hǎo ma?",
+        vi: "Sáng mai chúng ta cùng chạy bộ nhé, được không?",
+        options: [
+          { zh: "好啊，明天七点见！", py: "Hǎo a, míngtiān qī diǎn jiàn!", vi: "Được, mai 7 giờ gặp nhé!", correct: true, feedback: "Hẹn xong rồi! Có bạn chạy cùng thì tập thể dục vui hơn nhiều." },
+          { zh: "我不去。", py: "Wǒ bú qù.", vi: "Tôi không đi.", correct: false, feedback: "Chạy bộ cùng bạn mới vui thế mà, hẹn bảy giờ sáng mai đi." },
+          { zh: "我要回家吃饭。", py: "Wǒ yào huí jiā chī fàn.", vi: "Tôi muốn về nhà ăn cơm.", correct: false, feedback: "Ăn cơm thì tối về ăn, sáng mai hẹn chạy bộ trước đã." },
+        ],
+      },
+      {
+        speaker: "Bạn mới quen",
+        zh: "太好了！明天见！",
+        py: "Tài hǎo le! Míngtiān jiàn!",
+        vi: "Tuyệt quá! Mai gặp nhé!",
+        options: [
+          { zh: "明天见！", py: "Míngtiān jiàn!", vi: "Mai gặp nhé!", correct: true, feedback: "Kết bạn mới thành công! Mai bảy giờ gặp nhau ở công viên nhé." },
+          { zh: "再见，我不来了。", py: "Zàijiàn, wǒ bù lái le.", vi: "Tạm biệt, tôi không đến nữa.", correct: false, feedback: "Vừa hẹn chạy bộ xong đã nói không đến à? Hẹn rồi thì phải giữ lời." },
+          { zh: "谢谢，我不要。", py: "Xièxie, wǒ bú yào.", vi: "Cảm ơn, tôi không cần.", correct: false, feedback: "Bạn mới rủ chạy bộ chứ có cho gì đâu mà nói không cần." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "quan-tra-sua",
+    name: "Quán trà sữa",
+    icon: "🧋",
+    desc: "Gọi một ly trà sữa, chọn ngọt và đá, hỏi giá rồi trả tiền.",
+    steps: [
+      {
+        speaker: "Cô bán trà sữa",
+        zh: "你好！你想喝什么？",
+        py: "Nǐ hǎo! Nǐ xiǎng hē shénme?",
+        vi: "Xin chào! Bạn muốn uống gì?",
+        options: [
+          { zh: "我想喝一杯奶茶。", py: "Wǒ xiǎng hē yì bēi nǎichá.", vi: "Tôi muốn uống một ly trà sữa.", correct: true, feedback: "Vào quán trà sữa thì gọi trà sữa chứ còn gì nữa!" },
+          { zh: "我要一碗面。", py: "Wǒ yào yì wǎn miàn.", vi: "Tôi muốn một bát mì.", correct: false, feedback: "Quán trà sữa không bán mì đâu, gọi trà sữa đi." },
+          { zh: "我要买花。", py: "Wǒ yào mǎi huā.", vi: "Tôi muốn mua hoa.", correct: false, feedback: "Muốn mua hoa thì ra tiệm hoa, ở đây chỉ bán trà sữa thôi." },
+        ],
+      },
+      {
+        speaker: "Cô bán trà sữa",
+        zh: "你要多糖还是少糖？",
+        py: "Nǐ yào duō táng háishì shǎo táng?",
+        vi: "Bạn muốn nhiều đường hay ít đường?",
+        options: [
+          { zh: "我要少糖，多冰。", py: "Wǒ yào shǎo táng, duō bīng.", vi: "Tôi muốn ít đường, nhiều đá.", correct: true, feedback: "Ít đường nhiều đá, uống mát mà không sợ ngọt quá." },
+          { zh: "我要热的米饭。", py: "Wǒ yào rè de mǐfàn.", vi: "Tôi muốn cơm nóng.", correct: false, feedback: "Quán trà sữa không bán cơm, chọn nhiều đường hay ít đường đi." },
+          { zh: "我不知道。", py: "Wǒ bù zhīdào.", vi: "Tôi không biết.", correct: false, feedback: "Chưa biết chọn gì thì gọi ít đường, nhiều đá thử xem." },
+        ],
+      },
+      {
+        speaker: "Cô bán trà sữa",
+        zh: "好的，一杯奶茶十五块钱。",
+        py: "Hǎo de, yì bēi nǎichá shíwǔ kuài qián.",
+        vi: "Được, một ly trà sữa mười lăm đồng.",
+        options: [
+          { zh: "好的，给你钱。", py: "Hǎo de, gěi nǐ qián.", vi: "Được, đưa tiền cho bạn đây.", correct: true, feedback: "Trả tiền xong là có trà sữa mát lạnh uống ngay!" },
+          { zh: "太贵了，我不买了。", py: "Tài guì le, wǒ bù mǎi le.", vi: "Đắt quá, tôi không mua nữa.", correct: false, feedback: "Mười lăm đồng một ly trà sữa là giá chung rồi, đừng chê đắt." },
+          { zh: "我走了。", py: "Wǒ zǒu le.", vi: "Tôi đi đây.", correct: false, feedback: "Chưa trả tiền đã đi à? Đưa tiền rồi hãy lấy trà sữa." },
+        ],
+      },
+      {
+        speaker: "Cô bán trà sữa",
+        zh: "奶茶来了，请慢用！",
+        py: "Nǎichá lái le, qǐng màn yòng!",
+        vi: "Trà sữa đến rồi, mời bạn dùng từ từ!",
+        options: [
+          { zh: "谢谢！很好喝！", py: "Xièxie! Hěn hǎohē!", vi: "Cảm ơn! Rất ngon!", correct: true, feedback: "Khen ngon thế này, lần sau cô bán trà sữa còn nhớ mặt bạn." },
+          { zh: "多少钱？", py: "Duōshao qián?", vi: "Bao nhiêu tiền?", correct: false, feedback: "Đã trả tiền rồi mà, giờ khen ngon trước đã." },
+          { zh: "我不喝奶茶。", py: "Wǒ bù hē nǎichá.", vi: "Tôi không uống trà sữa.", correct: false, feedback: "Vừa gọi trà sữa xong mà, uống thử đi, ngon lắm." },
+        ],
+      },
+    ],
+  },
 ];
