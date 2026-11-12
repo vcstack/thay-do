@@ -98,3 +98,30 @@ export function saveStudentName(id: string, name: string): void {
     /* ignore */
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Lời thầy giảng bài trong lớp (tự viết, tiếng Việt)                  */
+/* ------------------------------------------------------------------ */
+
+/** Mở đầu bài giảng: gọi tên bài và số từ mới sẽ dạy. */
+export function lectureIntro(lessonLabel: string, count: number): string {
+  return `Các em mở sách bài ${lessonLabel}. Hôm nay thầy dạy ${count} từ mới, các em nghe cho kỹ rồi đọc theo thầy.`;
+}
+
+/** Giới thiệu một từ mới: nói nghĩa tiếng Việt trước khi đọc chữ Hán. */
+export function lectureWordIntro(index: number, vi: string): string {
+  return `Từ thứ ${index + 1}, nghĩa là ${vi}.`;
+}
+
+/** Câu rủ cả lớp đọc theo thầy. */
+export const LECTURE_REPEAT = "Các em đọc lại theo thầy.";
+
+/** Giới thiệu câu ví dụ: nói nghĩa tiếng Việt trước khi đọc câu. */
+export function lectureExampleIntro(vi: string): string {
+  return `Ví dụ: ${vi}.`;
+}
+
+/** Kết bài giảng. */
+export function lectureOutro(count: number): string {
+  return `Hết bài rồi. Các em về nhà ôn lại ${count} từ mới, mai thầy kiểm tra đấy.`;
+}

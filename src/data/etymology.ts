@@ -101,6 +101,132 @@ export const ETYMOLOGIES: Etymology[] = [
       "Chữ Tâm vẽ trái tim: nét cong lớn là hình quả tim, ba chấm bên dưới là máu đang chảy. Người xưa cho rằng mọi suy nghĩ đều từ tim mà ra, học bằng tâm thì mới nhớ lâu, làm bằng tâm thì mới thành việc.",
     memory: "Nét cong là quả tim, ba chấm là máu chảy — đó là chữ Tâm.",
   },
+  {
+    char: "好",
+    py: "hǎo",
+    meaning: "tốt, hay",
+    parts: ["女 — con gái", "子 — con trai"],
+    story:
+      "Chữ Hảo ghép hai chữ lại: bên trái là chữ Nữ (con gái), bên phải là chữ Tử (con trai). Con gái và con trai ở cạnh nhau, hòa thuận với nhau thì đó là điều tốt đẹp — người xưa ghép hình ảnh gia đình sum họp để viết chữ Tốt.",
+    memory: "Con gái và con trai ở cạnh nhau thì tốt — đó là chữ Hảo.",
+  },
+  {
+    char: "学",
+    py: "xué",
+    meaning: "học",
+    parts: ["冖 — mái nhà", "子 — đứa trẻ", "⺈ — hai tay nâng"],
+    story:
+      "Chữ Học vẽ cảnh một đứa trẻ ngồi dưới mái nhà, hai tay nâng sách lên mà học. Ngày xưa trẻ con học chữ là ngồi dưới mái nhà của thầy, tay cầm sách, miệng đọc theo — học là thế, phải có người dạy, có sách đọc, có mái nhà che nắng che mưa.",
+    memory: "Đứa trẻ ngồi dưới mái nhà, hai tay nâng sách — đó là chữ Học.",
+  },
+  {
+    char: "生",
+    py: "shēng",
+    meaning: "sinh ra, sống",
+    parts: ["土 — đất", "丿 — mầm cây mọc lên"],
+    story:
+      "Chữ Sinh vẽ mầm cây mọc lên khỏi mặt đất: nét ngang dưới là đất, nét phẩy nghiêng lên là mầm non vừa nhú. Cây mọc lên từ đất là sinh, người ra đời cũng là sinh — cái gì sống cũng bắt đầu từ một mầm nhỏ vươn lên.",
+    memory: "Mầm cây mọc lên khỏi đất — đó là chữ Sinh.",
+  },
+  {
+    char: "大",
+    py: "dà",
+    meaning: "to, lớn",
+    parts: ["一 — nét ngang", "人 — người"],
+    story:
+      "Chữ Đại là chữ Nhân thêm một nét ngang: người dang hai tay ra thật rộng, hai chân đứng thật vững thì thành người lớn. Người xưa nói: người lớn không phải chỉ cao to, mà là người dang tay ôm được việc lớn.",
+    memory: "Người dang hai tay ra thật rộng — đó là chữ Đại.",
+  },
+  {
+    char: "小",
+    py: "xiǎo",
+    meaning: "nhỏ",
+    parts: ["八 — hai nét chia ra", "亅 — nét sổ móc ở giữa"],
+    story:
+      "Chữ Tiểu vẽ một hạt cát nhỏ xíu chia làm ba phần: hai nét phẩy chia ra hai bên, nét sổ móc ở giữa như cái rễ nhỏ. Nhỏ thì chia ra cũng nhỏ, gom lại cũng nhỏ — cái gì bé tí teo thì gọi là Tiểu.",
+    memory: "Một hạt nhỏ chia làm ba phần — đó là chữ Tiểu.",
+  },
+  {
+    char: "天",
+    py: "tiān",
+    meaning: "trời, bầu trời",
+    parts: ["大 — người lớn", "一 — nét ngang trên đầu"],
+    story:
+      "Chữ Thiên là chữ Đại thêm một nét ngang trên đầu: trên đầu người lớn là bầu trời. Người đứng dưới đất, ngửa mặt lên là thấy trời — trời cao bao nhiêu thì người xưa cũng chỉ vẽ bằng một nét ngang đơn giản trên đầu người.",
+    memory: "Trên đầu người lớn có một nét ngang — đó là bầu trời, chữ Thiên.",
+  },
+  {
+    char: "地",
+    py: "dì",
+    meaning: "đất, mặt đất",
+    parts: ["土 — đất", "也 — chỉ âm đọc"],
+    story:
+      "Chữ Địa gồm bộ Thổ ở bên trái và chữ Dã ở bên phải. Bộ Thổ nói rõ nghĩa: đây là chuyện về đất. Chữ Dã chỉ cho biết cách đọc. Trời ở trên, đất ở dưới — có Thiên thì phải có Địa, hai chữ đi đôi với nhau.",
+    memory: "Bên trái là bộ Thổ (đất), bên phải chỉ âm đọc — đó là chữ Địa.",
+  },
+  {
+    char: "火",
+    py: "huǒ",
+    meaning: "lửa",
+    parts: ["丿 — ngọn lửa bốc lên", "人 — hình người dang tay"],
+    story:
+      "Chữ Hỏa vẽ ngọn lửa đang cháy: hai nét phẩy hai bên là lửa bốc lên, nét ở giữa như người đang dang tay. Lửa vừa sáng vừa nóng, vừa nấu được cơm vừa sưởi được ấm — nhưng lửa cũng dữ, chạm vào là bỏng tay ngay.",
+    memory: "Ngọn lửa bốc lên hai bên như người dang tay — đó là chữ Hỏa.",
+  },
+  {
+    char: "金",
+    py: "jīn",
+    meaning: "vàng, kim loại",
+    parts: ["人 — hình người", "王 — vua", "丷 — hai chấm"],
+    story:
+      "Chữ Kim vẽ cảnh người ta đào vàng dưới lòng đất: phần trên là mái nhà che vàng, phần giữa là chữ Vương (vua) vì vàng quý như vua của các kim loại, phần dưới là hai chấm như hạt vàng rơi. Vàng quý vì hiếm, người xưa phải đào sâu dưới đất mới tìm được.",
+    memory: "Trên là mái nhà, giữa là chữ Vương, dưới là hai hạt vàng — đó là chữ Kim.",
+  },
+  {
+    char: "女",
+    py: "nǚ",
+    meaning: "con gái, phụ nữ",
+    parts: ["丿 — nét phẩy", "口 — miệng", "一 — nét ngang"],
+    story:
+      "Chữ Nữ vẽ hình người con gái đang ngồi khép nép: nét phẩy là mái tóc dài, miệng nhỏ khép lại, nét ngang là hai tay đặt ngay ngắn trên đầu gối. Ngày xưa con gái ngồi phải khép nép như thế, nên người ta vẽ chữ Nữ theo dáng ngồi ấy.",
+    memory: "Người con gái ngồi khép nép, tay đặt ngay ngắn — đó là chữ Nữ.",
+  },
+  {
+    char: "子",
+    py: "zǐ",
+    meaning: "con, con trai, đứa trẻ",
+    parts: ["了 — hình đứa trẻ", "一 — nét ngang"],
+    story:
+      "Chữ Tử vẽ đứa trẻ còn quấn tã: phần trên là cái đầu tròn, hai tay vung vẩy, nét ngang dưới là tã quấn. Đứa trẻ bé tí mà tay chân đã khua khoắng không ngừng — chữ Tử vì thế mà vừa giống đứa bé, vừa có nghĩa là con.",
+    memory: "Đứa trẻ quấn tã, tay vung vẩy — đó là chữ Tử.",
+  },
+  {
+    char: "门",
+    py: "mén",
+    meaning: "cửa",
+    parts: ["丶 — then cửa", "户 — khung cửa"],
+    story:
+      "Chữ Môn vẽ khung cửa: hai nét sổ hai bên là khung cửa, chấm nhỏ trên là then cài. Cửa đóng thì nhà kín, cửa mở thì người ra vào — muốn vào nhà ai thì phải đi qua cửa, muốn học chữ Hán thì cũng phải qua được cánh cửa đầu tiên này.",
+    memory: "Khung cửa hai bên, then cài ở trên — đó là chữ Môn.",
+  },
+  {
+    char: "车",
+    py: "chē",
+    meaning: "xe",
+    parts: ["十 — trục xe", "囗 — bánh xe"],
+    story:
+      "Chữ Xa vẽ chiếc xe cổ: nét ngang ở giữa là trục xe, hai khung vuông hai bên là hai bánh xe. Xe cổ chỉ có hai bánh mà chở được người đi nghìn dặm — chữ Xa vì thế mà giữ mãi hình chiếc xe hai bánh từ nghìn năm trước.",
+    memory: "Trục xe ở giữa, hai bánh xe hai bên — đó là chữ Xa.",
+  },
+  {
+    char: "电",
+    py: "diàn",
+    meaning: "điện, tia chớp",
+    parts: ["日 — mặt trời", "乚 — tia chớp"],
+    story:
+      "Chữ Điện vẽ tia chớp đánh xuống từ trời: phần trên là chữ Nhật (mặt trời), nét móc ở dưới là tia chớp uốn cong. Ngày xưa người ta thấy chớp lóe sáng trên trời như mặt trời nhỏ vụt qua — sau này có điện dùng trong nhà, chữ Điện vẫn giữ nguyên hình tia chớp ấy.",
+    memory: "Mặt trời trên cao, tia chớp uốn cong bên dưới — đó là chữ Điện.",
+  },
 ];
 
 /** Chữ giảng hôm nay: xoay theo ngày trong năm để mỗi ngày một chữ khác. */

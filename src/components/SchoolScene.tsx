@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Billboard, Float, OrbitControls, useGLTF } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -8,10 +8,22 @@ import { useRouter } from "next/navigation";
 import * as THREE from "three";
 import {
   SUGGESTED_NAMES,
+  LECTURE_REPEAT,
+  lectureExampleIntro,
+  lectureIntro,
+  lectureOutro,
+  lectureWordIntro,
   loadStudentNames,
   loadGuestName,
   saveStudentName,
 } from "@/data/teacher";
+import {
+  getLesson,
+  lessons,
+  type Lesson,
+  type Sentence,
+} from "@/data/lessons";
+import { speakQueue, type SpeakHandle, type SpeakItem } from "@/lib/speak";
 
 /* ------------------------------------------------------------------ */
 /* Bảng hiệu "Thầy Đồ" vẽ bằng canvas, dùng làm texture               */
@@ -264,20 +276,193 @@ function SchoolBuilding({ onEnter }: { onEnter: () => void }) {
 /* Nhân vật low-poly: thầy + học sinh                                  */
 /* ------------------------------------------------------------------ */
 
-/** Thầy đứng lớp (tĩnh, đung đưa nhẹ). */
-function TeacherFigure({ position }: { position: [number, number, number] }) {
-  const model = useCharacterModel("Teacher");
+/** Thầy đứng lớp: bình thường đung đưa nhẹ; khi đang giảng bài thì quay qua
+    lại giữa học sinh và bảng đen, giơ tay phải chỉ bảng, gật đầu.
+    Model thầy là 1 khối cứng nên ghép các mảnh (đầu, tay) thành khớp quay:
+    khớp đặt ở cổ/vai, các mảnh được chuyển về tọa độ tương đối so với khớp.
+    Khớp được ghép ngay trong memo lúc clone model (sửa clone mới tạo ở đây
+    thì hợp lệ), rồi đưa vào ref để useFrame quay khớp mỗi frame. */
+function TeacherFigure({
+  position,
+  lecturing,
+}: {
+  position: [number, number, number];
+  lecturing: boolean;
+}) {
+  const { nodes } = useGLTF(MODEL_URLS.characters);
+  const teacher = useMemo(() => {
+    const n = (nodes as Record<string, THREE.Object3D>)["Teacher"];
+    if (!n) return null;
+    const model = n.clone();
+    model.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh) {
+        m.castShadow = true;
+        m.receiveShadow = true;
+      }
+    });
+    const pivot = (x: number, y: number, z: number) => {
+      const p = new THREE.Group();
+      p.position.set(x, y, z);
+      model.add(p);
+      return p;
+    };
+    const attach = (p: THREE.Group, names: string[]) => {
+      for (const name of names) {
+        const o = model.getObjectByName(name);
+        if (!o) continue;
+        o.position.sub(p.position);
+        p.add(o);
+      }
+    };
+    // Khớp cổ (đầu + khăn + râu + mắt gật cùng nhau), khớp vai phải/trái.
+    const head = pivot(0, 1.35, 0);
+    attach(head, [
+      "Teacher_head",
+      "Teacher_khan",
+      "Teacher_khan_knot",
+      "Teacher_khan_top",
+      "Teacher_beard",
+      "Teacher_mustache",
+      "Teacher_eye",
+      "Teacher_eye.001",
+    ]);
+    const armR = pivot(0.35, 1.35, 0);
+    attach(armR, ["Teacher_arm_R", "Teacher_hand_R"]);
+    const armL = pivot(-0.35, 1.35, 0);
+    attach(armL, [
+      "Teacher_arm_L",
+      "Teacher_hand_L",
+      "Teacher_book",
+      "Teacher_book_pages",
+    ]);
+    return { model, rig: { head, armR, armL } };
+  }, [nodes]);
+
+  const rigRef = useRef<{
+    head: THREE.Group;
+    armR: THREE.Group;
+    armL: THREE.Group;
+  } | null>(null);
+  useEffect(() => {
+    rigRef.current = teacher?.rig ?? null;
+  }, [teacher]);
+
   const g = useRef<THREE.Group>(null);
-  useFrame((state) => {
-    if (g.current) {
-      g.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.12;
+  const lectRef = useRef(lecturing);
+  useEffect(() => {
+    lectRef.current = lecturing;
+  }, [lecturing]);
+
+  // Mức quay/chỉ hiện tại (nội suy mượt về đích mỗi frame).
+  const anim = useRef({ turn: 0, point: 0 });
+  useFrame((state, delta) => {
+    if (!g.current) return;
+    const t = state.clock.elapsedTime;
+    const k = 1 - Math.exp(-2.5 * delta);
+    const rig = rigRef.current;
+    if (lectRef.current && rig) {
+      // Chu kỳ 8 giây: 0–3s quay mặt về lớp, 3–6s quay ra bảng + chỉ bảng,
+      // 6–8s quay lại về lớp.
+      const ph = t % 8;
+      const turnTarget = ph >= 3 && ph < 6 ? 1 : 0;
+      anim.current.turn += (turnTarget - anim.current.turn) * k;
+      const pointTarget = anim.current.turn > 0.55 ? 1 : 0;
+      anim.current.point += (pointTarget - anim.current.point) * k;
+      const { turn, point } = anim.current;
+      g.current.rotation.y = Math.PI * turn + Math.sin(t * 0.5) * 0.05;
+      g.current.rotation.x = 0.03 + Math.sin(t * 1.1) * 0.02;
+      // Gật đầu liên tục trong lúc giảng.
+      rig.head.rotation.x = 0.05 + Math.sin(t * 2.4) * 0.07;
+      // Giơ tay phải chỉ bảng (vung nhẹ), tay trái cầm sách hơi nâng lên.
+      rig.armR.rotation.x = -1.25 * point + Math.sin(t * 3) * 0.07 * point;
+      rig.armL.rotation.x = -0.18;
+    } else {
+      // Không giảng: đung đưa nhẹ như cũ, các khớp về vị trí nghỉ.
+      anim.current.turn += (0 - anim.current.turn) * k;
+      anim.current.point += (0 - anim.current.point) * k;
+      g.current.rotation.y =
+        Math.PI * anim.current.turn + Math.sin(t * 0.5) * 0.12;
+      g.current.rotation.x *= 0.95;
+      if (rig) {
+        rig.head.rotation.x *= 0.95;
+        rig.armR.rotation.x *= 0.95;
+        rig.armL.rotation.x *= 0.95;
+      }
     }
   });
-  if (!model) return null;
+  if (!teacher) return null;
   return (
     <group ref={g} position={position} scale={1.12}>
-      <primitive object={model} />
+      <primitive object={teacher.model} />
     </group>
+  );
+}
+
+/** Trạng thái bài giảng: bài nào, đang giảng từ thứ mấy (index === total là kết bài). */
+export interface LectureState {
+  lesson: Lesson;
+  index: number;
+  total: number;
+}
+
+/** Bảng đen trong lớp: khi thầy đang giảng thì hiện chữ của từ đang giảng
+    (chữ Hán to + pinyin + nghĩa Việt) vẽ lên canvas texture, đặt ngay trước
+    mặt bảng đen có sẵn trong model school.glb (tâm bảng ở [0, 2.70, -7.08]).
+    Không giảng thì ẩn đi để lộ bảng gốc. */
+function LectureBoard({ lecture }: { lecture: LectureState | null }) {
+  const texture = useMemo(() => {
+    if (!lecture) return null;
+    const word = lecture.lesson.vocab[Math.min(lecture.index, lecture.total - 1)];
+    if (!word) return null;
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 420;
+    const ctx = canvas.getContext("2d")!;
+    // Nền bảng xanh lá sẫm (khớp màu bảng gốc) + khung vàng.
+    ctx.fillStyle = "#1f4d3a";
+    ctx.fillRect(0, 0, 1024, 420);
+    ctx.strokeStyle = "#d9a441";
+    ctx.lineWidth = 8;
+    ctx.strokeRect(10, 10, 1004, 400);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#f6d789";
+    ctx.font = "bold 34px system-ui, sans-serif";
+    ctx.fillText(
+      `Bài ${lecture.lesson.id} · ${lecture.lesson.titleVi}  —  từ ${Math.min(lecture.index + 1, lecture.total)}/${lecture.total}`,
+      512,
+      48
+    );
+    ctx.fillStyle = "#ffffff";
+    ctx.font =
+      "bold 170px 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif";
+    ctx.fillText(word.zh, 512, 195);
+    ctx.fillStyle = "#ffd98a";
+    ctx.font = "bold 52px system-ui, sans-serif";
+    ctx.fillText(word.py, 512, 315);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 46px system-ui, sans-serif";
+    ctx.fillText(word.vi, 512, 375);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 4;
+    return tex;
+  }, [lecture]);
+
+  // Dọn texture cũ khi đổi từ để khỏi rò bộ nhớ.
+  useEffect(() => {
+    return () => {
+      texture?.dispose();
+    };
+  }, [texture]);
+
+  if (!lecture || !texture) return null;
+  return (
+    <mesh position={[0, 2.7, -6.97]}>
+      <planeGeometry args={[4.4, 1.8]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
   );
 }
 
@@ -702,6 +887,41 @@ const INITIAL_STUDENTS: Omit<StudentInfo, "name" | "status" | "target">[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/* Bàn + ghế của học sinh (người xem): góc nhìn thứ nhất trong lớp     */
+/* Ghế cuối lớp bên trái, đối diện thầy và bảng đen. Màu gỗ khớp với    */
+/* bàn ghế có sẵn trong model school.glb (wood #8a6b45, wood_dark       */
+/* #6b5232, wood_mid #7a5230).                                         */
+/* ------------------------------------------------------------------ */
+function VisitorDesk() {
+  return (
+    <group>
+      {/* mặt bàn */}
+      <mesh castShadow receiveShadow position={[-2.2, 1.32, -3.0]}>
+        <boxGeometry args={[1.5, 0.08, 0.75]} />
+        <meshStandardMaterial color="#8a6b45" roughness={0.8} />
+      </mesh>
+      {/* chân bàn */}
+      {[-2.8, -1.6].map((x) => (
+        <mesh key={x} castShadow position={[x, 0.95, -3.0]}>
+          <boxGeometry args={[0.08, 0.7, 0.6]} />
+          <meshStandardMaterial color="#6b5232" roughness={0.85} />
+        </mesh>
+      ))}
+      {/* ghế ngồi */}
+      <mesh castShadow receiveShadow position={[-2.2, 1.02, -2.2]}>
+        <boxGeometry args={[0.55, 0.08, 0.55]} />
+        <meshStandardMaterial color="#7a5230" roughness={0.85} />
+      </mesh>
+      {/* tựa lưng ghế (phía cửa lớp) */}
+      <mesh castShadow position={[-2.2, 1.35, -1.94]}>
+        <boxGeometry args={[0.55, 0.6, 0.08]} />
+        <meshStandardMaterial color="#7a5230" roughness={0.85} />
+      </mesh>
+    </group>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Camera "vào lớp": bám theo học sinh rồi chuyển vào trong lớp        */
 /* ------------------------------------------------------------------ */
 export type ViewMode = "yard" | "follow" | "classroom";
@@ -709,13 +929,17 @@ export type ViewMode = "yard" | "follow" | "classroom";
 /** Góc nhìn toàn cảnh sân trường (mặc định). */
 const YARD_POS = new THREE.Vector3(17, 10, 17);
 const YARD_TARGET = new THREE.Vector3(0, 2.4, 0);
-/** Góc nhìn vào lớp: đứng ngay trước cửa lớp (cửa mở), nhìn xuyên vào trong
-    thấy bảng đen + thầy + học sinh đang ngồi. Đứng ngoài cửa thay vì chui hẳn
-    vào trong để (1) khung hình đủ rộng chứa cả lớp — nhất là trên điện thoại
-    dọc, và (2) camera không phải xuyên qua tường khi chuyển từ ngoài sân vào.
-    Lớp học (SchoolBuilding) đặt ở [0,0,-4] nên cửa lớp ở z ≈ -0.75. */
-const CLASS_POS = new THREE.Vector3(0, 2.2, 0.5);
-const CLASS_TARGET = new THREE.Vector3(0.5, 1.6, -6);
+/** Góc nhìn trong lớp (thứ nhất, từ ghế học sinh): người xem đóng vai một học
+    sinh ngồi ở bàn riêng cuối lớp (bàn khách ở [-2.2, -3.0], ghế ở [-2.2, -2.2]),
+    nhìn về phía thầy và bảng đen. Chỉ thấy BÊN TRONG lớp — thầy, bảng, các
+    bạn ngồi trước mặt — không thấy sân bên ngoài (cửa lớp ở sau lưng).
+    Camera ở tầm mắt học sinh ngồi (~1.75), mục tiêu là giữa bảng đen. */
+const CLASS_POS = new THREE.Vector3(-2.2, 1.75, -2.2);
+const CLASS_TARGET = new THREE.Vector3(0, 2.2, -7.0);
+/** Điểm trung gian khi bay vào lớp: đứng trước cửa lớp đang mở (cửa ở z ≈ -0.75,
+    khe cửa x ∈ [-0.94, 0.94]) rồi mới vào ghế — để camera không xuyên tường. */
+const DOOR_POS = new THREE.Vector3(0, 2.2, 0.5);
+const DOOR_TARGET = new THREE.Vector3(0, 1.8, -4);
 /** Camera bám sau lưng học sinh khi đi bộ (học sinh đi từ sân +z vào lớp -z). */
 const FOLLOW_OFFSET = new THREE.Vector3(0, 2.6, 5.0);
 
@@ -739,14 +963,25 @@ function CameraRig({
   const camera = useThree((s) => s.camera);
   const animating = useRef(false);
   const prevMode = useRef(viewMode);
+  /** Đang bay vào lớp qua cửa (chưa tới ghế) — đi qua khe cửa rồi mới vào ghế. */
+  const viaDoor = useRef(false);
 
   // Đổi chế độ xem thì bắt đầu chuyển động camera
   useEffect(() => {
     if (prevMode.current !== viewMode) {
       prevMode.current = viewMode;
       animating.current = true;
+      // Bay vào lớp từ ngoài sân/cửa thì đi qua cửa lớp, tránh xuyên tường
+      // (đường thẳng từ chỗ học sinh vừa đi vào tới ghế có thể cắt tường).
+      viaDoor.current = viewMode === "classroom" && camera.position.z > -0.5;
+      // Rời lớp: nới khoảng cách tối đa để camera bay ra được sân
+      // (giới hạn 6 trong lớp được đặt lại khi vào tới ghế, xem dưới).
+      const controls = controlsRef.current;
+      if (controls && viewMode !== "classroom") {
+        controls.maxDistance = 30;
+      }
     }
-  }, [viewMode]);
+  }, [viewMode, camera, controlsRef]);
 
   useFrame((_, delta) => {
     const controls = controlsRef.current;
@@ -765,8 +1000,16 @@ function CameraRig({
         desiredPos = desiredTarget.clone().add(FOLLOW_OFFSET);
       }
     } else if (viewMode === "classroom") {
-      desiredPos = CLASS_POS;
-      desiredTarget = CLASS_TARGET;
+      if (viaDoor.current && camera.position.z > -1.0) {
+        // Chưa vào trong: bay tới trước cửa lớp, nhìn xuyên vào trong.
+        desiredPos = DOOR_POS;
+        desiredTarget = DOOR_TARGET;
+      } else {
+        // Đã qua cửa: vào ghế ngồi, nhìn về phía thầy và bảng đen.
+        viaDoor.current = false;
+        desiredPos = CLASS_POS;
+        desiredTarget = CLASS_TARGET;
+      }
     } else {
       desiredPos = YARD_POS;
       desiredTarget = YARD_TARGET;
@@ -778,10 +1021,16 @@ function CameraRig({
     if (viewMode === "follow" || animating.current) {
       camera.position.lerp(desiredPos, k);
       controls.target.lerp(desiredTarget, k);
-      if (viewMode !== "follow") {
+      // Đang đi qua cửa thì chưa tính là "tới nơi" — đợi vào tới ghế mới thả ra.
+      if (viewMode !== "follow" && !viaDoor.current) {
         const dPos = camera.position.distanceTo(desiredPos);
         const dTgt = controls.target.distanceTo(desiredTarget);
-        if (dPos < 0.08 && dTgt < 0.08) animating.current = false;
+        if (dPos < 0.08 && dTgt < 0.08) {
+          animating.current = false;
+          // Đã ngồi vào ghế: giới hạn zoom để camera ở trong phòng
+          // (camera đang ở cách mục tiêu ~5.3 nên đặt 6 không gây giật).
+          if (viewMode === "classroom") controls.maxDistance = 6;
+        }
       }
     }
   });
@@ -793,6 +1042,8 @@ function Scene({
   students,
   viewMode,
   studentPos,
+  lecturing,
+  lecture,
   onRequestGo,
   onRequestBack,
   onArrive,
@@ -800,6 +1051,8 @@ function Scene({
   students: StudentInfo[];
   viewMode: ViewMode;
   studentPos: React.MutableRefObject<Record<string, THREE.Vector3>>;
+  lecturing: boolean;
+  lecture: LectureState | null;
   onRequestGo: (id: string) => void;
   onRequestBack: (id: string) => void;
   onArrive: (id: string, where: "seat" | "yard") => void;
@@ -856,7 +1109,11 @@ function Scene({
 
       <SchoolBuilding onEnter={goLessons} />
       {/* Ông thầy đồ đứng bục giảng trong lớp (tọa độ thế giới: lớp ở [0,0,-4]) */}
-      <TeacherFigure position={[3.5, 0.6, -6.3]} />
+      <TeacherFigure position={[3.5, 0.6, -6.3]} lecturing={lecturing} />
+      {/* Bảng đen đổi nội dung theo từ thầy đang giảng */}
+      <LectureBoard lecture={lecture} />
+      {/* Bàn + ghế của học sinh (người xem) cuối lớp bên trái */}
+      <VisitorDesk />
       <Gate onEnter={goSchedule} />
       <SideHouse position={[-11.5, 0, -6]} rotationY={0.35} />
       <SideHouse position={[10.5, 0, -4]} rotationY={-0.4} />
@@ -921,10 +1178,12 @@ function Scene({
         enableDamping
         dampingFactor={0.08}
         enablePan={false}
-        minDistance={2}
+        minDistance={viewMode === "classroom" ? 1 : 2}
         maxDistance={30}
         minPolarAngle={0.2}
-        maxPolarAngle={1.48}
+        maxPolarAngle={1.75}
+        minAzimuthAngle={viewMode === "classroom" ? -1.2 : undefined}
+        maxAzimuthAngle={viewMode === "classroom" ? 1.2 : undefined}
       />
     </>
   );
@@ -962,6 +1221,122 @@ export default function SchoolScene() {
     (s) => s.status === "walking" || s.status === "returning"
   );
 
+  /* --- Bài giảng của thầy trong lớp 3D --- */
+  const [lectureLessonId, setLectureLessonId] = useState(1);
+  const [lectureIndex, setLectureIndex] = useState(0);
+  const [lecturing, setLecturing] = useState(false);
+  /** Tăng mỗi lần dừng/đổi bài để lượt đọc cũ (nếu còn) không sang từ tiếp theo. */
+  const lectureToken = useRef(0);
+  /** Lượt đọc TTS đang chạy (để dừng giữa chừng). */
+  const lectureHandle = useRef<SpeakHandle | null>(null);
+
+  const lectureLesson = getLesson(lectureLessonId);
+  const lectureWords = useMemo(
+    () => lectureLesson?.vocab.slice(0, 5) ?? [],
+    [lectureLesson]
+  );
+  /** Từ đang giảng để vẽ lên bảng đen + hiện ở panel (kẹp index ở từ cuối khi kết bài). */
+  const lecture: LectureState | null =
+    lecturing && lectureLesson && lectureWords.length > 0
+      ? {
+          lesson: lectureLesson,
+          index: Math.min(lectureIndex, lectureWords.length - 1),
+          total: lectureWords.length,
+        }
+      : null;
+
+  const stopLecture = useCallback(() => {
+    lectureToken.current += 1;
+    lectureHandle.current?.stop();
+    lectureHandle.current = null;
+    setLecturing(false);
+    setLectureIndex(0);
+  }, []);
+
+  function startLecture() {
+    if (sittingStudents.length === 0) return;
+    lectureToken.current += 1;
+    lectureHandle.current?.stop();
+    lectureHandle.current = null;
+    setLectureIndex(0);
+    setLecturing(true);
+    // Chuyển camera vào trong lớp để xem thầy giảng.
+    setViewMode("classroom");
+  }
+
+  function changeLesson(id: number) {
+    // Đang giảng mà đổi bài thì cắt lượt đọc cũ, giảng lại từ đầu bài mới.
+    if (lecturing) {
+      lectureToken.current += 1;
+      lectureHandle.current?.stop();
+      lectureHandle.current = null;
+    }
+    setLectureLessonId(id);
+    setLectureIndex(0);
+  }
+
+  // Chạy từng từ của bài giảng: đọc nối tiếp bằng TTS, xong thì sang từ sau.
+  // Không có giọng đọc thì dùng hẹn giờ để bảng vẫn chuyển từ.
+  useEffect(() => {
+    if (!lecturing) return;
+    const lesson = getLesson(lectureLessonId);
+    if (!lesson) return;
+    const words = lesson.vocab.slice(0, 5);
+    if (words.length === 0) return;
+    const token = ++lectureToken.current;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const advance = () => {
+      if (lectureToken.current !== token) return;
+      if (lectureIndex >= words.length) {
+        // Vừa đọc xong câu kết → dừng hẳn.
+        setLecturing(false);
+        setLectureIndex(0);
+      } else {
+        setLectureIndex((i) => i + 1);
+      }
+    };
+    if (lectureIndex >= words.length) {
+      // Kết bài
+      const handle = speakQueue(
+        [{ text: lectureOutro(words.length), lang: "vi" }],
+        advance
+      );
+      lectureHandle.current = handle;
+      if (!handle) timer = setTimeout(advance, 4000);
+    } else {
+      const word = words[lectureIndex];
+      const example: Sentence | undefined =
+        lesson.sentences.find((s) => s.zh.includes(word.zh)) ??
+        lesson.sentences[0];
+      const items: SpeakItem[] = [];
+      if (lectureIndex === 0) {
+        items.push({
+          text: lectureIntro(
+            `Bài ${lesson.id}: ${lesson.titleVi}`,
+            words.length
+          ),
+          lang: "vi",
+        });
+      }
+      items.push({ text: lectureWordIntro(lectureIndex, word.vi), lang: "vi" });
+      items.push({ text: word.zh, lang: "zh", rate: 0.7 });
+      items.push({ text: LECTURE_REPEAT, lang: "vi" });
+      items.push({ text: word.zh, lang: "zh", rate: 0.85 });
+      if (example) {
+        items.push({ text: lectureExampleIntro(example.vi), lang: "vi" });
+        items.push({ text: example.zh, lang: "zh", rate: 0.85 });
+      }
+      const handle = speakQueue(items, advance);
+      lectureHandle.current = handle;
+      if (!handle) timer = setTimeout(advance, 9000);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+      lectureHandle.current?.stop();
+      lectureHandle.current = null;
+    };
+  }, [lecturing, lectureIndex, lectureLessonId]);
+
   function openNaming(id: string) {
     const st = students.find((s) => s.id === id);
     if (!st) return;
@@ -998,6 +1373,14 @@ export default function SchoolScene() {
   }
 
   function sendOut(id: string) {
+    // Nếu đây là học sinh cuối cùng trong lớp và thầy đang giảng → dừng giảng.
+    if (
+      lecturing &&
+      sittingStudents.length === 1 &&
+      sittingStudents[0]?.id === id
+    ) {
+      stopLecture();
+    }
     setStudents((prev) =>
       prev.map((s) =>
         s.id === id ? { ...s, status: "returning", target: "yard" } : s
@@ -1042,6 +1425,8 @@ export default function SchoolScene() {
             students={students}
             viewMode={viewMode}
             studentPos={studentPos}
+            lecturing={lecturing}
+            lecture={lecture}
             onRequestGo={openNaming}
             onRequestBack={sendOut}
             onArrive={handleArrive}
@@ -1112,6 +1497,30 @@ export default function SchoolScene() {
               🏫 Vào xem lớp học
             </button>
           )}
+          {/* Chọn bài giảng (đổi giữa chừng thì giảng lại từ đầu bài mới) */}
+          {sittingStudents.length > 0 && (
+            <select
+              value={lectureLessonId}
+              onChange={(e) => changeLesson(Number(e.target.value))}
+              aria-label="Chọn bài giảng"
+              className="rounded-full border-2 border-[#c98a2e] bg-[#fdf9ec] px-3 py-2 text-sm font-bold text-[#2b2118] shadow-lg outline-none"
+            >
+              {lessons.map((l) => (
+                <option key={l.id} value={l.id}>
+                  Bài {l.id}: {l.titleVi}
+                </option>
+              ))}
+            </select>
+          )}
+          {/* Nút thầy giảng bài (cần có học sinh đang ngồi trong lớp) */}
+          {sittingStudents.length > 0 && !lecturing && (
+            <button
+              onClick={startLecture}
+              className="rounded-full bg-[#b3372a] px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow-lg transition hover:bg-[#8f2a20]"
+            >
+              📖 Thầy giảng bài
+            </button>
+          )}
           {viewMode !== "yard" && (
             <button
               onClick={() => setViewMode("yard")}
@@ -1121,6 +1530,42 @@ export default function SchoolScene() {
             </button>
           )}
         </div>
+
+        {/* Panel bài giảng: từ đang giảng + tiến trình + nút dừng */}
+        {lecturing && lecture && (
+          <div className="pointer-events-auto absolute bottom-24 left-3 w-72 rounded-2xl border-2 border-[#c98a2e]/60 bg-[#fdf9ec]/95 p-4 shadow-xl">
+            <p className="text-sm font-black text-[#b3372a]">
+              📖 Thầy đang giảng — Bài {lecture.lesson.id}:{" "}
+              {lecture.lesson.titleVi}
+            </p>
+            <p className="mt-2 text-center text-5xl font-black leading-tight text-[#2b2118]">
+              {lecture.lesson.vocab[lecture.index]?.zh}
+            </p>
+            <p className="text-center text-sm font-bold text-[#6b5a44]">
+              {lecture.lesson.vocab[lecture.index]?.py}
+            </p>
+            <p className="text-center text-base font-bold text-[#b3372a]">
+              {lecture.lesson.vocab[lecture.index]?.vi}
+            </p>
+            <div className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-[#e8c37a]/50">
+              <div
+                className="h-full rounded-full bg-[#b3372a] transition-all duration-500"
+                style={{
+                  width: `${((lecture.index + 1) / lecture.total) * 100}%`,
+                }}
+              />
+            </div>
+            <p className="mt-1 text-center text-xs font-bold text-[#6b5a44]">
+              Từ {lecture.index + 1}/{lecture.total}
+            </p>
+            <button
+              onClick={stopLecture}
+              className="mt-3 w-full rounded-full bg-[#2b2118] px-4 py-2 text-sm font-extrabold text-[#fdf9ec] shadow transition hover:bg-black"
+            >
+              ⏹ Dừng giảng
+            </button>
+          </div>
+        )}
 
         {/* Hộp đặt tên */}
         {namingStudent && (
