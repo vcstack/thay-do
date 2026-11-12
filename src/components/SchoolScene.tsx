@@ -173,11 +173,26 @@ const HAT_PARTS = new Set([
   "bow_L", "bow_R", "braid_bow", "flower", "petal", "belt",
 ]);
 
+const SKIRT_PARTS = new Set(["skirt", "panel_f", "panel_b"]);
+
+/** Trạng thái phím lái nhân vật (WASD / phím mũi tên + Shift chạy nhanh),
+    chia sẻ giữa parent (lắng nghe bàn phím / nút bấm) và Student (di chuyển). */
+export type DriveState = {
+  up: boolean;
+  down: boolean;
+  left: boolean;
+  right: boolean;
+  run: boolean;
+};
+
 /**
  * Clone 1 nhân vật trong characters.glb theo tên node (Student_M1.../Student_F3)
  * rồi ghép các mảnh thành khớp quay như TeacherFigure: khớp cổ (đầu + khăn/tóc
- * + mặt), khớp vai phải/trái (tay + sách/quạt cầm tay). Nhờ đó học sinh mới
- * gật đầu, giơ tay làm cử chỉ được — model .glb gốc là 1 khối cứng.
+ * + mặt), khớp vai phải/trái (tay + sách/quạt cầm tay), khớp hông trái/phải
+ * (chân + giày) và khớp eo (váy + tà). Nhờ đó học sinh mới gật đầu, giơ tay
+ * làm cử chỉ VÀ bước đi được (chân vung, tà áo đung đưa) — model .glb gốc
+ * là 1 khối cứng, chân là 4 mesh cùng tên "leg" nên phân biệt trái/phải
+ * theo dấu của tọa độ x.
  */
 function useStudentRig(id: string) {
   const { nodes } = useGLTF(MODEL_URLS.characters);
@@ -202,21 +217,27 @@ function useStudentRig(id: string) {
       model.add(p);
       return p;
     };
-    // Khớp cổ (đầu + khăn/tóc + mặt gật cùng nhau), khớp vai phải/trái.
+    // Khớp cổ (đầu + khăn/tóc + mặt gật cùng nhau), khớp vai phải/trái,
+    // khớp hông trái/phải (chân + giày bước cùng nhau), khớp eo (váy + tà).
     const head = pivot(0, 1.45, 0);
     const armR = pivot(0.35, 1.35, 0);
     const armL = pivot(-0.35, 1.35, 0);
+    const legL = pivot(-0.12, 0.44, 0);
+    const legR = pivot(0.12, 0.44, 0);
+    const skirt = pivot(0, 0.75, 0);
     for (const o of children) {
       const part = partOf(o);
       let p: THREE.Group | null = null;
       if (HEAD_PARTS.has(part)) p = head;
       else if (ARM_R_PARTS.has(part)) p = armR;
       else if (ARM_L_PARTS.has(part)) p = armL;
+      else if (part === "leg") p = o.position.x < 0 ? legL : legR;
+      else if (SKIRT_PARTS.has(part)) p = skirt;
       if (!p) continue;
       o.position.sub(p.position);
       p.add(o);
     }
-    return { model, rig: { head, armR, armL } };
+    return { model, rig: { head, armR, armL, legL, legR, skirt } };
   }, [nodes, id]);
 }
 
@@ -241,6 +262,36 @@ const sstep = (a: number, b: number, x: number) => {
   const u = THREE.MathUtils.clamp((x - a) / (b - a), 0, 1);
   return u * u * (3 - 2 * u);
 };
+
+/** Nút bấm di chuyển trên mobile: giữ để đi, nhả ra thì dừng. */
+function DriveButton({
+  label,
+  ariaLabel,
+  onPress,
+}: {
+  label: string;
+  ariaLabel: string;
+  onPress: (on: boolean) => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={ariaLabel}
+      className="flex h-11 w-11 select-none items-center justify-center rounded-full bg-[#fdf9ec]/90 text-lg font-black text-[#2b2118] shadow-lg active:bg-[#e8c37a]"
+      style={{ touchAction: "none" }}
+      onPointerDown={(e) => {
+        e.preventDefault();
+        onPress(true);
+      }}
+      onPointerUp={() => onPress(false)}
+      onPointerLeave={() => onPress(false)}
+      onPointerCancel={() => onPress(false)}
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      {label}
+    </button>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* Cây xanh / cây hoa                                                  */
@@ -605,6 +656,114 @@ function buildPath(start: [number, number], seat: [number, number]): Vec3[] {
 }
 
 /* ------------------------------------------------------------------ */
+/* Va chạm sân cho nhân vật TỰ ĐI (WASD / đi dạo): không ra khỏi sân,  */
+/* không xuyên tường nhà, bậc thang hay đồ vật. Tọa độ đối chiếu trực  */
+/* tiếp hình học thật trong school.glb (nền nhà x[-6.25,6.25]          */
+/* z[-4.5,4.5] cao 0.6; tường trước z=3.25, khe cửa x∈[-1.3,1.3]; bậc   */
+/* thang z 5.1/5.7/6.3; hồ sen (8.5,3) r2.7; cổng z=10.5). Đường đi   */
+/* vào lớp cố định (buildPath) không dùng hàm này — đã kiểm chứng     */
+/* riêng là đi đúng qua khe cửa, không đụng tường.                     */
+/* ------------------------------------------------------------------ */
+const YARD_BOUNDS = { minX: -13.5, maxX: 13.5, minZ: -8.5, maxZ: 10.2 };
+const YARD_RECTS = [
+  { x0: -6.6, x1: 6.6, z0: -4.8, z1: 4.8 }, // nền nhà lớp học (cao 0.6)
+  { x0: -2.6, x1: 2.6, z0: 4.4, z1: 6.9 }, // bậc thang trước cửa
+];
+const YARD_CIRCLES = [
+  { x: -4.6, z: 5.6, r: 1.1 }, // đèn đá trái
+  { x: 4.9, z: 5.2, r: 1.1 }, // đèn đá phải
+  { x: -6.8, z: 7.2, r: 1.4 }, // ghế đá trái
+  { x: 6.4, z: 8.0, r: 1.4 }, // ghế đá phải
+  { x: 8.5, z: 3.0, r: 3.2 }, // hồ sen
+  { x: -7.5, z: 4.5, r: 1.3 }, // cây gần cổng trái
+  { x: 7.8, z: 6.5, r: 1.3 }, // cây gần cổng phải
+  { x: -12, z: -7, r: 1.6 }, // cây phượng sau
+  { x: 12.5, z: -8, r: 1.6 },
+  { x: -5.5, z: -9, r: 1.4 },
+  { x: 6.2, z: -8.5, r: 1.6 },
+  { x: -14.5, z: 7, r: 1.6 },
+  { x: -15, z: -2, r: 2.0 },
+  { x: 14.5, z: -1, r: 2.0 },
+  { x: 11, z: 1.5, r: 1.4 }, // trúc
+  { x: -9, z: -8.5, r: 1.4 },
+  { x: -7.5, z: 0.5, r: 2.6 }, // Khuê Văn Các
+  { x: -13.5, z: 2, r: 1.6 }, // bia tiến sĩ
+  { x: -13.5, z: -0.8, r: 1.6 },
+  { x: -11.5, z: -6, r: 2.8 }, // nhà bên trái
+  { x: 10.5, z: -4, r: 2.8 }, // nhà bên phải
+  { x: -11, z: 5.5, r: 2.8 }, // trà quán
+  { x: 11.5, z: 5.5, r: 2.8 },
+  { x: -9.2, z: 7.2, r: 1.2 }, // capybara trước trà quán
+];
+
+/** Đẩy vị trí (x,z) ra khỏi mọi vật cản trong sân (giới hạn sân +
+    hình chữ nhật + hình tròn). Bán kính nhân vật mặc định 0.55. */
+function resolveYardCollision(p: THREE.Vector3, r = 0.55) {
+  p.x = THREE.MathUtils.clamp(p.x, YARD_BOUNDS.minX + r, YARD_BOUNDS.maxX - r);
+  p.z = THREE.MathUtils.clamp(p.z, YARD_BOUNDS.minZ + r, YARD_BOUNDS.maxZ - r);
+  for (const rc of YARD_RECTS) {
+    if (
+      p.x > rc.x0 - r && p.x < rc.x1 + r &&
+      p.z > rc.z0 - r && p.z < rc.z1 + r
+    ) {
+      const dxl = p.x - (rc.x0 - r);
+      const dxr = rc.x1 + r - p.x;
+      const dzl = p.z - (rc.z0 - r);
+      const dzr = rc.z1 + r - p.z;
+      const m = Math.min(dxl, dxr, dzl, dzr);
+      if (m === dxl) p.x = rc.x0 - r;
+      else if (m === dxr) p.x = rc.x1 + r;
+      else if (m === dzl) p.z = rc.z0 - r;
+      else p.z = rc.z1 + r;
+    }
+  }
+  for (const c of YARD_CIRCLES) {
+    const dx = p.x - c.x;
+    const dz = p.z - c.z;
+    const d = Math.hypot(dx, dz);
+    const min = c.r + r;
+    if (d < min && d > 1e-6) {
+      p.x = c.x + (dx / d) * min;
+      p.z = c.z + (dz / d) * min;
+    }
+  }
+}
+
+/** Điểm (x,z) có nằm trong vật cản nào không (để chọn điểm đi dạo). */
+function pointInObstacle(x: number, z: number, r = 0.6): boolean {
+  if (
+    x < YARD_BOUNDS.minX + r || x > YARD_BOUNDS.maxX - r ||
+    z < YARD_BOUNDS.minZ + r || z > YARD_BOUNDS.maxZ - r
+  ) return true;
+  for (const rc of YARD_RECTS) {
+    if (x > rc.x0 - r && x < rc.x1 + r && z > rc.z0 - r && z < rc.z1 + r)
+      return true;
+  }
+  for (const c of YARD_CIRCLES) {
+    if (Math.hypot(x - c.x, z - c.z) < c.r + r) return true;
+  }
+  return false;
+}
+
+/** Kéo vị trí camera bám theo lại gần mục tiêu cho tới khi ra khỏi vật
+    cản (mỗi bước 0,4; tối đa 12 bước) — khi người chơi lái nhân vật đi
+    sát cây/tường, camera phía sau dễ chui vào tán cây làm che hết tầm
+    nhìn. Chỉ dùng cho lúc tự lái (người chơi luôn ở sân, camera không
+    bao giờ được ở trên nền nhà); KHÔNG dùng cho lúc bám theo vào lớp
+    (camera lúc đó cố tình đứng ngoài cửa nhìn vào trong). */
+function clampDriveCamera(cam: THREE.Vector3, tgt: THREE.Vector3) {
+  const dir = cam.clone().sub(tgt);
+  const len = dir.length();
+  if (len < 1e-6) return;
+  dir.multiplyScalar(1 / len);
+  for (let i = 0; i < 12; i++) {
+    if (!pointInObstacle(cam.x, cam.z, 0.9)) return;
+    cam.addScaledVector(dir, -0.4);
+    if (cam.distanceTo(tgt) < 1.2) return;
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* Bảng tên trên đầu học sinh — vẽ tên lên canvas texture rồi gắn lên   */
 /* mặt phẳng trong Billboard (luôn quay mặt về camera). Không dùng      */
 /* drei Html vì Html tạo một React root riêng, khi unmount trong lúc    */
@@ -689,6 +848,10 @@ function Student({
   onRequestBack,
   onArrive,
   posOut,
+  isPlayer,
+  driveRef,
+  driveEnabled,
+  strollPaused,
 }: {
   info: StudentInfo;
   /** Bộ trang phục đang mặc (id trong OUTFITS); không có = màu gốc của model. */
@@ -705,17 +868,28 @@ function Student({
   onArrive: (id: string, where: "seat" | "yard") => void;
   /** Ref dùng chung để camera bám theo: học sinh ghi vị trí hiện tại vào đây mỗi frame. */
   posOut: React.MutableRefObject<Record<string, THREE.Vector3>>;
+  /** Học sinh người dùng đang đóng vai (điều khiển bằng WASD / nút bấm). */
+  isPlayer: boolean;
+  /** Trạng thái phím lái (cha cập nhật từ bàn phím / nút bấm trên màn hình). */
+  driveRef: React.MutableRefObject<DriveState>;
+  /** Cho phép lái lúc này không (tắt khi đang ở trong lớp / mở hộp thoại). */
+  driveEnabled: boolean;
+  /** Tạm dừng đi dạo (vd. đang mở hộp đặt tên cho bạn này). */
+  strollPaused: boolean;
 }) {
   const group = useRef<THREE.Group>(null);
   const body = useRef<THREE.Group>(null);
   const [hover, setHover] = useState(false);
   // Model Blender của học sinh này (nam/nữ khác nhau, không trùng lặp),
-  // đã ghép khớp cổ/vai để gật đầu và giơ tay làm cử chỉ.
+  // đã ghép khớp cổ/vai/hông/eo để gật đầu, giơ tay làm cử chỉ và bước đi.
   const rigged = useStudentRig(info.model);
   const rigRef = useRef<{
     head: THREE.Group;
     armR: THREE.Group;
     armL: THREE.Group;
+    legL: THREE.Group;
+    legR: THREE.Group;
+    skirt: THREE.Group;
   } | null>(null);
   useEffect(() => {
     rigRef.current = rigged?.rig ?? null;
@@ -776,36 +950,168 @@ function Student({
     }
   }, [gesture]);
 
-  const path = useMemo(() => buildPath(info.start, info.seat), [info.start, info.seat]);
+  // Đường đi vào lớp (ref để rebuild được khi bắt đầu đi từ chỗ đang đứng).
+  const pathRef = useRef<Vec3[]>(buildPath(info.start, info.seat));
   const statusRef = useRef(info.status);
   const targetRef = useRef(info.target);
   const wpRef = useRef(0);
   const sitT = useRef(0);
   const posRef = useRef(new THREE.Vector3(info.start[0], 0, info.start[1]));
+  // Chu kỳ đi bộ procedural: pha bước chân (rad) tăng theo quãng đường đã
+  // đi; biên độ (0→1) lên/xuống dần để bắt đầu/dừng đi không bị giật.
+  const phaseRef = useRef(0);
+  const walkAmpRef = useRef(0);
+  // Đi dạo trong sân khi đang đứng chơi: pause một lúc rồi đi tới điểm
+  // ngẫu nhiên gần chỗ đứng, tới nơi lại nghỉ. Tốc độ dạo chậm (1,2 u/s).
+  const strollRef = useRef<{
+    mode: "pause" | "walk";
+    tx: number;
+    tz: number;
+    until: number;
+  }>({ mode: "pause", tx: 0, tz: 0, until: 4 });
 
   // Đồng bộ trạng thái từ cha; khi bắt đầu đi thì reset mốc đường đi
   useEffect(() => {
     const prev = statusRef.current;
     statusRef.current = info.status;
     targetRef.current = info.target;
-    if (
-      (info.status === "walking" || info.status === "returning") &&
-      prev !== info.status
-    ) {
+    if (info.status === "walking" && prev !== info.status) {
+      // Vào lớp: đi từ đúng chỗ đang đứng (có thể đã đi dạo lệch khỏi nhà)
+      // — build lại đường đi từ vị trí hiện tại qua khe cửa tới ghế.
+      pathRef.current = buildPath(
+        [posRef.current.x, posRef.current.z],
+        info.seat
+      );
       // Bắt đầu đi: bỏ qua mốc đầu (vị trí hiện tại), đi từ mốc 1
+      wpRef.current = 1;
+    }
+    if (info.status === "returning" && prev !== info.status) {
+      // Ra sân: đường về là đường đi đã đảo ngược (từ ghế qua cửa về nhà);
+      // rebuild từ nhà để mốc cuối là nhà, không phải ghế.
+      pathRef.current = buildPath(info.start, info.seat);
       wpRef.current = 1;
     }
     if (info.status === "idle") {
       posRef.current.set(info.start[0], 0, info.start[1]);
     }
-  }, [info.status, info.target, info.start, path.length]);
+  }, [info.status, info.target, info.start, info.seat]);
 
   useFrame((state, delta) => {
     const g = group.current;
     if (!g) return;
     const t = state.clock.elapsedTime;
     const st = statusRef.current;
-    const moving = st === "walking" || st === "returning";
+    const classMoving = st === "walking" || st === "returning";
+    const pos = posRef.current;
+
+    // Xoay mặt về hướng (dx,dz) — nội suy góc để không giật.
+    const faceToward = (dx: number, dz: number) => {
+      const want = Math.atan2(dx, dz);
+      let diff = want - g.rotation.y;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      g.rotation.y += diff * Math.min(1, delta * 8);
+    };
+    // Đi 1 bước về phía (tx,tz) với tốc độ speed (đơn vị/giây); trả về
+    // true nếu đã tới. Pha bước chân tăng theo quãng đường đã đi (bước
+    // dài ~0,75 đơn vị) để chân tay cử động đúng nhịp với tốc độ đi.
+    const stepToward = (tx: number, tz: number, speed: number): boolean => {
+      const dx = tx - pos.x;
+      const dz = tz - pos.z;
+      const dist = Math.hypot(dx, dz);
+      const step = speed * delta;
+      if (dist < Math.max(0.12, step)) {
+        pos.x = tx;
+        pos.z = tz;
+        return true;
+      }
+      pos.x += (dx / dist) * step;
+      pos.z += (dz / dist) * step;
+      faceToward(dx, dz);
+      phaseRef.current += (step / 0.75) * Math.PI;
+      return false;
+    };
+
+    // --- Lái nhân vật của mình bằng bàn phím / nút bấm ---
+    // (chỉ khi đang đứng ở sân; W/↑ đi tới theo hướng camera, Shift chạy)
+    let driving = false;
+    if (isPlayer && driveEnabled && st === "idle") {
+      const d = driveRef.current;
+      const fwd = (d.up ? 1 : 0) - (d.down ? 1 : 0);
+      const strafe = (d.right ? 1 : 0) - (d.left ? 1 : 0);
+      if (fwd !== 0 || strafe !== 0) {
+        driving = true;
+        const camDir = new THREE.Vector3();
+        state.camera.getWorldDirection(camDir);
+        camDir.y = 0;
+        if (camDir.lengthSq() < 1e-6) camDir.set(0, 0, -1);
+        camDir.normalize();
+        const rx = -camDir.z;
+        const rz = camDir.x;
+        let mx = camDir.x * fwd + rx * strafe;
+        let mz = camDir.z * fwd + rz * strafe;
+        const len = Math.hypot(mx, mz);
+        mx /= len;
+        mz /= len;
+        const speed = (d.run ? 4.2 : 2.6) * delta;
+        pos.x += mx * speed;
+        pos.z += mz * speed;
+        resolveYardCollision(pos);
+        faceToward(mx, mz);
+        phaseRef.current += (speed / 0.75) * Math.PI;
+        // Đang tự lái thì dừng đi dạo, nghỉ một lúc rồi mới dạo lại.
+        strollRef.current.mode = "pause";
+        strollRef.current.until = t + 3;
+      }
+    }
+
+    // --- Đi dạo trong sân khi đang đứng chơi ---
+    // Nghỉ 2–6 giây rồi đi tới điểm ngẫu nhiên gần chỗ đứng (tránh vật
+    // cản), tới nơi lại nghỉ — sân trường luôn có người qua lại.
+    let strolling = false;
+    if (st === "idle" && !driving && !strollPaused) {
+      const sr = strollRef.current;
+      if (sr.mode === "pause") {
+        if (t >= sr.until) {
+          let picked = false;
+          for (let i = 0; i < 5; i++) {
+            const nx = THREE.MathUtils.clamp(
+              pos.x + (Math.random() * 2 - 1) * 1.6,
+              -5,
+              5
+            );
+            const nz = THREE.MathUtils.clamp(
+              pos.z + (Math.random() * 2 - 1) * 1.6,
+              5.8,
+              9.6
+            );
+            if (!pointInObstacle(nx, nz)) {
+              sr.tx = nx;
+              sr.tz = nz;
+              picked = true;
+              break;
+            }
+          }
+          if (picked) sr.mode = "walk";
+          else sr.until = t + 3;
+        }
+      } else {
+        strolling = true;
+        if (stepToward(sr.tx, sr.tz, 1.2)) {
+          sr.mode = "pause";
+          sr.until = t + 2 + Math.random() * 4;
+          strolling = false;
+        } else {
+          resolveYardCollision(pos);
+        }
+      }
+    }
+
+    const moving = classMoving || strolling || driving;
+    // Biên độ đi bộ lên/xuống dần để bắt đầu/dừng đi không bị giật.
+    walkAmpRef.current +=
+      ((moving ? 1 : 0) - walkAmpRef.current) * Math.min(1, delta * 6);
+    const walkAmp = walkAmpRef.current;
 
     // Cử chỉ chỉ làm khi đang đứng ở sân hoặc đang ngồi; đang đi thì hủy.
     // Bao ngoài (envelope) lên dần 0→0,25, giữ, xuống dần 0,7→1 trong 3,4 giây.
@@ -859,36 +1165,33 @@ function Student({
       1
     );
     if (body.current) {
-      body.current.position.y = -0.42 * sitT.current + (moving ? Math.abs(Math.sin(t * 9)) * 0.05 : 0);
-      // Lắc nhẹ cả người khi đi; cúi chào thì gập thêm cả thân trên.
-      body.current.rotation.z = moving ? Math.sin(t * 9) * 0.05 : 0;
-      body.current.rotation.x = (moving ? 0.05 : 0) + bowLean;
+      // Nhún lên/xuống theo nhịp bước chân, lắc nhẹ cả người khi đi;
+      // cúi chào thì gập thêm cả thân trên.
+      const s = Math.sin(phaseRef.current);
+      body.current.position.y =
+        -0.42 * sitT.current + Math.abs(s) * 0.05 * walkAmp;
+      body.current.rotation.z = s * 0.05 * walkAmp;
+      body.current.rotation.x = 0.05 * walkAmp + bowLean;
     }
 
-    if (moving) {
-      const pts = targetRef.current === "seat" ? path : [...path].reverse();
+    if (classMoving) {
+      const pts =
+        targetRef.current === "seat"
+          ? pathRef.current
+          : [...pathRef.current].reverse();
       const wp = pts[wpRef.current];
-      if (!wp) return;
-      const target = new THREE.Vector3(wp[0], wp[1], wp[2]);
-      const pos = posRef.current;
-      const dir = target.clone().sub(pos);
-      const dist = dir.length();
-      const speed = 2.3 * delta;
-      if (dist < Math.max(0.14, speed)) {
-        pos.copy(target);
-        wpRef.current += 1;
-        if (wpRef.current >= pts.length) {
-          onArrive(info.id, targetRef.current);
+      if (wp) {
+        // Đi theo mốc trong mặt phẳng XZ (qua khe cửa, leo bậc);
+        // cao độ (leo bậc thang) nội suy riêng để không bị trượt dốc.
+        if (stepToward(wp[0], wp[2], 2.3)) {
+          wpRef.current += 1;
+          if (wpRef.current >= pts.length) {
+            onArrive(info.id, targetRef.current);
+          }
         }
-      } else {
-        dir.normalize();
-        pos.addScaledVector(dir, speed);
-        // Xoay mặt theo hướng đi
-        const want = Math.atan2(dir.x, dir.z);
-        let diff = want - g.rotation.y;
-        while (diff > Math.PI) diff -= Math.PI * 2;
-        while (diff < -Math.PI) diff += Math.PI * 2;
-        g.rotation.y += diff * Math.min(1, delta * 8);
+        const dy = wp[1] - pos.y;
+        pos.y += dy * Math.min(1, delta * 8);
+        if (Math.abs(wp[1] - pos.y) < 0.02) pos.y = wp[1];
       }
     } else {
       // Đứng yên: người về vị trí nghỉ (góc thân đã gán tuyệt đối ở trên).
@@ -897,17 +1200,33 @@ function Student({
       }
     }
 
-    // Khớp cổ/vai: đang làm cử chỉ thì theo tư thế cử chỉ, xong thì thả
-    // dần về tư thế nghỉ (nội suy để không giật).
+    // Khớp cổ/vai/hông/eo: đang làm cử chỉ thì theo tư thế cử chỉ, đang
+    // đi thì theo chu kỳ đi bộ (chân vung ngược pha, tay vung ngược chân,
+    // tà áo đung đưa), xong thì thả dần về tư thế nghỉ (nội suy để không
+    // giật). Tay vung ngược chân: chân trái trước thì tay phải trước.
     const rig = rigRef.current;
     if (rig) {
       const k = gesturing ? 1 : 1 - Math.exp(-8 * delta);
       const ease = (cur: number, target: number) => cur + (target - cur) * k;
+      const s = Math.sin(phaseRef.current);
       rig.head.rotation.x = ease(rig.head.rotation.x, headPitch);
-      rig.armL.rotation.x = ease(rig.armL.rotation.x, armLx);
+      rig.armL.rotation.x = ease(
+        rig.armL.rotation.x,
+        gesturing ? armLx : 0.5 * s * walkAmp
+      );
       rig.armL.rotation.z = ease(rig.armL.rotation.z, 0);
-      rig.armR.rotation.x = ease(rig.armR.rotation.x, armRx);
+      rig.armR.rotation.x = ease(
+        rig.armR.rotation.x,
+        gesturing ? armRx : -0.5 * s * walkAmp
+      );
       rig.armR.rotation.z = ease(rig.armR.rotation.z, armRz);
+      rig.legL.rotation.x = ease(rig.legL.rotation.x, -0.42 * s * walkAmp);
+      rig.legR.rotation.x = ease(rig.legR.rotation.x, 0.42 * s * walkAmp);
+      rig.skirt.rotation.z = ease(rig.skirt.rotation.z, 0.05 * s * walkAmp);
+      rig.skirt.rotation.x = ease(
+        rig.skirt.rotation.x,
+        0.03 * Math.cos(phaseRef.current) * walkAmp
+      );
     }
 
     g.position.copy(posRef.current);
@@ -1243,11 +1562,17 @@ function CameraRig({
   students,
   studentPos,
   controlsRef,
+  playerId,
+  driving,
 }: {
   viewMode: ViewMode;
   students: StudentInfo[];
   studentPos: React.MutableRefObject<Record<string, THREE.Vector3>>;
   controlsRef: React.RefObject<OrbitControlsImpl | null>;
+  /** Học sinh người dùng đang đóng vai (để bám theo khi tự lái). */
+  playerId: string;
+  /** Đang lái nhân vật bằng bàn phím / nút bấm — camera bám sau lưng. */
+  driving: boolean;
 }) {
   const camera = useThree((s) => s.camera);
   const animating = useRef(false);
@@ -1281,7 +1606,16 @@ function CameraRig({
     let desiredPos: THREE.Vector3 | null = null;
     let desiredTarget: THREE.Vector3 | null = null;
 
-    if (viewMode === "follow") {
+    if (driving) {
+      // Đang tự lái nhân vật: camera bám sau lưng nhân vật của mình
+      // (góc nhìn thứ ba trong game), không tự xoay quanh nữa.
+      const p = studentPos.current[playerId];
+      if (p) {
+        desiredTarget = new THREE.Vector3(p.x, p.y + 1.3, p.z);
+        desiredPos = desiredTarget.clone().add(FOLLOW_OFFSET);
+        clampDriveCamera(desiredPos, desiredTarget);
+      }
+    } else if (viewMode === "follow") {
       const moving = students.find(
         (s) => s.status === "walking" || s.status === "returning"
       );
@@ -1312,8 +1646,9 @@ function CameraRig({
 
     if (!desiredPos || !desiredTarget) return;
 
-    // Follow thì luôn bám theo; các chế độ khác chỉ lerp trong lúc chuyển động
-    if (viewMode === "follow" || animating.current) {
+    // Follow / đang lái thì luôn bám theo; các chế độ khác chỉ lerp trong
+    // lúc chuyển động
+    if (viewMode === "follow" || driving || animating.current) {
       camera.position.lerp(desiredPos, k);
       controls.target.lerp(desiredTarget, k);
       // Đang đi qua cửa thì chưa tính là "tới nơi" — đợi vào tới ghế mới thả ra.
@@ -1347,6 +1682,11 @@ function Scene({
   onRequestGo,
   onRequestBack,
   onArrive,
+  driveRef,
+  playerId,
+  driving,
+  driveEnabled,
+  namingId,
 }: {
   students: StudentInfo[];
   viewMode: ViewMode;
@@ -1363,6 +1703,16 @@ function Scene({
   onRequestGo: (id: string) => void;
   onRequestBack: (id: string) => void;
   onArrive: (id: string, where: "seat" | "yard") => void;
+  /** Trạng thái phím lái (cha cập nhật từ bàn phím / nút bấm). */
+  driveRef: React.MutableRefObject<DriveState>;
+  /** Học sinh người dùng đang đóng vai. */
+  playerId: string;
+  /** Đang lái nhân vật (để camera bám theo, tắt tự xoay). */
+  driving: boolean;
+  /** Cho phép lái lúc này không. */
+  driveEnabled: boolean;
+  /** Học sinh đang mở hộp đặt tên (tạm dừng đi dạo của bạn đó). */
+  namingId: string | null;
 }) {
   const router = useRouter();
   const goLessons = () => router.push("/bai-hoc");
@@ -1509,6 +1859,10 @@ function Scene({
           onRequestBack={onRequestBack}
           onArrive={onArrive}
           posOut={studentPos}
+          isPlayer={s.id === playerId}
+          driveRef={driveRef}
+          driveEnabled={driveEnabled}
+          strollPaused={namingId === s.id}
         />
       ))}
 
@@ -1517,6 +1871,8 @@ function Scene({
         students={students}
         studentPos={studentPos}
         controlsRef={controlsRef}
+        playerId={playerId}
+        driving={driving}
       />
 
       <Cloud position={[-14, 13, -10]} scale={1.4} />
@@ -1528,7 +1884,7 @@ function Scene({
         ref={controlsRef}
         makeDefault
         target={[0, 2.4, 0]}
-        autoRotate={viewMode === "yard"}
+        autoRotate={viewMode === "yard" && !driving}
         autoRotateSpeed={0.55}
         enableDamping
         dampingFactor={0.08}
@@ -1597,6 +1953,98 @@ export default function SchoolScene() {
       ])
     )
   );
+
+  /* --- Lái nhân vật của mình (WASD / phím mũi tên + Shift chạy nhanh) ---
+     Người dùng đóng vai học sinh đang chọn (mặc định hs1); bấm phím để
+     nhân vật đi lại trong sân, camera bám sau lưng. Trên mobile không có
+     bàn phím thì dùng 4 nút mũi tên ở góc màn hình (xem dưới). */
+  const driveRef = useRef<DriveState>({
+    up: false,
+    down: false,
+    left: false,
+    right: false,
+    run: false,
+  });
+  const [driving, setDriving] = useState(false);
+  /** Học sinh người dùng đang đóng vai: bạn đang được chọn, chưa chọn ai thì hs1. */
+  const playerId = selectedId ?? "hs1";
+  const driveEnabled =
+    viewMode === "yard" && namingId === null && !wardrobeOpen;
+  const syncDriving = () => {
+    const d = driveRef.current;
+    setDriving(d.up || d.down || d.left || d.right);
+  };
+  const pressDrive = (key: keyof DriveState, on: boolean) => {
+    driveRef.current[key] = on;
+    syncDriving();
+  };
+  // Bàn phím: W/A/S/D hoặc phím mũi tên. Không bắt phím khi đang gõ tên
+  // (input), đang mở hộp thoại/tủ áo, hoặc đang ở trong lớp.
+  useEffect(() => {
+    const KEYMAP: Record<string, keyof DriveState> = {
+      KeyW: "up",
+      ArrowUp: "up",
+      KeyS: "down",
+      ArrowDown: "down",
+      KeyA: "left",
+      ArrowLeft: "left",
+      KeyD: "right",
+      ArrowRight: "right",
+    };
+    const isTyping = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      return (
+        !!el &&
+        (el.tagName === "INPUT" ||
+          el.tagName === "TEXTAREA" ||
+          el.tagName === "SELECT" ||
+          el.isContentEditable)
+      );
+    };
+    const down = (e: KeyboardEvent) => {
+      if (isTyping(e) || !driveEnabled) return;
+      const k = KEYMAP[e.code];
+      if (k) {
+        driveRef.current[k] = true;
+        syncDriving();
+        // Phím mũi tên vốn cuộn trang — giữ lại để lái nhân vật.
+        if (e.code.startsWith("Arrow")) e.preventDefault();
+      }
+      if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+        driveRef.current.run = true;
+      }
+    };
+    const up = (e: KeyboardEvent) => {
+      const k = KEYMAP[e.code];
+      if (k) {
+        driveRef.current[k] = false;
+        syncDriving();
+      }
+      if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+        driveRef.current.run = false;
+      }
+    };
+    const blur = () => {
+      driveRef.current = {
+        up: false,
+        down: false,
+        left: false,
+        right: false,
+        run: false,
+      };
+      setDriving(false);
+    };
+    window.addEventListener("keydown", down);
+    window.addEventListener("keyup", up);
+    window.addEventListener("blur", blur);
+    return () => {
+      window.removeEventListener("keydown", down);
+      window.removeEventListener("keyup", up);
+      window.removeEventListener("blur", blur);
+    };
+  }, [driveEnabled]);
+  // (Không cần effect dọn phím khi tắt lái: keyup/blur luôn nhả phím dù
+  // driveEnabled đang false, và Student chỉ lái khi driveEnabled true.)
 
   const namingStudent = students.find((s) => s.id === namingId) ?? null;
   const idleStudents = students.filter((s) => s.status === "idle");
@@ -1986,6 +2434,11 @@ export default function SchoolScene() {
             onRequestGo={openNaming}
             onRequestBack={sendOut}
             onArrive={handleArrive}
+            driveRef={driveRef}
+            playerId={playerId}
+            driving={driving}
+            driveEnabled={driveEnabled}
+            namingId={namingId}
           />
         </Suspense>
       </Canvas>
@@ -2077,6 +2530,45 @@ export default function SchoolScene() {
             ⋯
           </button>
         )}
+
+        {/* Nút bấm di chuyển trên mobile (4 nút mũi tên + giữ 🏃 để chạy) —
+            chỉ hiện ở sân trường, ẩn khi mở menu/tủ áo/panel giảng. */}
+        {viewMode === "yard" &&
+          !actionsOpen &&
+          !lectureExpanded &&
+          !wardrobeOpen && (
+            <div className="pointer-events-auto absolute bottom-24 left-3 z-20 grid grid-cols-3 gap-1 md:hidden">
+              <span />
+              <DriveButton
+                label="▲"
+                ariaLabel="Đi tới"
+                onPress={(on) => pressDrive("up", on)}
+              />
+              <span />
+              <DriveButton
+                label="◀"
+                ariaLabel="Rẽ trái"
+                onPress={(on) => pressDrive("left", on)}
+              />
+              <DriveButton
+                label="🏃"
+                ariaLabel="Giữ để chạy nhanh"
+                onPress={(on) => pressDrive("run", on)}
+              />
+              <DriveButton
+                label="▶"
+                ariaLabel="Rẽ phải"
+                onPress={(on) => pressDrive("right", on)}
+              />
+              <span />
+              <DriveButton
+                label="▼"
+                ariaLabel="Đi lùi"
+                onPress={(on) => pressDrive("down", on)}
+              />
+              <span />
+            </div>
+          )}
 
         {/* Sheet thao tác trên mobile */}
         {actionsOpen && (

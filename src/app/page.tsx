@@ -191,12 +191,13 @@ export default function Home() {
           <p className="hidden text-center text-xs font-semibold text-white/90 drop-shadow md:block">
             🖱️ Kéo để xoay quanh trường · Lăn chuột để zoom · Bấm vào tòa lớp
             học để vào lớp · Bấm vào cổng để xem lịch học · Bấm vào một học sinh
-            để đặt tên và gọi bạn vào lớp
+            để đặt tên và gọi bạn vào lớp · ⌨️ Bấm WASD / phím mũi tên để đi
+            lại trong sân (giữ Shift để chạy nhanh)
           </p>
           <p className="text-center text-xs font-semibold text-white/90 drop-shadow md:hidden">
             👆 Chạm kéo để xoay trường · Chụm 2 ngón để zoom · Chạm tòa lớp
             học để vào lớp · Chạm cổng để xem lịch · Chạm một học sinh để đặt
-            tên và gọi bạn vào lớp
+            tên và gọi bạn vào lớp · Giữ nút ▲▼◀▶ góc trái để đi lại trong sân
           </p>
         </div>
       </section>
