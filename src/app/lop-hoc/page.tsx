@@ -333,7 +333,8 @@ export default function LopHocPage() {
   const [writeRemark, setWriteRemark] = useState("");
   const [completed, setCompleted] = useState(false);
 
-  // Ca đang chọn (mặc định: ca đang mở, nếu không thì ca sắp mở gần nhất).
+  // Ca đang chọn (mặc định: ca đầu tiên — Vỡ lòng 07:00 — để vào là học
+  // được ngay. Người dùng tự chọn ca khác; không tự đổi ca theo giờ).
   const selected: ClassSlot =
     (selectedId ? CLASS_SLOTS.find((s) => s.id === selectedId) : undefined) ??
     CLASS_SLOTS[0];
@@ -357,17 +358,14 @@ export default function LopHocPage() {
 
   useEffect(() => {
     // Giờ hiện tại + tên học sinh (localStorage) chỉ có ở client — khởi tạo
-    // trong effect để tránh lệch hydration.
+    // trong effect để tránh lệch hydration. Giờ giấc CHỈ để hiển thị tham
+    // khảo, không dùng để chọn ca hay chặn việc học: ca mặc định luôn là
+    // ca đầu tiên (Vỡ lòng 07:00) cho tới khi người dùng tự bấm chọn ca khác.
     const d = new Date();
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(d);
     const t = setInterval(() => setNow(new Date()), 30000);
     setStudentNames(loadStudentNames());
-    const live = CLASS_SLOTS.find((s) => slotStatus(s, d).kind === "live");
-    const upcoming = CLASS_SLOTS.filter((s) => slotStatus(s, d).kind === "next").sort(
-      (a, b) => a.hour * 60 + a.minute - (b.hour * 60 + b.minute)
-    )[0];
-    setSelectedId((live ?? upcoming ?? CLASS_SLOTS[0]).id);
     return () => clearInterval(t);
   }, []);
 
@@ -597,9 +595,10 @@ export default function LopHocPage() {
     <div className="mx-auto max-w-4xl px-4 py-10">
       <h1 className="text-3xl font-black text-vermilion">🏫 Lớp học</h1>
       <p className="mt-2 text-ink-soft">
-        Lớp mở cố định mỗi ngày theo giờ thật: Vỡ lòng, HSK 1, HSK 2, HSK 3 —
-        mỗi lớp 4 ca; Đại khoa đầu mỗi giờ 08:00–23:00. Vào đúng giờ, ngồi
-        chiếu nghe thầy giảng — đến muộn thì ngồi chiếu cuối.
+        Vào là học ngay — không cần chờ đúng giờ, không có lớp nào bị khóa.
+        Chọn bất kỳ lớp nào dưới đây (Vỡ lòng, HSK 1, HSK 2, HSK 3) rồi học
+        luôn 3 bước: thầy giảng → đọc to chấm phát âm → viết chữ. Giờ giấc
+        trong thời khóa biểu chỉ để tham khảo theo lịch học thật của trường.
       </p>
 
       {/* Lớp đang mở / sắp mở */}
@@ -613,13 +612,13 @@ export default function LopHocPage() {
         >
           {next.live ? (
             <>
-              🔴 Đang mở lớp: {next.slot.track} — {fmtTime(next.slot.hour, next.slot.minute)}{" "}
-              ({next.slot.title})
+              🔴 Đang trong giờ học thật: {next.slot.track} — {fmtTime(next.slot.hour, next.slot.minute)}{" "}
+              ({next.slot.title}) — chỉ để tham khảo, học ca nào cũng được.
             </>
           ) : (
             <>
-              🕗 Lớp sắp mở: {next.slot.track} — {fmtTime(next.slot.hour, next.slot.minute)} (
-              {next.slot.title}) — còn {fmtCountdown(next.msUntil)}
+              🕗 Ca tiếp theo theo giờ thật: {next.slot.track} — {fmtTime(next.slot.hour, next.slot.minute)} (
+              {next.slot.title}) — còn {fmtCountdown(next.msUntil)} (chỉ để tham khảo, học ngay ca nào cũng được).
             </>
           )}
         </div>
@@ -630,8 +629,8 @@ export default function LopHocPage() {
         🗓️ Thời khóa biểu hôm nay
       </h2>
       <p className="mt-1 text-sm text-ink-soft">
-        Bấm vào một ca để học buổi đó — học thử buổi gần nhất cũng được, không
-        cần đợi đúng giờ.
+        Bấm vào ca nào cũng học được ngay — không cần chờ đúng giờ, không có
+        ca nào bị khóa. Ca đang trong giờ học thật có dấu 🔴 để dễ nhận biết.
       </p>
       {TRACKS_ORDER.map((track) => (
         <div key={track} className="mt-4">
@@ -665,12 +664,16 @@ export default function LopHocPage() {
                           🕗 Sắp mở — còn {fmtCountdown(st.mins * 60000)}
                         </span>
                       ) : (
-                        <span className="text-ink-soft">✅ Đã kết thúc hôm nay</span>
+                        <span className="text-ink-soft">Đã qua giờ thật hôm nay</span>
                       ))}
                   </p>
-                  {isSel && (
+                  {isSel ? (
                     <span className="mt-2 inline-block rounded-full bg-vermilion px-2 py-0.5 text-xs font-bold text-cream">
-                      👈 Buổi này
+                      👈 Đang học buổi này
+                    </span>
+                  ) : (
+                    <span className="mt-2 inline-block text-xs font-black text-vermilion">
+                      📖 Bấm để học ngay
                     </span>
                   )}
                 </button>
@@ -764,10 +767,10 @@ export default function LopHocPage() {
               </p>
               <p className="mt-1 text-sm text-ink-soft">
                 {selState?.kind === "live"
-                  ? `🔴 Lớp đang mở — còn ${selState.mins} phút nữa tan học.`
+                  ? `🔴 Đang trong giờ học thật — còn ${selState.mins} phút nữa tan học.`
                   : selState?.kind === "next"
-                    ? `🕗 Lớp chưa tới giờ — còn ${fmtCountdown(selState.mins * 60000)} nữa mới mở, học thử trước cũng được.`
-                    : "✅ Ca này đã kết thúc hôm nay — học lại buổi này cũng được."}
+                    ? `🕗 Ca này bắt đầu lúc ${fmtTime(selected.hour, selected.minute)} theo giờ thật — nhưng học ngay bây giờ cũng được, không cần chờ.`
+                    : "Ca này đã qua giờ học thật hôm nay — học lại bất cứ lúc nào cũng được."}
               </p>
             </div>
           </div>
@@ -1215,9 +1218,8 @@ export default function LopHocPage() {
       </div>
 
       <p className="mt-4 text-center text-xs text-ink-soft">
-        {selState?.kind === "live"
-          ? `Lớp đang mở — còn ${selState.mins} phút nữa tan học.`
-          : "Ngoài giờ học, bạn vẫn có thể tự học: đọc truyện, luyện viết hoặc chạy Pomodoro."}
+        Học bất cứ lúc nào — không cần chờ đúng giờ. Ngoài ra còn có: đọc
+        truyện, luyện viết và Pomodoro.
       </p>
     </div>
   );
