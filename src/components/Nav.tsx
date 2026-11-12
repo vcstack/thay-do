@@ -21,6 +21,7 @@ const LINKS = [
   { href: "/pomodoro", label: "Pomodoro" },
   { href: "/lich-hoc", label: "Lịch học" },
   { href: "/so-hoc-tro", label: "Sổ học trò" },
+  { href: "/dieu-khoan", label: "Điều khoản" },
 ];
 
 export default function Nav() {
