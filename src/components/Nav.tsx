@@ -88,7 +88,7 @@ export default function Nav() {
           </button>
           <button
             onClick={() => setShowMap(true)}
-            className="rounded-full border-2 border-gold bg-cream px-3 py-1.5 text-sm font-bold text-vermilion transition hover:bg-gold-soft/40"
+            className="shrink-0 whitespace-nowrap rounded-full border-2 border-gold bg-cream px-3 py-1.5 text-sm font-bold text-vermilion transition hover:bg-gold-soft/40"
             title="Mở bản đồ trường"
           >
             🗺️ Bản đồ

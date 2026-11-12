@@ -2116,8 +2116,8 @@ export default function SchoolScene() {
         )}
 
         {/* Panel giảng bài trên mobile: thanh gọn dock dưới, bấm để mở rộng
-            (ẩn khi đang mở tủ áo để 2 sheet không chồng nhau) */}
-        {lecturing && lecture && !wardrobeOpen && (
+            (ẩn khi đang mở tủ áo hoặc menu ⋯ để 2 sheet không chồng nhau) */}
+        {lecturing && lecture && !wardrobeOpen && !actionsOpen && (
           <div className="pointer-events-auto absolute inset-x-3 bottom-24 z-20 md:hidden">
             {!lectureExpanded ? (
               <div
