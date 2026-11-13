@@ -4,792 +4,792 @@
    "key": "lesson01-title",
    "group": "lesson",
    "text": "你好！",
-   "file": "audio/lesson01/title.wav",
-   "ok": false
+   "file": "audio/lesson01/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-01",
    "group": "lesson",
    "text": "你好",
-   "file": "audio/lesson01/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-02",
    "group": "lesson",
    "text": "我",
-   "file": "audio/lesson01/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-03",
    "group": "lesson",
    "text": "你",
-   "file": "audio/lesson01/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-04",
    "group": "lesson",
    "text": "是",
-   "file": "audio/lesson01/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-05",
    "group": "lesson",
    "text": "不是",
-   "file": "audio/lesson01/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-06",
    "group": "lesson",
    "text": "老师",
-   "file": "audio/lesson01/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-07",
    "group": "lesson",
    "text": "学生",
-   "file": "audio/lesson01/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-08",
    "group": "lesson",
    "text": "中国",
-   "file": "audio/lesson01/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-09",
    "group": "lesson",
    "text": "人",
-   "file": "audio/lesson01/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-vocab-10",
    "group": "lesson",
    "text": "名字",
-   "file": "audio/lesson01/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-sentence-01",
    "group": "lesson",
    "text": "你好！",
-   "file": "audio/lesson01/title.wav",
-   "ok": false
+   "file": "audio/lesson01/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-sentence-02",
    "group": "lesson",
    "text": "我是学生。",
-   "file": "audio/lesson01/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-sentence-03",
    "group": "lesson",
    "text": "你是老师吗？",
-   "file": "audio/lesson01/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-sentence-04",
    "group": "lesson",
    "text": "我不是老师。",
-   "file": "audio/lesson01/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-sentence-05",
    "group": "lesson",
    "text": "我叫小明。",
-   "file": "audio/lesson01/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-dialogue-01",
    "group": "lesson",
    "text": "你好！",
-   "file": "audio/lesson01/title.wav",
-   "ok": false
+   "file": "audio/lesson01/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-dialogue-02",
    "group": "lesson",
    "text": "你好！",
-   "file": "audio/lesson01/title.wav",
-   "ok": false
+   "file": "audio/lesson01/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-dialogue-03",
    "group": "lesson",
    "text": "你是学生吗？",
-   "file": "audio/lesson01/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson01/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-dialogue-04",
    "group": "lesson",
    "text": "是，我是学生。",
-   "file": "audio/lesson01/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson01/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-dialogue-05",
    "group": "lesson",
    "text": "你叫什么名字？",
-   "file": "audio/lesson01/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson01/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson01-dialogue-06",
    "group": "lesson",
    "text": "我叫小明。",
-   "file": "audio/lesson01/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-title",
    "group": "lesson",
    "text": "你叫什么名字？",
-   "file": "audio/lesson01/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson01/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-01",
    "group": "lesson",
    "text": "叫",
-   "file": "audio/lesson02/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-02",
    "group": "lesson",
    "text": "什么",
-   "file": "audio/lesson02/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-03",
    "group": "lesson",
    "text": "名字",
-   "file": "audio/lesson01/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-04",
    "group": "lesson",
    "text": "叫作",
-   "file": "audio/lesson02/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-05",
    "group": "lesson",
    "text": "姓",
-   "file": "audio/lesson02/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-06",
    "group": "lesson",
    "text": "先生",
-   "file": "audio/lesson02/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-07",
    "group": "lesson",
    "text": "女士",
-   "file": "audio/lesson02/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-08",
    "group": "lesson",
    "text": "同学",
-   "file": "audio/lesson02/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-09",
    "group": "lesson",
    "text": "朋友",
-   "file": "audio/lesson02/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-vocab-10",
    "group": "lesson",
    "text": "很高兴",
-   "file": "audio/lesson02/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-sentence-01",
    "group": "lesson",
    "text": "你叫什么名字？",
-   "file": "audio/lesson01/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson01/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-sentence-02",
    "group": "lesson",
    "text": "我叫小明。",
-   "file": "audio/lesson01/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-sentence-03",
    "group": "lesson",
    "text": "我姓王，叫王明。",
-   "file": "audio/lesson02/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson02/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-sentence-04",
    "group": "lesson",
    "text": "很高兴认识你。",
-   "file": "audio/lesson02/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson02/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-sentence-05",
    "group": "lesson",
    "text": "他叫李华。",
-   "file": "audio/lesson02/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson02/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-dialogue-01",
    "group": "lesson",
    "text": "你叫什么名字？",
-   "file": "audio/lesson01/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson01/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-dialogue-02",
    "group": "lesson",
    "text": "我叫小红。你呢？",
-   "file": "audio/lesson02/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson02/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-dialogue-03",
    "group": "lesson",
    "text": "我姓李，叫李明。",
-   "file": "audio/lesson02/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson02/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-dialogue-04",
    "group": "lesson",
    "text": "很高兴认识你！",
-   "file": "audio/lesson02/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson02/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson02-dialogue-05",
    "group": "lesson",
    "text": "我也很高兴！",
-   "file": "audio/lesson02/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson02/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-title",
    "group": "lesson",
    "text": "你是哪国人？",
-   "file": "audio/lesson03/title.wav",
-   "ok": false
+   "file": "audio/lesson03/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-01",
    "group": "lesson",
    "text": "哪",
-   "file": "audio/lesson03/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-02",
    "group": "lesson",
    "text": "国",
-   "file": "audio/lesson03/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-03",
    "group": "lesson",
    "text": "人",
-   "file": "audio/lesson01/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-04",
    "group": "lesson",
    "text": "中国",
-   "file": "audio/lesson01/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-05",
    "group": "lesson",
    "text": "越南",
-   "file": "audio/lesson03/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-06",
    "group": "lesson",
    "text": "美国",
-   "file": "audio/lesson03/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-07",
    "group": "lesson",
    "text": "日本",
-   "file": "audio/lesson03/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-08",
    "group": "lesson",
    "text": "韩国",
-   "file": "audio/lesson03/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-09",
    "group": "lesson",
    "text": "英国",
-   "file": "audio/lesson03/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-vocab-10",
    "group": "lesson",
    "text": "法国",
-   "file": "audio/lesson03/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson03/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-sentence-01",
    "group": "lesson",
    "text": "你是哪国人？",
-   "file": "audio/lesson03/title.wav",
-   "ok": false
+   "file": "audio/lesson03/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-sentence-02",
    "group": "lesson",
    "text": "我是越南人。",
-   "file": "audio/lesson03/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson03/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-sentence-03",
    "group": "lesson",
    "text": "他是中国人。",
-   "file": "audio/lesson03/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson03/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-sentence-04",
    "group": "lesson",
    "text": "她是日本人。",
-   "file": "audio/lesson03/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson03/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-sentence-05",
    "group": "lesson",
    "text": "你来自哪里？",
-   "file": "audio/lesson03/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson03/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-dialogue-01",
    "group": "lesson",
    "text": "你是哪国人？",
-   "file": "audio/lesson03/title.wav",
-   "ok": false
+   "file": "audio/lesson03/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-dialogue-02",
    "group": "lesson",
    "text": "我是越南人。你呢？",
-   "file": "audio/lesson03/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson03/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-dialogue-03",
    "group": "lesson",
    "text": "我是中国人。",
-   "file": "audio/lesson03/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson03/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-dialogue-04",
    "group": "lesson",
    "text": "你来自哪里？",
-   "file": "audio/lesson03/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson03/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson03-dialogue-05",
    "group": "lesson",
    "text": "我来自河内。",
-   "file": "audio/lesson03/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson03/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-title",
    "group": "lesson",
    "text": "你家有几口人？",
-   "file": "audio/lesson04/title.wav",
-   "ok": false
+   "file": "audio/lesson04/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-01",
    "group": "lesson",
    "text": "家",
-   "file": "audio/lesson04/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-02",
    "group": "lesson",
    "text": "口",
-   "file": "audio/lesson04/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-03",
    "group": "lesson",
    "text": "人",
-   "file": "audio/lesson01/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-04",
    "group": "lesson",
    "text": "爸爸",
-   "file": "audio/lesson04/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-05",
    "group": "lesson",
    "text": "妈妈",
-   "file": "audio/lesson04/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-06",
    "group": "lesson",
    "text": "哥哥",
-   "file": "audio/lesson04/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-07",
    "group": "lesson",
    "text": "姐姐",
-   "file": "audio/lesson04/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-08",
    "group": "lesson",
    "text": "弟弟",
-   "file": "audio/lesson04/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-09",
    "group": "lesson",
    "text": "妹妹",
-   "file": "audio/lesson04/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-vocab-10",
    "group": "lesson",
    "text": "只有",
-   "file": "audio/lesson04/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-sentence-01",
    "group": "lesson",
    "text": "你家有几口人？",
-   "file": "audio/lesson04/title.wav",
-   "ok": false
+   "file": "audio/lesson04/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-sentence-02",
    "group": "lesson",
    "text": "我家有四口人。",
-   "file": "audio/lesson04/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson04/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-sentence-03",
    "group": "lesson",
    "text": "我有一个哥哥。",
-   "file": "audio/lesson04/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson04/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-sentence-04",
    "group": "lesson",
    "text": "我有一个妹妹。",
-   "file": "audio/lesson04/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson04/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-sentence-05",
    "group": "lesson",
    "text": "我家只有三口人。",
-   "file": "audio/lesson04/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson04/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-dialogue-01",
    "group": "lesson",
    "text": "你家有几口人？",
-   "file": "audio/lesson04/title.wav",
-   "ok": false
+   "file": "audio/lesson04/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-dialogue-02",
    "group": "lesson",
    "text": "我家有四口人。",
-   "file": "audio/lesson04/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson04/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-dialogue-03",
    "group": "lesson",
    "text": "你家有哥哥或妹妹吗？",
-   "file": "audio/lesson04/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson04/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-dialogue-04",
    "group": "lesson",
    "text": "我有一个哥哥，没有妹妹。",
-   "file": "audio/lesson04/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson04/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-dialogue-05",
    "group": "lesson",
    "text": "你爸爸妈妈做什么？",
-   "file": "audio/lesson04/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson04/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson04-dialogue-06",
    "group": "lesson",
    "text": "我爸爸是老师，我妈妈是医生。",
-   "file": "audio/lesson04/dialogue06.wav",
-   "ok": false
+   "file": "audio/lesson04/dialogue06.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-title",
    "group": "lesson",
    "text": "现在几点？",
-   "file": "audio/lesson05/title.wav",
-   "ok": false
+   "file": "audio/lesson05/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-01",
    "group": "lesson",
    "text": "现在",
-   "file": "audio/lesson05/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-02",
    "group": "lesson",
    "text": "几",
-   "file": "audio/lesson05/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-03",
    "group": "lesson",
    "text": "点",
-   "file": "audio/lesson05/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-04",
    "group": "lesson",
    "text": "分",
-   "file": "audio/lesson05/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-05",
    "group": "lesson",
    "text": "半",
-   "file": "audio/lesson05/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-06",
    "group": "lesson",
    "text": "刻",
-   "file": "audio/lesson05/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-07",
    "group": "lesson",
    "text": "早上",
-   "file": "audio/lesson05/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-08",
    "group": "lesson",
    "text": "下午",
-   "file": "audio/lesson05/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-09",
    "group": "lesson",
    "text": "晚上",
-   "file": "audio/lesson05/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-vocab-10",
    "group": "lesson",
    "text": "时间",
-   "file": "audio/lesson05/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson05/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-sentence-01",
    "group": "lesson",
    "text": "现在几点？",
-   "file": "audio/lesson05/title.wav",
-   "ok": false
+   "file": "audio/lesson05/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-sentence-02",
    "group": "lesson",
    "text": "现在八点。",
-   "file": "audio/lesson05/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson05/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-sentence-03",
    "group": "lesson",
    "text": "现在八点半。",
-   "file": "audio/lesson05/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson05/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-sentence-04",
    "group": "lesson",
    "text": "你几点去学校？",
-   "file": "audio/lesson05/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson05/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-sentence-05",
    "group": "lesson",
    "text": "我七点去学校。",
-   "file": "audio/lesson05/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson05/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-dialogue-01",
    "group": "lesson",
    "text": "现在几点？",
-   "file": "audio/lesson05/title.wav",
-   "ok": false
+   "file": "audio/lesson05/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-dialogue-02",
    "group": "lesson",
    "text": "现在八点半。",
-   "file": "audio/lesson05/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson05/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-dialogue-03",
    "group": "lesson",
    "text": "你几点上课？",
-   "file": "audio/lesson05/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson05/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-dialogue-04",
    "group": "lesson",
    "text": "我九点上课。",
-   "file": "audio/lesson05/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson05/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-dialogue-05",
    "group": "lesson",
    "text": "下午我们几点见？",
-   "file": "audio/lesson05/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson05/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson05-dialogue-06",
    "group": "lesson",
    "text": "下午三点见吧。",
-   "file": "audio/lesson05/dialogue06.wav",
-   "ok": false
+   "file": "audio/lesson05/dialogue06.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-title",
    "group": "lesson",
    "text": "你去哪儿？",
-   "file": "audio/lesson06/title.wav",
-   "ok": false
+   "file": "audio/lesson06/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-01",
    "group": "lesson",
    "text": "去",
-   "file": "audio/lesson06/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-02",
    "group": "lesson",
    "text": "哪儿",
-   "file": "audio/lesson06/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-03",
    "group": "lesson",
    "text": "学校",
-   "file": "audio/lesson06/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-04",
    "group": "lesson",
    "text": "公司",
-   "file": "audio/lesson06/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-05",
@@ -837,8 +837,8 @@
    "key": "lesson06-sentence-01",
    "group": "lesson",
    "text": "你去哪儿？",
-   "file": "audio/lesson06/title.wav",
-   "ok": false
+   "file": "audio/lesson06/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-sentence-02",
@@ -872,8 +872,8 @@
    "key": "lesson06-dialogue-01",
    "group": "lesson",
    "text": "你去哪儿？",
-   "file": "audio/lesson06/title.wav",
-   "ok": false
+   "file": "audio/lesson06/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-dialogue-02",
@@ -921,8 +921,8 @@
    "key": "lesson07-vocab-02",
    "group": "lesson",
    "text": "什么",
-   "file": "audio/lesson02/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-03",
@@ -1516,8 +1516,8 @@
    "key": "lesson11-vocab-02",
    "group": "lesson",
    "text": "家",
-   "file": "audio/lesson04/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson04/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson11-vocab-03",
@@ -1544,8 +1544,8 @@
    "key": "lesson11-vocab-06",
    "group": "lesson",
    "text": "哪儿",
-   "file": "audio/lesson06/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson11-vocab-07",
@@ -1901,8 +1901,8 @@
    "key": "lesson13-sentence-03",
    "group": "lesson",
    "text": "你几点上课？",
-   "file": "audio/lesson05/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson05/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson13-sentence-04",
@@ -1971,8 +1971,8 @@
    "key": "lesson14-vocab-01",
    "group": "lesson",
    "text": "去",
-   "file": "audio/lesson06/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-02",
@@ -2020,8 +2020,8 @@
    "key": "lesson14-vocab-08",
    "group": "lesson",
    "text": "学校",
-   "file": "audio/lesson06/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-09",
@@ -2293,22 +2293,22 @@
    "key": "lesson16-vocab-03",
    "group": "lesson",
    "text": "朋友",
-   "file": "audio/lesson02/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-04",
    "group": "lesson",
    "text": "同学",
-   "file": "audio/lesson02/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson02/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-05",
    "group": "lesson",
    "text": "老师",
-   "file": "audio/lesson01/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-06",
@@ -2328,8 +2328,8 @@
    "key": "lesson16-vocab-08",
    "group": "lesson",
    "text": "名字",
-   "file": "audio/lesson01/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-09",
@@ -2734,8 +2734,8 @@
    "key": "lesson19-vocab-02",
    "group": "lesson",
    "text": "去",
-   "file": "audio/lesson06/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-03",
@@ -3714,8 +3714,8 @@
    "key": "patterns-web-chao-hoi-01",
    "group": "patterns-web",
    "text": "你好！",
-   "file": "audio/lesson01/title.wav",
-   "ok": false
+   "file": "audio/lesson01/title.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-chao-hoi-02",
@@ -3735,22 +3735,22 @@
    "key": "patterns-web-gioi-thieu-01",
    "group": "patterns-web",
    "text": "我叫小明。",
-   "file": "audio/lesson01/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-gioi-thieu-02",
    "group": "patterns-web",
    "text": "我是越南人。",
-   "file": "audio/lesson03/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson03/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-gioi-thieu-03",
    "group": "patterns-web",
    "text": "我是学生。",
-   "file": "audio/lesson01/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-gia-dinh-01",
@@ -3833,8 +3833,8 @@
    "key": "patterns-web-di-lai-03",
    "group": "patterns-web",
    "text": "现在几点？",
-   "file": "audio/lesson05/title.wav",
-   "ok": false
+   "file": "audio/lesson05/title.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-thoi-gian-01",
@@ -5352,15 +5352,15 @@
    "key": "stories-chao-hoi-02",
    "group": "stories",
    "text": "我是中国人。",
-   "file": "audio/lesson03/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson03/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-03",
    "group": "stories",
    "text": "我是学生。",
-   "file": "audio/lesson01/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson01/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-04",
@@ -8831,8 +8831,8 @@
    "key": "chars-ety-01",
    "group": "chars",
    "text": "人",
-   "file": "audio/lesson01/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson01/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-02",
