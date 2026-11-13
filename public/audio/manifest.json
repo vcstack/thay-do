@@ -3378,8 +3378,8 @@
    "key": "patterns-01-01",
    "group": "patterns",
    "text": "我叫......",
-   "file": "audio/patterns/topic01-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic01-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-01-02",
@@ -3392,148 +3392,148 @@
    "key": "patterns-01-03",
    "group": "patterns",
    "text": "我今年......岁.",
-   "file": "audio/patterns/topic01-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic01-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-01-04",
    "group": "patterns",
    "text": "我来自......",
-   "file": "audio/patterns/topic01-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic01-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-02-01",
    "group": "patterns",
    "text": "我有一个......",
-   "file": "audio/patterns/topic02-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic02-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-02-02",
    "group": "patterns",
    "text": "这是我的爸爸.",
-   "file": "audio/patterns/topic02-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic02-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-02-03",
    "group": "patterns",
    "text": "这是我的妈妈.",
-   "file": "audio/patterns/topic02-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic02-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-02-04",
    "group": "patterns",
    "text": "我家有......口人.",
-   "file": "audio/patterns/topic02-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic02-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-03-01",
    "group": "patterns",
    "text": "我在......学习.",
-   "file": "audio/patterns/topic03-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic03-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-03-02",
    "group": "patterns",
    "text": "我学汉语.",
-   "file": "audio/patterns/topic03-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic03-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-03-03",
    "group": "patterns",
    "text": "我喜欢学习.",
-   "file": "audio/patterns/topic03-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic03-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-03-04",
    "group": "patterns",
    "text": "我每天学习......小时.",
-   "file": "audio/patterns/topic03-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic03-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-04-01",
    "group": "patterns",
    "text": "我是一名老师.",
-   "file": "audio/patterns/topic04-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic04-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-04-02",
    "group": "patterns",
    "text": "他在公司工作.",
-   "file": "audio/patterns/topic04-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic04-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-04-03",
    "group": "patterns",
    "text": "我每天上班.",
-   "file": "audio/patterns/topic04-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic04-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-04-04",
    "group": "patterns",
    "text": "我喜欢我的工作.",
-   "file": "audio/patterns/topic04-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic04-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-05-01",
    "group": "patterns",
    "text": "我喜欢......",
-   "file": "audio/patterns/topic05-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic05-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-05-02",
    "group": "patterns",
    "text": "我不喜欢......",
-   "file": "audio/patterns/topic05-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic05-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-05-03",
    "group": "patterns",
    "text": "我喜欢看书.",
-   "file": "audio/patterns/topic05-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic05-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-05-04",
    "group": "patterns",
    "text": "我喜欢运动.",
-   "file": "audio/patterns/topic05-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic05-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-06-01",
    "group": "patterns",
    "text": "我喜欢吃......",
-   "file": "audio/patterns/topic06-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic06-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-06-02",
    "group": "patterns",
    "text": "我不吃......",
-   "file": "audio/patterns/topic06-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic06-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-06-03",
    "group": "patterns",
    "text": "我喝......",
-   "file": "audio/patterns/topic06-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic06-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-06-04",
@@ -3553,50 +3553,50 @@
    "key": "patterns-07-02",
    "group": "patterns",
    "text": "我想买......",
-   "file": "audio/patterns/topic07-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic07-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-07-03",
    "group": "patterns",
    "text": "我买一件......",
-   "file": "audio/patterns/topic07-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic07-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-07-04",
    "group": "patterns",
    "text": "有......吗?",
-   "file": "audio/patterns/topic07-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic07-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-08-01",
    "group": "patterns",
    "text": "我去学校.",
-   "file": "audio/patterns/topic08-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic08-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-08-02",
    "group": "patterns",
    "text": "我坐地铁去.",
-   "file": "audio/patterns/topic08-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic08-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-08-03",
    "group": "patterns",
    "text": "我坐公交车.",
-   "file": "audio/patterns/topic08-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic08-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-08-04",
    "group": "patterns",
    "text": "我步行去.",
-   "file": "audio/patterns/topic08-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic08-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-09-01",
@@ -3609,106 +3609,106 @@
    "key": "patterns-09-02",
    "group": "patterns",
    "text": "今天是星期......",
-   "file": "audio/patterns/topic09-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic09-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-09-03",
    "group": "patterns",
    "text": "明天......",
-   "file": "audio/patterns/topic09-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic09-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-09-04",
    "group": "patterns",
    "text": "我......去......",
-   "file": "audio/patterns/topic09-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic09-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-10-01",
    "group": "patterns",
    "text": "今天天气怎么样?",
-   "file": "audio/patterns/topic10-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic10-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-10-02",
    "group": "patterns",
    "text": "今天天气很好.",
-   "file": "audio/patterns/topic10-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic10-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-10-03",
    "group": "patterns",
    "text": "今天很热.",
-   "file": "audio/patterns/topic10-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic10-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-10-04",
    "group": "patterns",
    "text": "今天下雨了.",
-   "file": "audio/patterns/topic10-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic10-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-11-01",
    "group": "patterns",
    "text": "你昨天好吗?",
-   "file": "audio/patterns/topic11-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic11-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-11-02",
    "group": "patterns",
    "text": "我有点累.",
-   "file": "audio/patterns/topic11-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic11-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-11-03",
    "group": "patterns",
    "text": "我生病了.",
-   "file": "audio/patterns/topic11-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic11-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-11-04",
    "group": "patterns",
    "text": "你要多休息.",
-   "file": "audio/patterns/topic11-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic11-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-12-01",
    "group": "patterns",
    "text": "我们一起去......吧!",
-   "file": "audio/patterns/topic12-01.wav",
-   "ok": false
+   "file": "audio/patterns/topic12-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-12-02",
    "group": "patterns",
    "text": "你想喝咖啡吗?",
-   "file": "audio/patterns/topic12-02.wav",
-   "ok": false
+   "file": "audio/patterns/topic12-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-12-03",
    "group": "patterns",
    "text": "我们去看电影, 好吗?",
-   "file": "audio/patterns/topic12-03.wav",
-   "ok": false
+   "file": "audio/patterns/topic12-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-12-04",
    "group": "patterns",
    "text": "好的!",
-   "file": "audio/patterns/topic12-04.wav",
-   "ok": false
+   "file": "audio/patterns/topic12-04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-chao-hoi-01",
@@ -3721,15 +3721,15 @@
    "key": "patterns-web-chao-hoi-02",
    "group": "patterns-web",
    "text": "你好吗？",
-   "file": "audio/patterns-web/chao-hoi-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/chao-hoi-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-chao-hoi-03",
    "group": "patterns-web",
    "text": "我很好，谢谢。",
-   "file": "audio/patterns-web/chao-hoi-03.wav",
-   "ok": false
+   "file": "audio/patterns-web/chao-hoi-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-gioi-thieu-01",
@@ -3756,22 +3756,22 @@
    "key": "patterns-web-gia-dinh-01",
    "group": "patterns-web",
    "text": "我家有四个人。",
-   "file": "audio/patterns-web/gia-dinh-01.wav",
-   "ok": false
+   "file": "audio/patterns-web/gia-dinh-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-gia-dinh-02",
    "group": "patterns-web",
    "text": "这是我的爸爸。",
-   "file": "audio/patterns-web/gia-dinh-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/gia-dinh-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-gia-dinh-03",
    "group": "patterns-web",
    "text": "你有几个兄弟姐妹？",
-   "file": "audio/patterns-web/gia-dinh-03.wav",
-   "ok": false
+   "file": "audio/patterns-web/gia-dinh-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-an-uong-01",
@@ -3784,50 +3784,50 @@
    "key": "patterns-web-an-uong-02",
    "group": "patterns-web",
    "text": "我想喝水。",
-   "file": "audio/patterns-web/an-uong-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/an-uong-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-an-uong-03",
    "group": "patterns-web",
    "text": "这个很好吃。",
-   "file": "audio/patterns-web/an-uong-03.wav",
-   "ok": false
+   "file": "audio/patterns-web/an-uong-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-mua-sam-01",
    "group": "patterns-web",
    "text": "这个多少钱？",
-   "file": "audio/patterns-web/mua-sam-01.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-mua-sam-02",
    "group": "patterns-web",
    "text": "太贵了！",
-   "file": "audio/patterns-web/mua-sam-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-mua-sam-03",
    "group": "patterns-web",
    "text": "我要买这个。",
-   "file": "audio/patterns-web/mua-sam-03.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-di-lai-01",
    "group": "patterns-web",
    "text": "请问，学校在哪里？",
-   "file": "audio/patterns-web/di-lai-01.wav",
-   "ok": false
+   "file": "audio/patterns-web/di-lai-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-di-lai-02",
    "group": "patterns-web",
    "text": "我要去车站。",
-   "file": "audio/patterns-web/di-lai-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/di-lai-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-di-lai-03",
@@ -3840,8 +3840,8 @@
    "key": "patterns-web-thoi-gian-01",
    "group": "patterns-web",
    "text": "今天是星期几？",
-   "file": "audio/patterns-web/thoi-gian-01.wav",
-   "ok": false
+   "file": "audio/patterns-web/thoi-gian-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-thoi-gian-02",
@@ -4176,8 +4176,8 @@
    "key": "speaking-hieu-thuoc-step02-opt02",
    "group": "speaking",
    "text": "这个多少钱？",
-   "file": "audio/patterns-web/mua-sam-01.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step02-opt03",
@@ -4288,8 +4288,8 @@
    "key": "speaking-buu-cuc-step03-opt02",
    "group": "speaking",
    "text": "太贵了！",
-   "file": "audio/patterns-web/mua-sam-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step03-opt03",
@@ -4372,8 +4372,8 @@
    "key": "speaking-khach-diem-step03-opt02",
    "group": "speaking",
    "text": "太贵了！",
-   "file": "audio/patterns-web/mua-sam-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step03-opt03",
@@ -4596,8 +4596,8 @@
    "key": "speaking-cho-rau-step02-opt02",
    "group": "speaking",
    "text": "太贵了！",
-   "file": "audio/patterns-web/mua-sam-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step02-opt03",
@@ -4883,8 +4883,8 @@
    "key": "speaking-tiem-may-step03-opt03",
    "group": "speaking",
    "text": "太贵了！",
-   "file": "audio/patterns-web/mua-sam-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step01-line",
@@ -5072,8 +5072,8 @@
    "key": "speaking-ben-xe-step03-opt02",
    "group": "speaking",
    "text": "太贵了！",
-   "file": "audio/patterns-web/mua-sam-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/mua-sam-02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step03-opt03",
