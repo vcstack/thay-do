@@ -2748,29 +2748,29 @@
    "key": "lesson19-vocab-04",
    "group": "lesson",
    "text": "地方",
-   "file": "audio/lesson19/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-05",
    "group": "lesson",
    "text": "旅游",
-   "file": "audio/lesson19/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-06",
    "group": "lesson",
    "text": "海边",
-   "file": "audio/lesson19/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-07",
    "group": "lesson",
    "text": "山",
-   "file": "audio/lesson19/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-08",
@@ -2783,15 +2783,15 @@
    "key": "lesson19-vocab-09",
    "group": "lesson",
    "text": "乡下",
-   "file": "audio/lesson19/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-10",
    "group": "lesson",
    "text": "参观",
-   "file": "audio/lesson19/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-sentence-01",
@@ -2804,29 +2804,29 @@
    "key": "lesson19-sentence-02",
    "group": "lesson",
    "text": "你想去旅游吗？",
-   "file": "audio/lesson19/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson19/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-sentence-03",
    "group": "lesson",
    "text": "你想去什么地方？",
-   "file": "audio/lesson19/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson19/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-sentence-04",
    "group": "lesson",
    "text": "我们一起去吗？",
-   "file": "audio/lesson19/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson19/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-sentence-05",
    "group": "lesson",
    "text": "那里怎么样？",
-   "file": "audio/lesson19/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson19/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-dialogue-01",
@@ -2846,8 +2846,8 @@
    "key": "lesson19-dialogue-03",
    "group": "lesson",
    "text": "我们一起去吗？",
-   "file": "audio/lesson19/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson19/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-dialogue-04",
@@ -8838,8 +8838,8 @@
    "key": "chars-ety-02",
    "group": "chars",
    "text": "山",
-   "file": "audio/lesson19/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-03",
