@@ -4918,15 +4918,15 @@
    "key": "speaking-tiem-hoa-step02-line",
    "group": "speaking",
    "text": "玫瑰花很漂亮。你要买几枝？",
-   "file": "audio/speaking/tiem-hoa-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step02-opt01",
    "group": "speaking",
    "text": "我要买三枝。",
-   "file": "audio/speaking/tiem-hoa-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step02-opt02",
@@ -4939,15 +4939,15 @@
    "key": "speaking-tiem-hoa-step02-opt03",
    "group": "speaking",
    "text": "我不喜欢花。",
-   "file": "audio/speaking/tiem-hoa-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step03-line",
    "group": "speaking",
    "text": "一枝十块钱，一共三十块钱。",
-   "file": "audio/speaking/tiem-hoa-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step03-opt01",
@@ -4974,8 +4974,8 @@
    "key": "speaking-tiem-hoa-step04-line",
    "group": "speaking",
    "text": "花很漂亮，你妈妈一定喜欢！",
-   "file": "audio/speaking/tiem-hoa-step04-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step04-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step04-opt01",
@@ -4988,8 +4988,8 @@
    "key": "speaking-tiem-hoa-step04-opt02",
    "group": "speaking",
    "text": "我不喜欢玫瑰花。",
-   "file": "audio/speaking/tiem-hoa-step04-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step04-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step04-opt03",
@@ -5002,22 +5002,22 @@
    "key": "speaking-ben-xe-step01-line",
    "group": "speaking",
    "text": "你好！你要去哪里？",
-   "file": "audio/speaking/ben-xe-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step01-opt01",
    "group": "speaking",
    "text": "我要去学校。",
-   "file": "audio/speaking/ben-xe-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step01-opt02",
    "group": "speaking",
    "text": "我要买花。",
-   "file": "audio/speaking/ben-xe-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step01-opt03",
@@ -5030,15 +5030,15 @@
    "key": "speaking-ben-xe-step02-line",
    "group": "speaking",
    "text": "去学校坐三路车。",
-   "file": "audio/speaking/ben-xe-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step02-opt01",
    "group": "speaking",
    "text": "三路车几点开？",
-   "file": "audio/speaking/ben-xe-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step02-opt02",
@@ -5051,22 +5051,22 @@
    "key": "speaking-ben-xe-step02-opt03",
    "group": "speaking",
    "text": "我不坐车。",
-   "file": "audio/speaking/ben-xe-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step03-line",
    "group": "speaking",
    "text": "八点开车，一张票两块钱。",
-   "file": "audio/speaking/ben-xe-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step03-opt01",
    "group": "speaking",
    "text": "好的，我买一张票。",
-   "file": "audio/speaking/ben-xe-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step03-opt02",
@@ -5086,8 +5086,8 @@
    "key": "speaking-ben-xe-step04-line",
    "group": "speaking",
    "text": "车来了，请上车！",
-   "file": "audio/speaking/ben-xe-step04-line.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step04-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step04-opt01",
@@ -5107,29 +5107,29 @@
    "key": "speaking-ben-xe-step04-opt03",
    "group": "speaking",
    "text": "我不去学校。",
-   "file": "audio/speaking/ben-xe-step04-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step04-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step01-line",
    "group": "speaking",
    "text": "你好！你也来公园吗？",
-   "file": "audio/speaking/cong-vien-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step01-opt01",
    "group": "speaking",
    "text": "是，我来公园跑步。",
-   "file": "audio/speaking/cong-vien-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step01-opt02",
    "group": "speaking",
    "text": "我要买票。",
-   "file": "audio/speaking/cong-vien-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step01-opt03",
@@ -5142,15 +5142,15 @@
    "key": "speaking-cong-vien-step02-line",
    "group": "speaking",
    "text": "公园很大，你知道湖在哪里吗？",
-   "file": "audio/speaking/cong-vien-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step02-opt01",
    "group": "speaking",
    "text": "湖在前面，往前走。",
-   "file": "audio/speaking/cong-vien-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step02-opt02",
@@ -5163,43 +5163,43 @@
    "key": "speaking-cong-vien-step02-opt03",
    "group": "speaking",
    "text": "我不喜欢公园。",
-   "file": "audio/speaking/cong-vien-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step03-line",
    "group": "speaking",
    "text": "明天早上我们一起跑步，好吗？",
-   "file": "audio/speaking/cong-vien-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step03-opt01",
    "group": "speaking",
    "text": "好啊，明天七点见！",
-   "file": "audio/speaking/cong-vien-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step03-opt02",
    "group": "speaking",
    "text": "我不去。",
-   "file": "audio/speaking/cong-vien-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step03-opt03",
    "group": "speaking",
    "text": "我要回家吃饭。",
-   "file": "audio/speaking/cong-vien-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step04-line",
    "group": "speaking",
    "text": "太好了！明天见！",
-   "file": "audio/speaking/cong-vien-step04-line.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step04-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step04-opt01",
@@ -5212,15 +5212,15 @@
    "key": "speaking-cong-vien-step04-opt02",
    "group": "speaking",
    "text": "再见，我不来了。",
-   "file": "audio/speaking/cong-vien-step04-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step04-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step04-opt03",
    "group": "speaking",
    "text": "谢谢，我不要。",
-   "file": "audio/speaking/cong-vien-step04-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/cong-vien-step04-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step01-line",
@@ -5233,8 +5233,8 @@
    "key": "speaking-quan-tra-sua-step01-opt01",
    "group": "speaking",
    "text": "我想喝一杯奶茶。",
-   "file": "audio/speaking/quan-tra-sua-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-tra-sua-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step01-opt02",
@@ -5247,29 +5247,29 @@
    "key": "speaking-quan-tra-sua-step01-opt03",
    "group": "speaking",
    "text": "我要买花。",
-   "file": "audio/speaking/ben-xe-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/ben-xe-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step02-line",
    "group": "speaking",
    "text": "你要多糖还是少糖？",
-   "file": "audio/speaking/quan-tra-sua-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-tra-sua-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step02-opt01",
    "group": "speaking",
    "text": "我要少糖，多冰。",
-   "file": "audio/speaking/quan-tra-sua-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-tra-sua-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step02-opt02",
    "group": "speaking",
    "text": "我要热的米饭。",
-   "file": "audio/speaking/quan-tra-sua-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/quan-tra-sua-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step02-opt03",
@@ -5282,8 +5282,8 @@
    "key": "speaking-quan-tra-sua-step03-line",
    "group": "speaking",
    "text": "好的，一杯奶茶十五块钱。",
-   "file": "audio/speaking/quan-tra-sua-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-tra-sua-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step03-opt01",
@@ -5310,8 +5310,8 @@
    "key": "speaking-quan-tra-sua-step04-line",
    "group": "speaking",
    "text": "奶茶来了，请慢用！",
-   "file": "audio/speaking/quan-tra-sua-step04-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-tra-sua-step04-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step04-opt01",
@@ -5331,22 +5331,22 @@
    "key": "speaking-quan-tra-sua-step04-opt03",
    "group": "speaking",
    "text": "我不喝奶茶。",
-   "file": "audio/speaking/quan-tra-sua-step04-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-tra-sua-step04-opt03.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-title",
    "group": "stories",
    "text": "你好，我叫小明",
-   "file": "audio/stories/chao-hoi-title.wav",
-   "ok": false
+   "file": "audio/stories/chao-hoi-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-01",
    "group": "stories",
    "text": "你好！我叫小明。",
-   "file": "audio/stories/chao-hoi-01.wav",
-   "ok": false
+   "file": "audio/stories/chao-hoi-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-02",
@@ -5366,113 +5366,113 @@
    "key": "stories-chao-hoi-04",
    "group": "stories",
    "text": "我学习汉语。",
-   "file": "audio/stories/chao-hoi-04.wav",
-   "ok": false
+   "file": "audio/stories/chao-hoi-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-05",
    "group": "stories",
    "text": "我的老师很好。",
-   "file": "audio/stories/chao-hoi-05.wav",
-   "ok": false
+   "file": "audio/stories/chao-hoi-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-06",
    "group": "stories",
    "text": "我有很多朋友。",
-   "file": "audio/stories/chao-hoi-06.wav",
-   "ok": false
+   "file": "audio/stories/chao-hoi-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-07",
    "group": "stories",
    "text": "我们一起学习。",
-   "file": "audio/stories/chao-hoi-07.wav",
-   "ok": false
+   "file": "audio/stories/chao-hoi-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-chao-hoi-08",
    "group": "stories",
    "text": "学习汉语很有意思。",
-   "file": "audio/stories/chao-hoi-08.wav",
-   "ok": false
+   "file": "audio/stories/chao-hoi-08.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-title",
    "group": "stories",
    "text": "我的家",
-   "file": "audio/stories/gia-dinh-title.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-01",
    "group": "stories",
    "text": "我的家有四个人。",
-   "file": "audio/stories/gia-dinh-01.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-02",
    "group": "stories",
    "text": "爸爸、妈妈、我和妹妹。",
-   "file": "audio/stories/gia-dinh-02.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-03",
    "group": "stories",
    "text": "爸爸是老师。",
-   "file": "audio/stories/gia-dinh-03.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-04",
    "group": "stories",
    "text": "妈妈是医生。",
-   "file": "audio/stories/gia-dinh-04.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-05",
    "group": "stories",
    "text": "妹妹今年五岁。",
-   "file": "audio/stories/gia-dinh-05.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-06",
    "group": "stories",
    "text": "我们家很大。",
-   "file": "audio/stories/gia-dinh-06.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-gia-dinh-07",
    "group": "stories",
    "text": "我爱我的家。",
-   "file": "audio/stories/gia-dinh-07.wav",
-   "ok": false
+   "file": "audio/stories/gia-dinh-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cua-hang-title",
    "group": "stories",
    "text": "去商店",
-   "file": "audio/stories/di-cua-hang-title.wav",
-   "ok": false
+   "file": "audio/stories/di-cua-hang-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cua-hang-01",
    "group": "stories",
    "text": "今天我想去商店。",
-   "file": "audio/stories/di-cua-hang-01.wav",
-   "ok": false
+   "file": "audio/stories/di-cua-hang-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cua-hang-02",
    "group": "stories",
    "text": "我要买水和苹果。",
-   "file": "audio/stories/di-cua-hang-02.wav",
-   "ok": false
+   "file": "audio/stories/di-cua-hang-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cua-hang-03",
