@@ -7,6 +7,7 @@ import GuestName from "@/components/GuestName";
 import SchoolMap from "@/components/SchoolMap";
 import LoginDialog from "@/components/LoginDialog";
 import { getAccount, onAccountChange, type Account } from "@/lib/progress";
+import { preloadCosyAudio } from "@/lib/speak";
 
 const LINKS = [
   { href: "/", label: "Trang chủ" },
@@ -33,6 +34,7 @@ export default function Nav() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setAccount(getAccount());
+    preloadCosyAudio(); // tải sẵn manifest audio CosyVoice để lần bấm Nghe đầu đã có file
     return onAccountChange(() => setAccount(getAccount()));
   }, []);
 
