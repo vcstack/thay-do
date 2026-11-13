@@ -3084,92 +3084,92 @@
    "key": "grammar-02-ex-05",
    "group": "grammar",
    "text": "你是学生吗?",
-   "file": "audio/grammar/lesson02-ex05.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex05.mp3",
+   "ok": true
   },
   {
    "key": "grammar-02-ex-06",
    "group": "grammar",
    "text": "他去学校吗?",
-   "file": "audio/grammar/lesson02-ex06.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex06.mp3",
+   "ok": true
   },
   {
    "key": "grammar-03-ex-01",
    "group": "grammar",
    "text": "这是什么?",
-   "file": "audio/grammar/lesson03-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex01.mp3",
+   "ok": true
   },
   {
    "key": "grammar-03-ex-02",
    "group": "grammar",
    "text": "那是谁?",
-   "file": "audio/grammar/lesson03-ex02.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex02.mp3",
+   "ok": true
   },
   {
    "key": "grammar-03-ex-03",
    "group": "grammar",
    "text": "你在哪儿?",
-   "file": "audio/grammar/lesson03-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex03.mp3",
+   "ok": true
   },
   {
    "key": "grammar-03-ex-04",
    "group": "grammar",
    "text": "这个多少钱?",
-   "file": "audio/grammar/lesson03-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex04.mp3",
+   "ok": true
   },
   {
    "key": "grammar-03-ex-05",
    "group": "grammar",
    "text": "现在几点?",
-   "file": "audio/grammar/lesson03-ex05.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex05.mp3",
+   "ok": true
   },
   {
    "key": "grammar-03-ex-06",
    "group": "grammar",
    "text": "你怎么去?",
-   "file": "audio/grammar/lesson03-ex06.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex06.mp3",
+   "ok": true
   },
   {
    "key": "grammar-03-ex-07",
    "group": "grammar",
    "text": "你为什么学习汉语?",
-   "file": "audio/grammar/lesson03-ex07.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex07.mp3",
+   "ok": true
   },
   {
    "key": "grammar-04-ex-01",
    "group": "grammar",
    "text": "我想喝水.",
-   "file": "audio/grammar/lesson04-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson04-ex01.mp3",
+   "ok": true
   },
   {
    "key": "grammar-04-ex-02",
    "group": "grammar",
    "text": "我要一杯咖啡.",
-   "file": "audio/grammar/lesson04-ex02.wav",
-   "ok": false
+   "file": "audio/grammar/lesson04-ex02.mp3",
+   "ok": true
   },
   {
    "key": "grammar-04-ex-03",
    "group": "grammar",
    "text": "我会说汉语.",
-   "file": "audio/grammar/lesson04-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson04-ex03.mp3",
+   "ok": true
   },
   {
    "key": "grammar-04-ex-04",
    "group": "grammar",
    "text": "我能去吗?",
-   "file": "audio/grammar/lesson04-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson04-ex04.mp3",
+   "ok": true
   },
   {
    "key": "grammar-05-ex-01",
@@ -3189,99 +3189,99 @@
    "key": "grammar-05-ex-03",
    "group": "grammar",
    "text": "我有一点儿累.",
-   "file": "audio/grammar/lesson05-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson05-ex03.mp3",
+   "ok": true
   },
   {
    "key": "grammar-05-ex-04",
    "group": "grammar",
    "text": "这个很漂亮.",
-   "file": "audio/grammar/lesson05-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson05-ex04.mp3",
+   "ok": true
   },
   {
    "key": "grammar-06-ex-01",
    "group": "grammar",
    "text": "我今天在学校学习.",
-   "file": "audio/grammar/lesson06-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson06-ex01.mp3",
+   "ok": true
   },
   {
    "key": "grammar-06-ex-02",
    "group": "grammar",
    "text": "书在桌子上.",
-   "file": "audio/grammar/lesson06-ex02.wav",
-   "ok": false
+   "file": "audio/grammar/lesson06-ex02.mp3",
+   "ok": true
   },
   {
    "key": "grammar-06-ex-03",
    "group": "grammar",
    "text": "我在家里.",
-   "file": "audio/grammar/lesson06-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson06-ex03.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-01",
    "group": "grammar",
    "text": "一个人",
-   "file": "audio/grammar/lesson07-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex01.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-02",
    "group": "grammar",
    "text": "一本书",
-   "file": "audio/grammar/lesson07-ex02.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex02.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-03",
    "group": "grammar",
    "text": "一张纸",
-   "file": "audio/grammar/lesson07-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex03.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-04",
    "group": "grammar",
    "text": "一杯水",
-   "file": "audio/grammar/lesson07-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex04.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-05",
    "group": "grammar",
    "text": "一块钱",
-   "file": "audio/grammar/lesson07-ex05.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex05.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-06",
    "group": "grammar",
    "text": "一只猫",
-   "file": "audio/grammar/lesson07-ex06.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex06.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-07",
    "group": "grammar",
    "text": "一件衣服",
-   "file": "audio/grammar/lesson07-ex07.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex07.mp3",
+   "ok": true
   },
   {
    "key": "grammar-07-ex-08",
    "group": "grammar",
    "text": "一部手机",
-   "file": "audio/grammar/lesson07-ex08.wav",
-   "ok": false
+   "file": "audio/grammar/lesson07-ex08.mp3",
+   "ok": true
   },
   {
    "key": "grammar-08-ex-01",
    "group": "grammar",
    "text": "他比我高.",
-   "file": "audio/grammar/lesson08-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson08-ex01.mp3",
+   "ok": true
   },
   {
    "key": "grammar-08-ex-02",
@@ -3539,15 +3539,15 @@
    "key": "patterns-06-04",
    "group": "patterns",
    "text": "我想喝水.",
-   "file": "audio/grammar/lesson04-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson04-ex01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-07-01",
    "group": "patterns",
    "text": "这个多少钱?",
-   "file": "audio/grammar/lesson03-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex04.mp3",
+   "ok": true
   },
   {
    "key": "patterns-07-02",
@@ -3602,8 +3602,8 @@
    "key": "patterns-09-01",
    "group": "patterns",
    "text": "现在几点?",
-   "file": "audio/grammar/lesson03-ex05.wav",
-   "ok": false
+   "file": "audio/grammar/lesson03-ex05.mp3",
+   "ok": true
   },
   {
    "key": "patterns-09-02",
