@@ -4302,22 +4302,22 @@
    "key": "speaking-khach-diem-step01-line",
    "group": "speaking",
    "text": "你好！欢迎光临。你要住几天？",
-   "file": "audio/speaking/khach-diem-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step01-opt01",
    "group": "speaking",
    "text": "我要住两天。",
-   "file": "audio/speaking/khach-diem-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step01-opt02",
    "group": "speaking",
    "text": "我要吃饭。",
-   "file": "audio/speaking/khach-diem-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step01-opt03",
@@ -4330,22 +4330,22 @@
    "key": "speaking-khach-diem-step02-line",
    "group": "speaking",
    "text": "好的。单人间还是双人间？",
-   "file": "audio/speaking/khach-diem-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step02-opt01",
    "group": "speaking",
    "text": "单人间。",
-   "file": "audio/speaking/khach-diem-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step02-opt02",
    "group": "speaking",
    "text": "我要一碗面。",
-   "file": "audio/speaking/khach-diem-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step02-opt03",
@@ -4358,8 +4358,8 @@
    "key": "speaking-khach-diem-step03-line",
    "group": "speaking",
    "text": "单人间，一天一百块。这是你的钥匙。",
-   "file": "audio/speaking/khach-diem-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step03-opt01",
@@ -4379,29 +4379,29 @@
    "key": "speaking-khach-diem-step03-opt03",
    "group": "speaking",
    "text": "我不住了。",
-   "file": "audio/speaking/khach-diem-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step01-line",
    "group": "speaking",
    "text": "你好！你想买什么书？",
-   "file": "audio/speaking/hieu-sach-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step01-opt01",
    "group": "speaking",
    "text": "我想买一本汉语书。",
-   "file": "audio/speaking/hieu-sach-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step01-opt02",
    "group": "speaking",
    "text": "我要一碗面。",
-   "file": "audio/speaking/khach-diem-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step01-opt03",
@@ -4414,22 +4414,22 @@
    "key": "speaking-hieu-sach-step02-line",
    "group": "speaking",
    "text": "这本汉语书很好，二十块钱。",
-   "file": "audio/speaking/hieu-sach-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step02-opt01",
    "group": "speaking",
    "text": "好的，我买这本。",
-   "file": "audio/speaking/hieu-sach-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step02-opt02",
    "group": "speaking",
    "text": "太贵了，我不买。",
-   "file": "audio/speaking/hieu-sach-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step02-opt03",
@@ -4442,22 +4442,22 @@
    "key": "speaking-hieu-sach-step03-line",
    "group": "speaking",
    "text": "谢谢！欢迎下次再来。",
-   "file": "audio/speaking/hieu-sach-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step03-opt01",
    "group": "speaking",
    "text": "谢谢！再见！",
-   "file": "audio/speaking/hieu-sach-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step03-opt02",
    "group": "speaking",
    "text": "我不喜欢这本书。",
-   "file": "audio/speaking/hieu-sach-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step03-opt03",
@@ -4470,22 +4470,22 @@
    "key": "speaking-tiem-banh-step01-line",
    "group": "speaking",
    "text": "你好！你要买什么？",
-   "file": "audio/speaking/tiem-banh-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step01-opt01",
    "group": "speaking",
    "text": "我要买面包。",
-   "file": "audio/speaking/tiem-banh-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step01-opt02",
    "group": "speaking",
    "text": "我要买衣服。",
-   "file": "audio/speaking/tiem-banh-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step01-opt03",
@@ -4498,15 +4498,15 @@
    "key": "speaking-tiem-banh-step02-line",
    "group": "speaking",
    "text": "你要几个面包？",
-   "file": "audio/speaking/tiem-banh-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step02-opt01",
    "group": "speaking",
    "text": "我要两个。",
-   "file": "audio/speaking/tiem-banh-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step02-opt02",
@@ -4519,22 +4519,22 @@
    "key": "speaking-tiem-banh-step02-opt03",
    "group": "speaking",
    "text": "我不吃面包。",
-   "file": "audio/speaking/tiem-banh-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step03-line",
    "group": "speaking",
    "text": "一共十块钱。",
-   "file": "audio/speaking/tiem-banh-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step03-opt01",
    "group": "speaking",
    "text": "好的，给你钱。",
-   "file": "audio/speaking/tiem-banh-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step03-opt02",
@@ -4554,22 +4554,22 @@
    "key": "speaking-cho-rau-step01-line",
    "group": "speaking",
    "text": "买菜吗？菜很新鲜！",
-   "file": "audio/speaking/cho-rau-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step01-opt01",
    "group": "speaking",
    "text": "白菜多少钱一斤？",
-   "file": "audio/speaking/cho-rau-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step01-opt02",
    "group": "speaking",
    "text": "我要买鞋。",
-   "file": "audio/speaking/cho-rau-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step01-opt03",
@@ -4582,15 +4582,15 @@
    "key": "speaking-cho-rau-step02-line",
    "group": "speaking",
    "text": "三块钱一斤。",
-   "file": "audio/speaking/cho-rau-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step02-opt01",
    "group": "speaking",
    "text": "我要买两斤。",
-   "file": "audio/speaking/cho-rau-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step02-opt02",
@@ -4603,29 +4603,29 @@
    "key": "speaking-cho-rau-step02-opt03",
    "group": "speaking",
    "text": "我不吃菜。",
-   "file": "audio/speaking/cho-rau-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step03-line",
    "group": "speaking",
    "text": "一共六块钱。",
-   "file": "audio/speaking/cho-rau-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step03-opt01",
    "group": "speaking",
    "text": "好的，给你。",
-   "file": "audio/speaking/cho-rau-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step03-opt02",
    "group": "speaking",
    "text": "我不要了。",
-   "file": "audio/speaking/cho-rau-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/cho-rau-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step03-opt03",
@@ -4638,22 +4638,22 @@
    "key": "speaking-quan-ca-phe-step01-line",
    "group": "speaking",
    "text": "你好！你想喝什么？",
-   "file": "audio/speaking/quan-ca-phe-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step01-opt01",
    "group": "speaking",
    "text": "我要一杯咖啡。",
-   "file": "audio/speaking/quan-ca-phe-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step01-opt02",
    "group": "speaking",
    "text": "我要一碗面。",
-   "file": "audio/speaking/khach-diem-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step01-opt03",
@@ -4666,8 +4666,8 @@
    "key": "speaking-quan-ca-phe-step02-line",
    "group": "speaking",
    "text": "你要热的还是冷的？",
-   "file": "audio/speaking/quan-ca-phe-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step02-opt01",
@@ -4694,15 +4694,15 @@
    "key": "speaking-quan-ca-phe-step03-line",
    "group": "speaking",
    "text": "咖啡来了，请慢用！",
-   "file": "audio/speaking/quan-ca-phe-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step03-opt01",
    "group": "speaking",
    "text": "谢谢！很好喝！",
-   "file": "audio/speaking/quan-ca-phe-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step03-opt02",
@@ -4722,15 +4722,15 @@
    "key": "speaking-rap-hat-step01-line",
    "group": "speaking",
    "text": "你好！你要买几张票？",
-   "file": "audio/speaking/rap-hat-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step01-opt01",
    "group": "speaking",
    "text": "我要买两张票。",
-   "file": "audio/speaking/rap-hat-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step01-opt02",
@@ -4750,22 +4750,22 @@
    "key": "speaking-rap-hat-step02-line",
    "group": "speaking",
    "text": "今天晚上七点开始。",
-   "file": "audio/speaking/rap-hat-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step02-opt01",
    "group": "speaking",
    "text": "好的，七点我来。",
-   "file": "audio/speaking/rap-hat-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step02-opt02",
    "group": "speaking",
    "text": "我不喜欢看戏。",
-   "file": "audio/speaking/rap-hat-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step02-opt03",
@@ -4778,22 +4778,22 @@
    "key": "speaking-rap-hat-step03-line",
    "group": "speaking",
    "text": "一张票五十块，两张一百块。",
-   "file": "audio/speaking/rap-hat-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step03-opt01",
    "group": "speaking",
    "text": "好的，我买两张。",
-   "file": "audio/speaking/rap-hat-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step03-opt02",
    "group": "speaking",
    "text": "太贵了，我不买了。",
-   "file": "audio/speaking/rap-hat-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step03-opt03",
@@ -4806,15 +4806,15 @@
    "key": "speaking-tiem-may-step01-line",
    "group": "speaking",
    "text": "你好！你要做什么衣服？",
-   "file": "audio/speaking/tiem-may-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-may-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step01-opt01",
    "group": "speaking",
    "text": "我想做一件衬衫。",
-   "file": "audio/speaking/tiem-may-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-may-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step01-opt02",
@@ -4841,29 +4841,29 @@
    "key": "speaking-tiem-may-step02-opt01",
    "group": "speaking",
    "text": "我喜欢蓝色。",
-   "file": "audio/speaking/tiem-may-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-may-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step02-opt02",
    "group": "speaking",
    "text": "我要一碗面。",
-   "file": "audio/speaking/khach-diem-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step02-opt03",
    "group": "speaking",
    "text": "我不喜欢衣服。",
-   "file": "audio/speaking/tiem-may-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-may-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step03-line",
    "group": "speaking",
    "text": "三天以后来取，好吗？",
-   "file": "audio/speaking/tiem-may-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-may-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step03-opt01",
@@ -4876,8 +4876,8 @@
    "key": "speaking-tiem-may-step03-opt02",
    "group": "speaking",
    "text": "我现在就要。",
-   "file": "audio/speaking/tiem-may-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-may-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step03-opt03",
@@ -4890,22 +4890,22 @@
    "key": "speaking-tiem-hoa-step01-line",
    "group": "speaking",
    "text": "你好！你想买什么花？",
-   "file": "audio/speaking/tiem-hoa-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step01-opt01",
    "group": "speaking",
    "text": "我想买玫瑰花。",
-   "file": "audio/speaking/tiem-hoa-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step01-opt02",
    "group": "speaking",
    "text": "我要买一碗面。",
-   "file": "audio/speaking/tiem-hoa-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-hoa-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step01-opt03",
@@ -4953,15 +4953,15 @@
    "key": "speaking-tiem-hoa-step03-opt01",
    "group": "speaking",
    "text": "好的，给你钱。",
-   "file": "audio/speaking/tiem-banh-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step03-opt02",
    "group": "speaking",
    "text": "太贵了，我不买了。",
-   "file": "audio/speaking/rap-hat-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step03-opt03",
@@ -4981,8 +4981,8 @@
    "key": "speaking-tiem-hoa-step04-opt01",
    "group": "speaking",
    "text": "谢谢！再见！",
-   "file": "audio/speaking/hieu-sach-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step04-opt02",
@@ -5044,8 +5044,8 @@
    "key": "speaking-ben-xe-step02-opt02",
    "group": "speaking",
    "text": "我要一杯咖啡。",
-   "file": "audio/speaking/quan-ca-phe-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step02-opt03",
@@ -5156,8 +5156,8 @@
    "key": "speaking-cong-vien-step02-opt02",
    "group": "speaking",
    "text": "我要一碗面。",
-   "file": "audio/speaking/khach-diem-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step02-opt03",
@@ -5226,8 +5226,8 @@
    "key": "speaking-quan-tra-sua-step01-line",
    "group": "speaking",
    "text": "你好！你想喝什么？",
-   "file": "audio/speaking/quan-ca-phe-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step01-opt01",
@@ -5240,8 +5240,8 @@
    "key": "speaking-quan-tra-sua-step01-opt02",
    "group": "speaking",
    "text": "我要一碗面。",
-   "file": "audio/speaking/khach-diem-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/khach-diem-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step01-opt03",
@@ -5289,15 +5289,15 @@
    "key": "speaking-quan-tra-sua-step03-opt01",
    "group": "speaking",
    "text": "好的，给你钱。",
-   "file": "audio/speaking/tiem-banh-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tiem-banh-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step03-opt02",
    "group": "speaking",
    "text": "太贵了，我不买了。",
-   "file": "audio/speaking/rap-hat-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/rap-hat-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step03-opt03",
@@ -5317,8 +5317,8 @@
    "key": "speaking-quan-tra-sua-step04-opt01",
    "group": "speaking",
    "text": "谢谢！很好喝！",
-   "file": "audio/speaking/quan-ca-phe-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-ca-phe-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step04-opt02",
@@ -5506,8 +5506,8 @@
    "key": "stories-di-cua-hang-07",
    "group": "stories",
    "text": "谢谢！再见！",
-   "file": "audio/speaking/hieu-sach-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-sach-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "stories-thoi-tiet-title",
