@@ -1929,29 +1929,29 @@
    "key": "lesson13-dialogue-02",
    "group": "lesson",
    "text": "我六点半起床。",
-   "file": "audio/lesson13/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson13/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson13-dialogue-03",
    "group": "lesson",
    "text": "你几点上班？",
-   "file": "audio/lesson13/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson13/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson13-dialogue-04",
    "group": "lesson",
    "text": "我八点上班。",
-   "file": "audio/lesson13/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson13/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson13-dialogue-05",
    "group": "lesson",
    "text": "你晚上几点睡觉？",
-   "file": "audio/lesson13/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson13/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson13-dialogue-06",
@@ -1964,8 +1964,8 @@
    "key": "lesson14-title",
    "group": "lesson",
    "text": "你怎么去学校？",
-   "file": "audio/lesson14/title.wav",
-   "ok": false
+   "file": "audio/lesson14/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-01",
@@ -1978,43 +1978,43 @@
    "key": "lesson14-vocab-02",
    "group": "lesson",
    "text": "坐",
-   "file": "audio/lesson14/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-03",
    "group": "lesson",
    "text": "公交车",
-   "file": "audio/lesson14/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-04",
    "group": "lesson",
    "text": "地铁",
-   "file": "audio/lesson14/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-05",
    "group": "lesson",
    "text": "出租车",
-   "file": "audio/lesson14/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-06",
    "group": "lesson",
    "text": "自行车",
-   "file": "audio/lesson14/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-07",
    "group": "lesson",
    "text": "步行",
-   "file": "audio/lesson14/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-08",
@@ -2027,148 +2027,148 @@
    "key": "lesson14-vocab-09",
    "group": "lesson",
    "text": "车站",
-   "file": "audio/lesson14/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-vocab-10",
    "group": "lesson",
    "text": "远",
-   "file": "audio/lesson14/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson14/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-sentence-01",
    "group": "lesson",
    "text": "你怎么去学校？",
-   "file": "audio/lesson14/title.wav",
-   "ok": false
+   "file": "audio/lesson14/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-sentence-02",
    "group": "lesson",
    "text": "你坐什么去？",
-   "file": "audio/lesson14/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson14/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-sentence-03",
    "group": "lesson",
    "text": "我坐公交车去。",
-   "file": "audio/lesson14/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson14/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-sentence-04",
    "group": "lesson",
    "text": "我骑自行车去。",
-   "file": "audio/lesson14/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson14/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-sentence-05",
    "group": "lesson",
    "text": "学校离这里远吗？",
-   "file": "audio/lesson14/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson14/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-dialogue-01",
    "group": "lesson",
    "text": "你怎么去学校？",
-   "file": "audio/lesson14/title.wav",
-   "ok": false
+   "file": "audio/lesson14/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-dialogue-02",
    "group": "lesson",
    "text": "我坐公交车去。",
-   "file": "audio/lesson14/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson14/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-dialogue-03",
    "group": "lesson",
    "text": "学校离你家远吗？",
-   "file": "audio/lesson14/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson14/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-dialogue-04",
    "group": "lesson",
    "text": "不远，坐车大概二十分钟。",
-   "file": "audio/lesson14/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson14/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-dialogue-05",
    "group": "lesson",
    "text": "你每天都坐公交车去吗？",
-   "file": "audio/lesson14/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson14/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson14-dialogue-06",
    "group": "lesson",
    "text": "是的，有时候我也骑自行车去。",
-   "file": "audio/lesson14/dialogue06.wav",
-   "ok": false
+   "file": "audio/lesson14/dialogue06.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-title",
    "group": "lesson",
    "text": "你觉得怎么样？",
-   "file": "audio/lesson15/title.wav",
-   "ok": false
+   "file": "audio/lesson15/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-01",
    "group": "lesson",
    "text": "觉得",
-   "file": "audio/lesson15/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-02",
    "group": "lesson",
    "text": "怎么样",
-   "file": "audio/lesson15/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-03",
    "group": "lesson",
    "text": "好",
-   "file": "audio/lesson15/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-04",
    "group": "lesson",
    "text": "不错",
-   "file": "audio/lesson15/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-05",
    "group": "lesson",
    "text": "有意思",
-   "file": "audio/lesson15/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-06",
    "group": "lesson",
    "text": "难",
-   "file": "audio/lesson15/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-07",
    "group": "lesson",
    "text": "简单",
-   "file": "audio/lesson15/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-08",
@@ -2181,113 +2181,113 @@
    "key": "lesson15-vocab-09",
    "group": "lesson",
    "text": "觉得",
-   "file": "audio/lesson15/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-10",
    "group": "lesson",
    "text": "意见",
-   "file": "audio/lesson15/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-sentence-01",
    "group": "lesson",
    "text": "你觉得怎么样？",
-   "file": "audio/lesson15/title.wav",
-   "ok": false
+   "file": "audio/lesson15/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-sentence-02",
    "group": "lesson",
    "text": "你觉得这个怎么样？",
-   "file": "audio/lesson15/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson15/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-sentence-03",
    "group": "lesson",
    "text": "你觉得好吗？",
-   "file": "audio/lesson15/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson15/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-sentence-04",
    "group": "lesson",
    "text": "我觉得不错。",
-   "file": "audio/lesson15/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson15/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-sentence-05",
    "group": "lesson",
    "text": "我觉得有意思。",
-   "file": "audio/lesson15/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson15/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-dialogue-01",
    "group": "lesson",
    "text": "你觉得这本书怎么样？",
-   "file": "audio/lesson15/dialogue01.wav",
-   "ok": false
+   "file": "audio/lesson15/dialogue01.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-dialogue-02",
    "group": "lesson",
    "text": "我觉得很有意思。",
-   "file": "audio/lesson15/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson15/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-dialogue-03",
    "group": "lesson",
    "text": "难吗？",
-   "file": "audio/lesson15/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson15/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-dialogue-04",
    "group": "lesson",
    "text": "不太难，挺简单的。",
-   "file": "audio/lesson15/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson15/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-dialogue-05",
    "group": "lesson",
    "text": "那你喜欢吗？",
-   "file": "audio/lesson15/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson15/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-dialogue-06",
    "group": "lesson",
    "text": "喜欢，我觉得很好。",
-   "file": "audio/lesson15/dialogue06.wav",
-   "ok": false
+   "file": "audio/lesson15/dialogue06.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-title",
    "group": "lesson",
    "text": "你认识他吗？",
-   "file": "audio/lesson16/title.wav",
-   "ok": false
+   "file": "audio/lesson16/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-01",
    "group": "lesson",
    "text": "认识",
-   "file": "audio/lesson16/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson16/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-02",
    "group": "lesson",
    "text": "介绍",
-   "file": "audio/lesson16/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson16/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-03",
@@ -2314,15 +2314,15 @@
    "key": "lesson16-vocab-06",
    "group": "lesson",
    "text": "见面",
-   "file": "audio/lesson16/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson16/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-07",
    "group": "lesson",
    "text": "知道",
-   "file": "audio/lesson16/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson16/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-08",
@@ -2335,22 +2335,22 @@
    "key": "lesson16-vocab-09",
    "group": "lesson",
    "text": "以前",
-   "file": "audio/lesson16/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson16/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-vocab-10",
    "group": "lesson",
    "text": "以后",
-   "file": "audio/lesson16/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson16/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-sentence-01",
    "group": "lesson",
    "text": "你认识他吗？",
-   "file": "audio/lesson16/title.wav",
-   "ok": false
+   "file": "audio/lesson16/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-sentence-02",
@@ -2384,8 +2384,8 @@
    "key": "lesson16-dialogue-01",
    "group": "lesson",
    "text": "你认识他吗？",
-   "file": "audio/lesson16/title.wav",
-   "ok": false
+   "file": "audio/lesson16/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-dialogue-02",
@@ -8901,8 +8901,8 @@
    "key": "chars-ety-11",
    "group": "chars",
    "text": "好",
-   "file": "audio/lesson15/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson15/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-12",
