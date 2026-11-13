@@ -2839,8 +2839,8 @@
    "key": "lesson19-dialogue-02",
    "group": "lesson",
    "text": "我想去海边旅游。",
-   "file": "audio/lesson19/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson19/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-dialogue-03",
@@ -2853,29 +2853,29 @@
    "key": "lesson19-dialogue-04",
    "group": "lesson",
    "text": "好啊！那里怎么样？",
-   "file": "audio/lesson19/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson19/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-dialogue-05",
    "group": "lesson",
    "text": "听说那里很漂亮，海也很蓝。",
-   "file": "audio/lesson19/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson19/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-dialogue-06",
    "group": "lesson",
    "text": "那就这个周末去吧！",
-   "file": "audio/lesson19/dialogue06.wav",
-   "ok": false
+   "file": "audio/lesson19/dialogue06.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-title",
    "group": "lesson",
    "text": "我想吃什么？",
-   "file": "audio/lesson20/title.wav",
-   "ok": false
+   "file": "audio/lesson20/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-vocab-01",
@@ -2909,8 +2909,8 @@
    "key": "lesson20-vocab-05",
    "group": "lesson",
    "text": "蔬菜",
-   "file": "audio/lesson20/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson20/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-vocab-06",
@@ -2930,22 +2930,22 @@
    "key": "lesson20-vocab-08",
    "group": "lesson",
    "text": "汤",
-   "file": "audio/lesson20/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson20/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-vocab-09",
    "group": "lesson",
    "text": "甜的",
-   "file": "audio/lesson20/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson20/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-vocab-10",
    "group": "lesson",
    "text": "辣的",
-   "file": "audio/lesson20/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson20/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-sentence-01",
@@ -2958,8 +2958,8 @@
    "key": "lesson20-sentence-02",
    "group": "lesson",
    "text": "我想吃米饭。",
-   "file": "audio/lesson20/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson20/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-sentence-03",
@@ -2972,8 +2972,8 @@
    "key": "lesson20-sentence-04",
    "group": "lesson",
    "text": "我想吃水果。",
-   "file": "audio/lesson20/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson20/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-sentence-05",
@@ -2993,8 +2993,8 @@
    "key": "lesson20-dialogue-02",
    "group": "lesson",
    "text": "我想吃米饭。",
-   "file": "audio/lesson20/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson20/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-dialogue-03",
