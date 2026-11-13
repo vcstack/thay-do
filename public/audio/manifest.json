@@ -795,43 +795,43 @@
    "key": "lesson06-vocab-05",
    "group": "lesson",
    "text": "商店",
-   "file": "audio/lesson06/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-06",
    "group": "lesson",
    "text": "银行",
-   "file": "audio/lesson06/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-07",
    "group": "lesson",
    "text": "医院",
-   "file": "audio/lesson06/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-08",
    "group": "lesson",
    "text": "公园",
-   "file": "audio/lesson06/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-09",
    "group": "lesson",
    "text": "超市",
-   "file": "audio/lesson06/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-vocab-10",
    "group": "lesson",
    "text": "图书馆",
-   "file": "audio/lesson06/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson06/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-sentence-01",
@@ -844,29 +844,29 @@
    "key": "lesson06-sentence-02",
    "group": "lesson",
    "text": "我去学校。",
-   "file": "audio/lesson06/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson06/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-sentence-03",
    "group": "lesson",
    "text": "他去公司。",
-   "file": "audio/lesson06/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson06/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-sentence-04",
    "group": "lesson",
    "text": "我们去哪儿？",
-   "file": "audio/lesson06/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson06/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-sentence-05",
    "group": "lesson",
    "text": "我们去超市吧。",
-   "file": "audio/lesson06/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson06/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-dialogue-01",
@@ -879,43 +879,43 @@
    "key": "lesson06-dialogue-02",
    "group": "lesson",
    "text": "我去超市。",
-   "file": "audio/lesson06/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson06/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-dialogue-03",
    "group": "lesson",
    "text": "你买什么？",
-   "file": "audio/lesson06/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson06/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-dialogue-04",
    "group": "lesson",
    "text": "我买一些水果。",
-   "file": "audio/lesson06/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson06/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson06-dialogue-05",
    "group": "lesson",
    "text": "我也去吧！",
-   "file": "audio/lesson06/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson06/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-title",
    "group": "lesson",
    "text": "你喜欢什么？",
-   "file": "audio/lesson07/title.wav",
-   "ok": false
+   "file": "audio/lesson07/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-01",
    "group": "lesson",
    "text": "喜欢",
-   "file": "audio/lesson07/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-02",
@@ -928,414 +928,414 @@
    "key": "lesson07-vocab-03",
    "group": "lesson",
    "text": "颜色",
-   "file": "audio/lesson07/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-04",
    "group": "lesson",
    "text": "运动",
-   "file": "audio/lesson07/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-05",
    "group": "lesson",
    "text": "音乐",
-   "file": "audio/lesson07/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-06",
    "group": "lesson",
    "text": "电影",
-   "file": "audio/lesson07/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-07",
    "group": "lesson",
    "text": "书",
-   "file": "audio/lesson07/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-08",
    "group": "lesson",
    "text": "水果",
-   "file": "audio/lesson07/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-09",
    "group": "lesson",
    "text": "食物",
-   "file": "audio/lesson07/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-vocab-10",
    "group": "lesson",
    "text": "爱好",
-   "file": "audio/lesson07/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-sentence-01",
    "group": "lesson",
    "text": "你喜欢什么？",
-   "file": "audio/lesson07/title.wav",
-   "ok": false
+   "file": "audio/lesson07/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-sentence-02",
    "group": "lesson",
    "text": "你喜欢什么运动？",
-   "file": "audio/lesson07/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson07/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-sentence-03",
    "group": "lesson",
    "text": "你喜欢什么颜色？",
-   "file": "audio/lesson07/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson07/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-sentence-04",
    "group": "lesson",
    "text": "我喜欢听音乐。",
-   "file": "audio/lesson07/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson07/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-sentence-05",
    "group": "lesson",
    "text": "我不喜欢吃辣的。",
-   "file": "audio/lesson07/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson07/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-dialogue-01",
    "group": "lesson",
    "text": "你喜欢什么运动？",
-   "file": "audio/lesson07/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson07/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-dialogue-02",
    "group": "lesson",
    "text": "我喜欢打篮球。",
-   "file": "audio/lesson07/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson07/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-dialogue-03",
    "group": "lesson",
    "text": "你还喜欢什么？",
-   "file": "audio/lesson07/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson07/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-dialogue-04",
    "group": "lesson",
    "text": "我也喜欢听音乐和看电影。",
-   "file": "audio/lesson07/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson07/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-dialogue-05",
    "group": "lesson",
    "text": "你不喜欢什么？",
-   "file": "audio/lesson07/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson07/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson07-dialogue-06",
    "group": "lesson",
    "text": "我不喜欢吃辣的。",
-   "file": "audio/lesson07/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson07/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-title",
    "group": "lesson",
    "text": "你会说汉语吗？",
-   "file": "audio/lesson08/title.wav",
-   "ok": false
+   "file": "audio/lesson08/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-01",
    "group": "lesson",
    "text": "会",
-   "file": "audio/lesson08/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-02",
    "group": "lesson",
    "text": "说",
-   "file": "audio/lesson08/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-03",
    "group": "lesson",
    "text": "汉语",
-   "file": "audio/lesson08/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-04",
    "group": "lesson",
    "text": "英语",
-   "file": "audio/lesson08/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-05",
    "group": "lesson",
    "text": "日语",
-   "file": "audio/lesson08/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-06",
    "group": "lesson",
    "text": "读",
-   "file": "audio/lesson08/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-07",
    "group": "lesson",
    "text": "写",
-   "file": "audio/lesson08/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-08",
    "group": "lesson",
    "text": "听",
-   "file": "audio/lesson08/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-09",
    "group": "lesson",
    "text": "语言",
-   "file": "audio/lesson08/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-vocab-10",
    "group": "lesson",
    "text": "学习",
-   "file": "audio/lesson08/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-sentence-01",
    "group": "lesson",
    "text": "你会说汉语吗？",
-   "file": "audio/lesson08/title.wav",
-   "ok": false
+   "file": "audio/lesson08/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-sentence-02",
    "group": "lesson",
    "text": "你会说英语吗？",
-   "file": "audio/lesson08/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson08/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-sentence-03",
    "group": "lesson",
    "text": "你会写汉字吗？",
-   "file": "audio/lesson08/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson08/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-sentence-04",
    "group": "lesson",
    "text": "我会说一点儿汉语。",
-   "file": "audio/lesson08/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson08/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-sentence-05",
    "group": "lesson",
    "text": "我正在学习汉语。",
-   "file": "audio/lesson08/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson08/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-dialogue-01",
    "group": "lesson",
    "text": "你会说汉语吗？",
-   "file": "audio/lesson08/title.wav",
-   "ok": false
+   "file": "audio/lesson08/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-dialogue-02",
    "group": "lesson",
    "text": "我会说一点儿汉语。",
-   "file": "audio/lesson08/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson08/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-dialogue-03",
    "group": "lesson",
    "text": "你还会说什么语言？",
-   "file": "audio/lesson08/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson08/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson08-dialogue-04",
    "group": "lesson",
    "text": "我会说英语，也正在学习日语。",
-   "file": "audio/lesson08/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson08/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-title",
    "group": "lesson",
    "text": "你喝什么？",
-   "file": "audio/lesson09/title.wav",
-   "ok": false
+   "file": "audio/lesson09/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-01",
    "group": "lesson",
    "text": "喝",
-   "file": "audio/lesson09/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-02",
    "group": "lesson",
    "text": "水",
-   "file": "audio/lesson09/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-03",
    "group": "lesson",
    "text": "茶",
-   "file": "audio/lesson09/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-04",
    "group": "lesson",
    "text": "咖啡",
-   "file": "audio/lesson09/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-05",
    "group": "lesson",
    "text": "牛奶",
-   "file": "audio/lesson09/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-06",
    "group": "lesson",
    "text": "果汁",
-   "file": "audio/lesson09/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-07",
    "group": "lesson",
    "text": "饮料",
-   "file": "audio/lesson09/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-08",
    "group": "lesson",
    "text": "热",
-   "file": "audio/lesson09/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-09",
    "group": "lesson",
    "text": "冷",
-   "file": "audio/lesson09/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-vocab-10",
    "group": "lesson",
    "text": "杯子",
-   "file": "audio/lesson09/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-sentence-01",
    "group": "lesson",
    "text": "你喝什么？",
-   "file": "audio/lesson09/title.wav",
-   "ok": false
+   "file": "audio/lesson09/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-sentence-02",
    "group": "lesson",
    "text": "你喝茶吗？",
-   "file": "audio/lesson09/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson09/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-sentence-03",
    "group": "lesson",
    "text": "我喝咖啡。",
-   "file": "audio/lesson09/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson09/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-sentence-04",
    "group": "lesson",
    "text": "我不喝牛奶。",
-   "file": "audio/lesson09/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson09/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-sentence-05",
    "group": "lesson",
    "text": "请给我一杯水。",
-   "file": "audio/lesson09/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson09/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-dialogue-01",
    "group": "lesson",
    "text": "你喝什么？",
-   "file": "audio/lesson09/title.wav",
-   "ok": false
+   "file": "audio/lesson09/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-dialogue-02",
    "group": "lesson",
    "text": "我喝茶，你呢？",
-   "file": "audio/lesson09/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson09/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-dialogue-03",
    "group": "lesson",
    "text": "我喝咖啡。",
-   "file": "audio/lesson09/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson09/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-dialogue-04",
    "group": "lesson",
    "text": "你要一杯牛奶吗？",
-   "file": "audio/lesson09/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson09/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson09-dialogue-05",
@@ -1418,8 +1418,8 @@
    "key": "lesson10-vocab-10",
    "group": "lesson",
    "text": "水果",
-   "file": "audio/lesson07/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson10-sentence-01",
@@ -1677,29 +1677,29 @@
    "key": "lesson12-vocab-03",
    "group": "lesson",
    "text": "听",
-   "file": "audio/lesson08/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson12-vocab-04",
    "group": "lesson",
    "text": "写",
-   "file": "audio/lesson08/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson12-vocab-05",
    "group": "lesson",
    "text": "读",
-   "file": "audio/lesson08/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson12-vocab-06",
    "group": "lesson",
    "text": "学习",
-   "file": "audio/lesson08/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson08/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson12-vocab-07",
@@ -1719,8 +1719,8 @@
    "key": "lesson12-vocab-09",
    "group": "lesson",
    "text": "运动",
-   "file": "audio/lesson07/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson12-vocab-10",
@@ -2174,8 +2174,8 @@
    "key": "lesson15-vocab-08",
    "group": "lesson",
    "text": "喜欢",
-   "file": "audio/lesson07/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson15-vocab-09",
@@ -2426,50 +2426,50 @@
    "key": "lesson17-title",
    "group": "lesson",
    "text": "你喜欢什么？",
-   "file": "audio/lesson07/title.wav",
-   "ok": false
+   "file": "audio/lesson07/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-01",
    "group": "lesson",
    "text": "喜欢",
-   "file": "audio/lesson07/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-02",
    "group": "lesson",
    "text": "爱好",
-   "file": "audio/lesson07/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-03",
    "group": "lesson",
    "text": "运动",
-   "file": "audio/lesson07/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-04",
    "group": "lesson",
    "text": "音乐",
-   "file": "audio/lesson07/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-05",
    "group": "lesson",
    "text": "电影",
-   "file": "audio/lesson07/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-06",
    "group": "lesson",
    "text": "书",
-   "file": "audio/lesson07/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-07",
@@ -2482,15 +2482,15 @@
    "key": "lesson17-vocab-08",
    "group": "lesson",
    "text": "食物",
-   "file": "audio/lesson07/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-09",
    "group": "lesson",
    "text": "颜色",
-   "file": "audio/lesson07/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-10",
@@ -2503,8 +2503,8 @@
    "key": "lesson17-sentence-01",
    "group": "lesson",
    "text": "你喜欢什么？",
-   "file": "audio/lesson07/title.wav",
-   "ok": false
+   "file": "audio/lesson07/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-sentence-02",
@@ -2538,8 +2538,8 @@
    "key": "lesson17-dialogue-01",
    "group": "lesson",
    "text": "你喜欢什么？",
-   "file": "audio/lesson07/title.wav",
-   "ok": false
+   "file": "audio/lesson07/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-dialogue-02",
@@ -2902,8 +2902,8 @@
    "key": "lesson20-vocab-04",
    "group": "lesson",
    "text": "水果",
-   "file": "audio/lesson07/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson07/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-vocab-05",
@@ -4834,8 +4834,8 @@
    "key": "speaking-tiem-may-step02-line",
    "group": "speaking",
    "text": "你喜欢什么颜色？",
-   "file": "audio/lesson07/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson07/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step02-opt01",
@@ -8593,8 +8593,8 @@
    "key": "tea-vocab-01",
    "group": "tea",
    "text": "茶",
-   "file": "audio/lesson09/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-02",
@@ -8845,8 +8845,8 @@
    "key": "chars-ety-03",
    "group": "chars",
    "text": "水",
-   "file": "audio/lesson09/vocab02.wav",
-   "ok": false
+   "file": "audio/lesson09/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-04",
