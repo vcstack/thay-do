@@ -2496,8 +2496,8 @@
    "key": "lesson17-vocab-10",
    "group": "lesson",
    "text": "动物",
-   "file": "audio/lesson17/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson17/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-sentence-01",
@@ -2510,29 +2510,29 @@
    "key": "lesson17-sentence-02",
    "group": "lesson",
    "text": "你喜欢运动吗？",
-   "file": "audio/lesson17/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson17/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-sentence-03",
    "group": "lesson",
    "text": "你有什么爱好？",
-   "file": "audio/lesson17/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson17/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-sentence-04",
    "group": "lesson",
    "text": "我喜欢看电影。",
-   "file": "audio/lesson17/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson17/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-sentence-05",
    "group": "lesson",
    "text": "我喜欢唱歌和跳舞。",
-   "file": "audio/lesson17/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson17/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-dialogue-01",
@@ -2545,50 +2545,50 @@
    "key": "lesson17-dialogue-02",
    "group": "lesson",
    "text": "我喜欢看电影。",
-   "file": "audio/lesson17/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson17/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-dialogue-03",
    "group": "lesson",
    "text": "你喜欢运动吗？",
-   "file": "audio/lesson17/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson17/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-dialogue-04",
    "group": "lesson",
    "text": "喜欢，我经常打羽毛球。",
-   "file": "audio/lesson17/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson17/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-dialogue-05",
    "group": "lesson",
    "text": "你还有什么爱好？",
-   "file": "audio/lesson17/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson17/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-dialogue-06",
    "group": "lesson",
    "text": "我还喜欢听音乐和旅行。",
-   "file": "audio/lesson17/dialogue06.wav",
-   "ok": false
+   "file": "audio/lesson17/dialogue06.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-title",
    "group": "lesson",
    "text": "你周末做什么？",
-   "file": "audio/lesson18/title.wav",
-   "ok": false
+   "file": "audio/lesson18/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-01",
    "group": "lesson",
    "text": "周末",
-   "file": "audio/lesson18/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-02",
@@ -2601,64 +2601,64 @@
    "key": "lesson18-vocab-03",
    "group": "lesson",
    "text": "购物",
-   "file": "audio/lesson18/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-04",
    "group": "lesson",
    "text": "看电影",
-   "file": "audio/lesson18/vocab04.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-05",
    "group": "lesson",
    "text": "见朋友",
-   "file": "audio/lesson18/vocab05.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-06",
    "group": "lesson",
    "text": "做作业",
-   "file": "audio/lesson18/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-07",
    "group": "lesson",
    "text": "打篮球",
-   "file": "audio/lesson18/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-08",
    "group": "lesson",
    "text": "去公园",
-   "file": "audio/lesson18/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-09",
    "group": "lesson",
    "text": "在家",
-   "file": "audio/lesson18/vocab09.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab09.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-vocab-10",
    "group": "lesson",
    "text": "计划",
-   "file": "audio/lesson18/vocab10.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-sentence-01",
    "group": "lesson",
    "text": "你周末做什么？",
-   "file": "audio/lesson18/title.wav",
-   "ok": false
+   "file": "audio/lesson18/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-sentence-02",
@@ -2692,8 +2692,8 @@
    "key": "lesson18-dialogue-01",
    "group": "lesson",
    "text": "你周末做什么？",
-   "file": "audio/lesson18/title.wav",
-   "ok": false
+   "file": "audio/lesson18/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-dialogue-02",
@@ -6864,8 +6864,8 @@
    "key": "stories-choi-bong-ro-title",
    "group": "stories",
    "text": "打篮球",
-   "file": "audio/lesson18/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-01",
@@ -6920,8 +6920,8 @@
    "key": "stories-di-cong-vien-title",
    "group": "stories",
    "text": "去公园",
-   "file": "audio/lesson18/vocab08.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab08.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-01",
@@ -8222,8 +8222,8 @@
    "key": "stories-lam-bai-tap-title",
    "group": "stories",
    "text": "做作业",
-   "file": "audio/lesson18/vocab06.wav",
-   "ok": false
+   "file": "audio/lesson18/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-01",
