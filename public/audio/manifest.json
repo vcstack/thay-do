@@ -2356,29 +2356,29 @@
    "key": "lesson16-sentence-02",
    "group": "lesson",
    "text": "你认识这个人吗？",
-   "file": "audio/lesson16/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson16/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-sentence-03",
    "group": "lesson",
    "text": "他是谁？",
-   "file": "audio/lesson16/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson16/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-sentence-04",
    "group": "lesson",
    "text": "这是我的朋友。",
-   "file": "audio/lesson16/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson16/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-sentence-05",
    "group": "lesson",
    "text": "我给你介绍一下。",
-   "file": "audio/lesson16/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson16/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-dialogue-01",
@@ -2391,36 +2391,36 @@
    "key": "lesson16-dialogue-02",
    "group": "lesson",
    "text": "认识，他是我的同学。",
-   "file": "audio/lesson16/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson16/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-dialogue-03",
    "group": "lesson",
    "text": "他叫什么名字？",
-   "file": "audio/lesson16/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson16/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-dialogue-04",
    "group": "lesson",
    "text": "他叫李明。",
-   "file": "audio/lesson16/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson16/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-dialogue-05",
    "group": "lesson",
    "text": "你给我介绍一下吧。",
-   "file": "audio/lesson16/dialogue05.wav",
-   "ok": false
+   "file": "audio/lesson16/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "lesson16-dialogue-06",
    "group": "lesson",
    "text": "好的，这是我的朋友李明。",
-   "file": "audio/lesson16/dialogue06.wav",
-   "ok": false
+   "file": "audio/lesson16/dialogue06.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-title",
@@ -2475,8 +2475,8 @@
    "key": "lesson17-vocab-07",
    "group": "lesson",
    "text": "旅行",
-   "file": "audio/lesson17/vocab07.wav",
-   "ok": false
+   "file": "audio/lesson17/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "lesson17-vocab-08",
