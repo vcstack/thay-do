@@ -6192,344 +6192,344 @@
    "key": "stories-mot-ngay-cua-toi-03",
    "group": "stories",
    "text": "七点吃早饭，七点半去学校。",
-   "file": "audio/stories/mot-ngay-cua-toi-03.wav",
-   "ok": false
+   "file": "audio/stories/mot-ngay-cua-toi-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-mot-ngay-cua-toi-04",
    "group": "stories",
    "text": "上午我上四节课。",
-   "file": "audio/stories/mot-ngay-cua-toi-04.wav",
-   "ok": false
+   "file": "audio/stories/mot-ngay-cua-toi-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-mot-ngay-cua-toi-05",
    "group": "stories",
    "text": "中午我在学校吃饭。",
-   "file": "audio/stories/mot-ngay-cua-toi-05.wav",
-   "ok": false
+   "file": "audio/stories/mot-ngay-cua-toi-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-mot-ngay-cua-toi-06",
    "group": "stories",
    "text": "下午回家写作业。",
-   "file": "audio/stories/mot-ngay-cua-toi-06.wav",
-   "ok": false
+   "file": "audio/stories/mot-ngay-cua-toi-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-mot-ngay-cua-toi-07",
    "group": "stories",
    "text": "晚上九点，我睡觉。",
-   "file": "audio/stories/mot-ngay-cua-toi-07.wav",
-   "ok": false
+   "file": "audio/stories/mot-ngay-cua-toi-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-title",
    "group": "stories",
    "text": "买衣服",
-   "file": "audio/stories/mua-quan-ao-title.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-01",
    "group": "stories",
    "text": "今天妈妈带我去买衣服。",
-   "file": "audio/stories/mua-quan-ao-01.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-02",
    "group": "stories",
    "text": "商店里有很多衣服。",
-   "file": "audio/stories/mua-quan-ao-02.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-03",
    "group": "stories",
    "text": "我喜欢这件红色的毛衣。",
-   "file": "audio/stories/mua-quan-ao-03.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-04",
    "group": "stories",
    "text": "这件毛衣多少钱？",
-   "file": "audio/stories/mua-quan-ao-04.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-05",
    "group": "stories",
    "text": "一百块钱。",
-   "file": "audio/stories/mua-quan-ao-05.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-06",
    "group": "stories",
    "text": "妈妈说：“有点儿贵。”",
-   "file": "audio/stories/mua-quan-ao-06.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-07",
    "group": "stories",
    "text": "最后，我们买了这件毛衣。",
-   "file": "audio/stories/mua-quan-ao-07.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-quan-ao-08",
    "group": "stories",
    "text": "我很喜欢我的新毛衣。",
-   "file": "audio/stories/mua-quan-ao-08.wav",
-   "ok": false
+   "file": "audio/stories/mua-quan-ao-08.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-title",
    "group": "stories",
    "text": "做饭",
-   "file": "audio/stories/nau-an-title.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-01",
    "group": "stories",
    "text": "今天妈妈教我做饭。",
-   "file": "audio/stories/nau-an-01.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-02",
    "group": "stories",
    "text": "我们先去市场买菜。",
-   "file": "audio/stories/nau-an-02.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-03",
    "group": "stories",
    "text": "回到家，妈妈洗菜，我切菜。",
-   "file": "audio/stories/nau-an-03.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-04",
    "group": "stories",
    "text": "妈妈说：“做饭要小心，不要切到手。”",
-   "file": "audio/stories/nau-an-04.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-05",
    "group": "stories",
    "text": "然后，我们一起炒菜。",
-   "file": "audio/stories/nau-an-05.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-06",
    "group": "stories",
    "text": "菜做好了，很香，很好吃。",
-   "file": "audio/stories/nau-an-06.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-07",
    "group": "stories",
    "text": "爸爸回家以后，我们一起吃饭。",
-   "file": "audio/stories/nau-an-07.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-an-08",
    "group": "stories",
    "text": "我觉得自己做饭很有意思。",
-   "file": "audio/stories/nau-an-08.wav",
-   "ok": false
+   "file": "audio/stories/nau-an-08.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-title",
    "group": "stories",
    "text": "读书",
-   "file": "audio/stories/doc-sach-title.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-01",
    "group": "stories",
    "text": "我很喜欢读书。",
-   "file": "audio/stories/doc-sach-01.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-02",
    "group": "stories",
    "text": "每个星期，我都去图书馆。",
-   "file": "audio/stories/doc-sach-02.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-03",
    "group": "stories",
    "text": "图书馆里很安静。",
-   "file": "audio/stories/doc-sach-03.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-04",
    "group": "stories",
    "text": "我借了一本关于中国的书。",
-   "file": "audio/stories/doc-sach-04.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-05",
    "group": "stories",
    "text": "这本书很有意思，我每天都读一点儿。",
-   "file": "audio/stories/doc-sach-05.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-06",
    "group": "stories",
    "text": "读书让我学到了很多东西。",
-   "file": "audio/stories/doc-sach-06.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-doc-sach-07",
    "group": "stories",
    "text": "我希望以后能读更多的书。",
-   "file": "audio/stories/doc-sach-07.wav",
-   "ok": false
+   "file": "audio/stories/doc-sach-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-title",
    "group": "stories",
    "text": "锻炼身体",
-   "file": "audio/stories/tap-the-duc-title.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-01",
    "group": "stories",
    "text": "每天早上，我都去公园锻炼身体。",
-   "file": "audio/stories/tap-the-duc-01.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-02",
    "group": "stories",
    "text": "公园里有很多人。",
-   "file": "audio/stories/tap-the-duc-02.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-03",
    "group": "stories",
    "text": "有的人跑步，有的人打太极拳。",
-   "file": "audio/stories/tap-the-duc-03.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-04",
    "group": "stories",
    "text": "我喜欢跑步，也喜欢打篮球。",
-   "file": "audio/stories/tap-the-duc-04.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-05",
    "group": "stories",
    "text": "锻炼身体以后，我觉得很舒服。",
-   "file": "audio/stories/tap-the-duc-05.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-06",
    "group": "stories",
    "text": "医生说，经常锻炼身体不容易生病。",
-   "file": "audio/stories/tap-the-duc-06.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-tap-the-duc-07",
    "group": "stories",
    "text": "从今天开始，我们一起锻炼吧！",
-   "file": "audio/stories/tap-the-duc-07.wav",
-   "ok": false
+   "file": "audio/stories/tap-the-duc-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-title",
    "group": "stories",
    "text": "帮助妈妈",
-   "file": "audio/stories/giup-me-title.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-01",
    "group": "stories",
    "text": "星期六早上，妈妈很忙。",
-   "file": "audio/stories/giup-me-01.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-02",
    "group": "stories",
    "text": "妈妈要洗衣服，还要做饭。",
-   "file": "audio/stories/giup-me-02.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-03",
    "group": "stories",
    "text": "我说：“妈妈，我帮你吧。”",
-   "file": "audio/stories/giup-me-03.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-04",
    "group": "stories",
    "text": "妈妈笑了，说：“好孩子！”",
-   "file": "audio/stories/giup-me-04.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-05",
    "group": "stories",
    "text": "我帮妈妈扫地、擦桌子。",
-   "file": "audio/stories/giup-me-05.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-06",
    "group": "stories",
    "text": "弟弟也来帮忙，他把玩具收拾好。",
-   "file": "audio/stories/giup-me-06.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-07",
    "group": "stories",
    "text": "做完家务，我们一起吃午饭。",
-   "file": "audio/stories/giup-me-07.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-giup-me-08",
    "group": "stories",
    "text": "妈妈说，帮助别人是一件快乐的事。",
-   "file": "audio/stories/giup-me-08.wav",
-   "ok": false
+   "file": "audio/stories/giup-me-08.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-sieu-thi-title",
    "group": "stories",
    "text": "去超市",
-   "file": "audio/stories/di-sieu-thi-title.wav",
-   "ok": false
+   "file": "audio/stories/di-sieu-thi-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-sieu-thi-01",
