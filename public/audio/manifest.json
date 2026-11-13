@@ -2664,29 +2664,29 @@
    "key": "lesson18-sentence-02",
    "group": "lesson",
    "text": "你周末有计划吗？",
-   "file": "audio/lesson18/sentence02.wav",
-   "ok": false
+   "file": "audio/lesson18/sentence02.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-sentence-03",
    "group": "lesson",
    "text": "你周末去哪里？",
-   "file": "audio/lesson18/sentence03.wav",
-   "ok": false
+   "file": "audio/lesson18/sentence03.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-sentence-04",
    "group": "lesson",
    "text": "我周末在家休息。",
-   "file": "audio/lesson18/sentence04.wav",
-   "ok": false
+   "file": "audio/lesson18/sentence04.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-sentence-05",
    "group": "lesson",
    "text": "我打算去公园散步。",
-   "file": "audio/lesson18/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson18/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-dialogue-01",
@@ -2699,36 +2699,36 @@
    "key": "lesson18-dialogue-02",
    "group": "lesson",
    "text": "我打算去公园散步，然后去看电影。",
-   "file": "audio/lesson18/dialogue02.wav",
-   "ok": false
+   "file": "audio/lesson18/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-dialogue-03",
    "group": "lesson",
    "text": "你有计划吗？",
-   "file": "audio/lesson18/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson18/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson18-dialogue-04",
    "group": "lesson",
    "text": "有，我还想去购物，买一些衣服。",
-   "file": "audio/lesson18/dialogue04.wav",
-   "ok": false
+   "file": "audio/lesson18/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-title",
    "group": "lesson",
    "text": "你想去哪里？",
-   "file": "audio/lesson19/title.wav",
-   "ok": false
+   "file": "audio/lesson19/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-01",
    "group": "lesson",
    "text": "想",
-   "file": "audio/lesson19/vocab01.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab01.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-02",
@@ -2741,8 +2741,8 @@
    "key": "lesson19-vocab-03",
    "group": "lesson",
    "text": "哪里",
-   "file": "audio/lesson19/vocab03.wav",
-   "ok": false
+   "file": "audio/lesson19/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-vocab-04",
@@ -2797,8 +2797,8 @@
    "key": "lesson19-sentence-01",
    "group": "lesson",
    "text": "你想去哪里？",
-   "file": "audio/lesson19/title.wav",
-   "ok": false
+   "file": "audio/lesson19/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-sentence-02",
@@ -2832,8 +2832,8 @@
    "key": "lesson19-dialogue-01",
    "group": "lesson",
    "text": "你想去哪里？",
-   "file": "audio/lesson19/title.wav",
-   "ok": false
+   "file": "audio/lesson19/title.mp3",
+   "ok": true
   },
   {
    "key": "lesson19-dialogue-02",
