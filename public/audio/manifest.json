@@ -3847,330 +3847,330 @@
    "key": "patterns-web-thoi-gian-02",
    "group": "patterns-web",
    "text": "明天见！",
-   "file": "audio/patterns-web/thoi-gian-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/thoi-gian-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-thoi-gian-03",
    "group": "patterns-web",
    "text": "现在七点。",
-   "file": "audio/patterns-web/thoi-gian-03.wav",
-   "ok": false
+   "file": "audio/patterns-web/thoi-gian-03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-suc-khoe-01",
    "group": "patterns-web",
    "text": "你身体好吗？",
-   "file": "audio/patterns-web/suc-khoe-01.wav",
-   "ok": false
+   "file": "audio/patterns-web/suc-khoe-01.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-suc-khoe-02",
    "group": "patterns-web",
    "text": "我有点儿累。",
-   "file": "audio/patterns-web/suc-khoe-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/suc-khoe-02.mp3",
+   "ok": true
   },
   {
    "key": "patterns-web-suc-khoe-03",
    "group": "patterns-web",
    "text": "多喝水。",
-   "file": "audio/patterns-web/suc-khoe-03.wav",
-   "ok": false
+   "file": "audio/patterns-web/suc-khoe-03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step01-line",
    "group": "speaking",
    "text": "你好！请坐。你想喝什么？",
-   "file": "audio/speaking/tra-quan-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step01-opt01",
    "group": "speaking",
    "text": "我想喝茶。",
-   "file": "audio/speaking/tra-quan-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step01-opt02",
    "group": "speaking",
    "text": "我要买米。",
-   "file": "audio/speaking/tra-quan-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step02-line",
    "group": "speaking",
    "text": "好的，一壶茶。你要热的还是冷的？",
-   "file": "audio/speaking/tra-quan-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step02-opt01",
    "group": "speaking",
    "text": "我要热的。",
-   "file": "audio/speaking/tra-quan-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step02-opt02",
    "group": "speaking",
    "text": "我要米饭。",
-   "file": "audio/speaking/tra-quan-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step02-opt03",
    "group": "speaking",
    "text": "我不喝水。",
-   "file": "audio/speaking/tra-quan-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step03-line",
    "group": "speaking",
    "text": "茶来了，请慢用！",
-   "file": "audio/speaking/tra-quan-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step03-opt01",
    "group": "speaking",
    "text": "谢谢！",
-   "file": "audio/speaking/tra-quan-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step03-opt02",
    "group": "speaking",
    "text": "再见！",
-   "file": "audio/speaking/tra-quan-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tra-quan-step03-opt03",
    "group": "speaking",
    "text": "多少钱？",
-   "file": "audio/speaking/tra-quan-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step01-line",
    "group": "speaking",
    "text": "买水果吗？苹果很新鲜！",
-   "file": "audio/speaking/sap-hoa-qua-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step01-opt01",
    "group": "speaking",
    "text": "苹果多少钱一斤？",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step01-opt02",
    "group": "speaking",
    "text": "我要一本书。",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step01-opt03",
    "group": "speaking",
    "text": "你好，我叫小明。",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step02-line",
    "group": "speaking",
    "text": "十块钱一斤。",
-   "file": "audio/speaking/sap-hoa-qua-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step02-opt01",
    "group": "speaking",
    "text": "太贵了，便宜一点儿吧。",
-   "file": "audio/speaking/sap-hoa-qua-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step02-opt02",
    "group": "speaking",
    "text": "我要回家。",
-   "file": "audio/speaking/sap-hoa-qua-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step02-opt03",
    "group": "speaking",
    "text": "我不喜欢苹果。",
-   "file": "audio/speaking/sap-hoa-qua-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step03-line",
    "group": "speaking",
    "text": "好吧，八块钱一斤。买两斤吧！",
-   "file": "audio/speaking/sap-hoa-qua-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step03-opt01",
    "group": "speaking",
    "text": "好的，我买两斤。",
-   "file": "audio/speaking/sap-hoa-qua-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step03-opt02",
    "group": "speaking",
    "text": "我不要。",
-   "file": "audio/speaking/sap-hoa-qua-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-sap-hoa-qua-step03-opt03",
    "group": "speaking",
    "text": "谢谢，再见！",
-   "file": "audio/speaking/sap-hoa-qua-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step01-line",
    "group": "speaking",
    "text": "你好！你想吃什么面？",
-   "file": "audio/speaking/quan-mi-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step01-opt01",
    "group": "speaking",
    "text": "我要一碗牛肉面。",
-   "file": "audio/speaking/quan-mi-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step01-opt02",
    "group": "speaking",
    "text": "我要一杯水。",
-   "file": "audio/speaking/quan-mi-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step02-line",
    "group": "speaking",
    "text": "好的！你要大碗还是小碗？",
-   "file": "audio/speaking/quan-mi-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step02-opt01",
    "group": "speaking",
    "text": "我要大碗。",
-   "file": "audio/speaking/quan-mi-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step02-opt02",
    "group": "speaking",
    "text": "我要一本书。",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step02-opt03",
    "group": "speaking",
    "text": "我不饿。",
-   "file": "audio/speaking/quan-mi-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step03-line",
    "group": "speaking",
    "text": "面来了，请慢吃！",
-   "file": "audio/speaking/quan-mi-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step03-opt01",
    "group": "speaking",
    "text": "谢谢！很好吃！",
-   "file": "audio/speaking/quan-mi-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step03-opt02",
    "group": "speaking",
    "text": "多少钱？",
-   "file": "audio/speaking/tra-quan-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-mi-step03-opt03",
    "group": "speaking",
    "text": "我走了。",
-   "file": "audio/speaking/quan-mi-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step01-line",
    "group": "speaking",
    "text": "你好！你怎么了？",
-   "file": "audio/speaking/hieu-thuoc-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step01-opt01",
    "group": "speaking",
    "text": "我有点儿头疼。",
-   "file": "audio/speaking/hieu-thuoc-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step01-opt02",
    "group": "speaking",
    "text": "我要买苹果。",
-   "file": "audio/speaking/hieu-thuoc-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step01-opt03",
    "group": "speaking",
    "text": "我很好。",
-   "file": "audio/speaking/hieu-thuoc-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step02-line",
    "group": "speaking",
    "text": "这个药很好，一天吃三次。",
-   "file": "audio/speaking/hieu-thuoc-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step02-opt01",
    "group": "speaking",
    "text": "饭前吃还是饭后吃？",
-   "file": "audio/speaking/hieu-thuoc-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step02-opt02",
@@ -4183,106 +4183,106 @@
    "key": "speaking-hieu-thuoc-step02-opt03",
    "group": "speaking",
    "text": "我不吃药。",
-   "file": "audio/speaking/hieu-thuoc-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step03-line",
    "group": "speaking",
    "text": "饭后吃，记得多喝水。",
-   "file": "audio/speaking/hieu-thuoc-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step03-opt01",
    "group": "speaking",
    "text": "好的，谢谢你！",
-   "file": "audio/speaking/hieu-thuoc-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step03-opt02",
    "group": "speaking",
    "text": "我不喜欢喝水。",
-   "file": "audio/speaking/hieu-thuoc-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-thuoc-step03-opt03",
    "group": "speaking",
    "text": "再见！",
-   "file": "audio/speaking/tra-quan-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step01-line",
    "group": "speaking",
    "text": "你好！你要寄什么？",
-   "file": "audio/speaking/buu-cuc-step01-line.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step01-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step01-opt01",
    "group": "speaking",
    "text": "我要寄一个包裹。",
-   "file": "audio/speaking/buu-cuc-step01-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step01-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step01-opt02",
    "group": "speaking",
    "text": "我要买火车票。",
-   "file": "audio/speaking/buu-cuc-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step02-line",
    "group": "speaking",
    "text": "寄到哪里？",
-   "file": "audio/speaking/buu-cuc-step02-line.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step02-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step02-opt01",
    "group": "speaking",
    "text": "寄到河内。",
-   "file": "audio/speaking/buu-cuc-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step02-opt02",
    "group": "speaking",
    "text": "寄到我家。",
-   "file": "audio/speaking/buu-cuc-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step02-opt03",
    "group": "speaking",
    "text": "我不寄了。",
-   "file": "audio/speaking/buu-cuc-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step03-line",
    "group": "speaking",
    "text": "三天到，二十块钱。",
-   "file": "audio/speaking/buu-cuc-step03-line.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step03-line.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step03-opt01",
    "group": "speaking",
    "text": "好的，谢谢！",
-   "file": "audio/speaking/buu-cuc-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-buu-cuc-step03-opt02",
@@ -4295,8 +4295,8 @@
    "key": "speaking-buu-cuc-step03-opt03",
    "group": "speaking",
    "text": "我走了。",
-   "file": "audio/speaking/quan-mi-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step01-line",
@@ -4323,8 +4323,8 @@
    "key": "speaking-khach-diem-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step02-line",
@@ -4351,8 +4351,8 @@
    "key": "speaking-khach-diem-step02-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step03-line",
@@ -4365,8 +4365,8 @@
    "key": "speaking-khach-diem-step03-opt01",
    "group": "speaking",
    "text": "谢谢！",
-   "file": "audio/speaking/tra-quan-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-khach-diem-step03-opt02",
@@ -4407,8 +4407,8 @@
    "key": "speaking-hieu-sach-step01-opt03",
    "group": "speaking",
    "text": "我要回家。",
-   "file": "audio/speaking/sap-hoa-qua-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step02-line",
@@ -4435,8 +4435,8 @@
    "key": "speaking-hieu-sach-step02-opt03",
    "group": "speaking",
    "text": "我要一杯水。",
-   "file": "audio/speaking/quan-mi-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-hieu-sach-step03-line",
@@ -4463,8 +4463,8 @@
    "key": "speaking-hieu-sach-step03-opt03",
    "group": "speaking",
    "text": "多少钱？",
-   "file": "audio/speaking/tra-quan-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step01-line",
@@ -4491,8 +4491,8 @@
    "key": "speaking-tiem-banh-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step02-line",
@@ -4512,8 +4512,8 @@
    "key": "speaking-tiem-banh-step02-opt02",
    "group": "speaking",
    "text": "我要一本书。",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step02-opt03",
@@ -4540,15 +4540,15 @@
    "key": "speaking-tiem-banh-step03-opt02",
    "group": "speaking",
    "text": "我走了。",
-   "file": "audio/speaking/quan-mi-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-banh-step03-opt03",
    "group": "speaking",
    "text": "谢谢，再见！",
-   "file": "audio/speaking/sap-hoa-qua-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step01-line",
@@ -4575,8 +4575,8 @@
    "key": "speaking-cho-rau-step01-opt03",
    "group": "speaking",
    "text": "你好，我叫小明。",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cho-rau-step02-line",
@@ -4631,8 +4631,8 @@
    "key": "speaking-cho-rau-step03-opt03",
    "group": "speaking",
    "text": "再见！",
-   "file": "audio/speaking/tra-quan-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step01-line",
@@ -4659,8 +4659,8 @@
    "key": "speaking-quan-ca-phe-step01-opt03",
    "group": "speaking",
    "text": "我不喝水。",
-   "file": "audio/speaking/tra-quan-step02-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step02-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step02-line",
@@ -4673,22 +4673,22 @@
    "key": "speaking-quan-ca-phe-step02-opt01",
    "group": "speaking",
    "text": "我要热的。",
-   "file": "audio/speaking/tra-quan-step02-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step02-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step02-opt02",
    "group": "speaking",
    "text": "我要米饭。",
-   "file": "audio/speaking/tra-quan-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step02-opt03",
    "group": "speaking",
    "text": "我要一本书。",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step03-line",
@@ -4708,15 +4708,15 @@
    "key": "speaking-quan-ca-phe-step03-opt02",
    "group": "speaking",
    "text": "多少钱？",
-   "file": "audio/speaking/tra-quan-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-ca-phe-step03-opt03",
    "group": "speaking",
    "text": "我走了。",
-   "file": "audio/speaking/quan-mi-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step01-line",
@@ -4736,15 +4736,15 @@
    "key": "speaking-rap-hat-step01-opt02",
    "group": "speaking",
    "text": "我要买苹果。",
-   "file": "audio/speaking/hieu-thuoc-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/hieu-thuoc-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step02-line",
@@ -4771,8 +4771,8 @@
    "key": "speaking-rap-hat-step02-opt03",
    "group": "speaking",
    "text": "我要回家。",
-   "file": "audio/speaking/sap-hoa-qua-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-rap-hat-step03-line",
@@ -4799,8 +4799,8 @@
    "key": "speaking-rap-hat-step03-opt03",
    "group": "speaking",
    "text": "谢谢，再见！",
-   "file": "audio/speaking/sap-hoa-qua-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step01-line",
@@ -4820,15 +4820,15 @@
    "key": "speaking-tiem-may-step01-opt02",
    "group": "speaking",
    "text": "我要买米。",
-   "file": "audio/speaking/tra-quan-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step02-line",
@@ -4869,8 +4869,8 @@
    "key": "speaking-tiem-may-step03-opt01",
    "group": "speaking",
    "text": "好的，谢谢！",
-   "file": "audio/speaking/buu-cuc-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/buu-cuc-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-may-step03-opt02",
@@ -4911,8 +4911,8 @@
    "key": "speaking-tiem-hoa-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step02-line",
@@ -4932,8 +4932,8 @@
    "key": "speaking-tiem-hoa-step02-opt02",
    "group": "speaking",
    "text": "我要一本书。",
-   "file": "audio/speaking/sap-hoa-qua-step01-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step01-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step02-opt03",
@@ -4967,8 +4967,8 @@
    "key": "speaking-tiem-hoa-step03-opt03",
    "group": "speaking",
    "text": "我走了。",
-   "file": "audio/speaking/quan-mi-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-tiem-hoa-step04-line",
@@ -4995,8 +4995,8 @@
    "key": "speaking-tiem-hoa-step04-opt03",
    "group": "speaking",
    "text": "多少钱？",
-   "file": "audio/speaking/tra-quan-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step01-line",
@@ -5023,8 +5023,8 @@
    "key": "speaking-ben-xe-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step02-line",
@@ -5079,8 +5079,8 @@
    "key": "speaking-ben-xe-step03-opt03",
    "group": "speaking",
    "text": "我要回家。",
-   "file": "audio/speaking/sap-hoa-qua-step02-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/sap-hoa-qua-step02-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step04-line",
@@ -5093,15 +5093,15 @@
    "key": "speaking-ben-xe-step04-opt01",
    "group": "speaking",
    "text": "谢谢！",
-   "file": "audio/speaking/tra-quan-step03-opt01.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt01.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step04-opt02",
    "group": "speaking",
    "text": "再见！",
-   "file": "audio/speaking/tra-quan-step03-opt02.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-ben-xe-step04-opt03",
@@ -5135,8 +5135,8 @@
    "key": "speaking-cong-vien-step01-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step02-line",
@@ -5205,8 +5205,8 @@
    "key": "speaking-cong-vien-step04-opt01",
    "group": "speaking",
    "text": "明天见！",
-   "file": "audio/patterns-web/thoi-gian-02.wav",
-   "ok": false
+   "file": "audio/patterns-web/thoi-gian-02.mp3",
+   "ok": true
   },
   {
    "key": "speaking-cong-vien-step04-opt02",
@@ -5275,8 +5275,8 @@
    "key": "speaking-quan-tra-sua-step02-opt03",
    "group": "speaking",
    "text": "我不知道。",
-   "file": "audio/speaking/tra-quan-step01-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step01-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step03-line",
@@ -5303,8 +5303,8 @@
    "key": "speaking-quan-tra-sua-step03-opt03",
    "group": "speaking",
    "text": "我走了。",
-   "file": "audio/speaking/quan-mi-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/quan-mi-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step04-line",
@@ -5324,8 +5324,8 @@
    "key": "speaking-quan-tra-sua-step04-opt02",
    "group": "speaking",
    "text": "多少钱？",
-   "file": "audio/speaking/tra-quan-step03-opt03.wav",
-   "ok": false
+   "file": "audio/speaking/tra-quan-step03-opt03.mp3",
+   "ok": true
   },
   {
    "key": "speaking-quan-tra-sua-step04-opt03",
