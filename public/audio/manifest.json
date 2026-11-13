@@ -2979,8 +2979,8 @@
    "key": "lesson20-sentence-05",
    "group": "lesson",
    "text": "我不想吃辣的。",
-   "file": "audio/lesson20/sentence05.wav",
-   "ok": false
+   "file": "audio/lesson20/sentence05.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-dialogue-01",
@@ -3000,8 +3000,8 @@
    "key": "lesson20-dialogue-03",
    "group": "lesson",
    "text": "你呢？",
-   "file": "audio/lesson20/dialogue03.wav",
-   "ok": false
+   "file": "audio/lesson20/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "lesson20-dialogue-04",
@@ -3014,71 +3014,71 @@
    "key": "grammar-01-ex-01",
    "group": "grammar",
    "text": "我吃苹果.",
-   "file": "audio/grammar/lesson01-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson01-ex01.mp3",
+   "ok": true
   },
   {
    "key": "grammar-01-ex-02",
    "group": "grammar",
    "text": "他看书.",
-   "file": "audio/grammar/lesson01-ex02.wav",
-   "ok": false
+   "file": "audio/grammar/lesson01-ex02.mp3",
+   "ok": true
   },
   {
    "key": "grammar-01-ex-03",
    "group": "grammar",
    "text": "我是学生.",
-   "file": "audio/grammar/lesson01-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson01-ex03.mp3",
+   "ok": true
   },
   {
    "key": "grammar-01-ex-04",
    "group": "grammar",
    "text": "我在学校.",
-   "file": "audio/grammar/lesson01-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson01-ex04.mp3",
+   "ok": true
   },
   {
    "key": "grammar-01-ex-05",
    "group": "grammar",
    "text": "我今天去学校.",
-   "file": "audio/grammar/lesson01-ex05.wav",
-   "ok": false
+   "file": "audio/grammar/lesson01-ex05.mp3",
+   "ok": true
   },
   {
    "key": "grammar-01-ex-06",
    "group": "grammar",
    "text": "他在家看书.",
-   "file": "audio/grammar/lesson01-ex06.wav",
-   "ok": false
+   "file": "audio/grammar/lesson01-ex06.mp3",
+   "ok": true
   },
   {
    "key": "grammar-02-ex-01",
    "group": "grammar",
    "text": "我学习.",
-   "file": "audio/grammar/lesson02-ex01.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex01.mp3",
+   "ok": true
   },
   {
    "key": "grammar-02-ex-02",
    "group": "grammar",
    "text": "他很高.",
-   "file": "audio/grammar/lesson02-ex02.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex02.mp3",
+   "ok": true
   },
   {
    "key": "grammar-02-ex-03",
    "group": "grammar",
    "text": "我不喝咖啡.",
-   "file": "audio/grammar/lesson02-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex03.mp3",
+   "ok": true
   },
   {
    "key": "grammar-02-ex-04",
    "group": "grammar",
    "text": "她不忙.",
-   "file": "audio/grammar/lesson02-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex04.mp3",
+   "ok": true
   },
   {
    "key": "grammar-02-ex-05",
@@ -3175,15 +3175,15 @@
    "key": "grammar-05-ex-01",
    "group": "grammar",
    "text": "他很高.",
-   "file": "audio/grammar/lesson02-ex02.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex02.mp3",
+   "ok": true
   },
   {
    "key": "grammar-05-ex-02",
    "group": "grammar",
    "text": "她不忙.",
-   "file": "audio/grammar/lesson02-ex04.wav",
-   "ok": false
+   "file": "audio/grammar/lesson02-ex04.mp3",
+   "ok": true
   },
   {
    "key": "grammar-05-ex-03",
@@ -3385,8 +3385,8 @@
    "key": "patterns-01-02",
    "group": "patterns",
    "text": "我是学生.",
-   "file": "audio/grammar/lesson01-ex03.wav",
-   "ok": false
+   "file": "audio/grammar/lesson01-ex03.mp3",
+   "ok": true
   },
   {
    "key": "patterns-01-03",
