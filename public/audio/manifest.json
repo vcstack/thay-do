@@ -7480,99 +7480,99 @@
    "key": "stories-don-phong-title",
    "group": "stories",
    "text": "打扫房间",
-   "file": "audio/stories/don-phong-title.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-01",
    "group": "stories",
    "text": "星期天早上，我打扫房间。",
-   "file": "audio/stories/don-phong-01.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-02",
    "group": "stories",
    "text": "我先把书放好。",
-   "file": "audio/stories/don-phong-02.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-03",
    "group": "stories",
    "text": "然后，我扫地，擦桌子。",
-   "file": "audio/stories/don-phong-03.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-04",
    "group": "stories",
    "text": "我把玩具收进箱子。",
-   "file": "audio/stories/don-phong-04.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-05",
    "group": "stories",
    "text": "我还把衣服叠好。",
-   "file": "audio/stories/don-phong-05.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-06",
    "group": "stories",
    "text": "打扫完，房间很干净。",
-   "file": "audio/stories/don-phong-06.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-07",
    "group": "stories",
    "text": "妈妈看见了，说：“你的房间真干净！”",
-   "file": "audio/stories/don-phong-07.wav",
-   "ok": false
+   "file": "audio/stories/don-phong-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-cho-nho-title",
    "group": "stories",
    "text": "小狗",
-   "file": "audio/stories/con-cho-nho-title.wav",
-   "ok": false
+   "file": "audio/stories/con-cho-nho-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-cho-nho-01",
    "group": "stories",
    "text": "我有一只小狗。",
-   "file": "audio/stories/con-cho-nho-01.wav",
-   "ok": false
+   "file": "audio/stories/con-cho-nho-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-cho-nho-02",
    "group": "stories",
    "text": "小狗叫小白。",
-   "file": "audio/stories/con-cho-nho-02.wav",
-   "ok": false
+   "file": "audio/stories/con-cho-nho-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-cho-nho-03",
    "group": "stories",
    "text": "小白是白色的，很可爱。",
-   "file": "audio/stories/con-cho-nho-03.wav",
-   "ok": false
+   "file": "audio/stories/con-cho-nho-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-cho-nho-04",
    "group": "stories",
    "text": "每天早上，我带小白去公园。",
-   "file": "audio/stories/con-cho-nho-04.wav",
-   "ok": false
+   "file": "audio/stories/con-cho-nho-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-cho-nho-05",
    "group": "stories",
    "text": "小白喜欢跑，也喜欢玩球。",
-   "file": "audio/stories/con-cho-nho-05.wav",
-   "ok": false
+   "file": "audio/stories/con-cho-nho-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-cho-nho-06",
