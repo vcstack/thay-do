@@ -7249,71 +7249,71 @@
    "key": "stories-tham-ba-ngoai-07",
    "group": "stories",
    "text": "我爱我的外婆。",
-   "file": "audio/stories/tham-ba-ngoai-07.wav",
-   "ok": false
+   "file": "audio/stories/tham-ba-ngoai-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-title",
    "group": "stories",
    "text": "种树",
-   "file": "audio/stories/trong-cay-title.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-01",
    "group": "stories",
    "text": "春天，我和爸爸种树。",
-   "file": "audio/stories/trong-cay-01.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-02",
    "group": "stories",
    "text": "我们先挖一个坑。",
-   "file": "audio/stories/trong-cay-02.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-03",
    "group": "stories",
    "text": "然后，我们把小树放进坑里。",
-   "file": "audio/stories/trong-cay-03.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-04",
    "group": "stories",
    "text": "我们给小树浇水。",
-   "file": "audio/stories/trong-cay-04.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-05",
    "group": "stories",
    "text": "爸爸说：“小树要喝水，也要晒太阳。”",
-   "file": "audio/stories/trong-cay-05.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-06",
    "group": "stories",
    "text": "每天，我都给小树浇水。",
-   "file": "audio/stories/trong-cay-06.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-trong-cay-07",
    "group": "stories",
    "text": "小树慢慢长大了。",
-   "file": "audio/stories/trong-cay-07.wav",
-   "ok": false
+   "file": "audio/stories/trong-cay-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-title",
    "group": "stories",
    "text": "学唱歌",
-   "file": "audio/stories/hoc-hat-title.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-01",
