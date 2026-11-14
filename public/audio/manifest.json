@@ -7074,22 +7074,22 @@
    "key": "stories-di-xe-dap-06",
    "group": "stories",
    "text": "我们骑车去公园。",
-   "file": "audio/stories/di-xe-dap-06.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-07",
    "group": "stories",
    "text": "骑自行车对身体很好。",
-   "file": "audio/stories/di-xe-dap-07.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-ve-xem-phim-title",
    "group": "stories",
    "text": "买电影票",
-   "file": "audio/stories/mua-ve-xem-phim-title.wav",
-   "ok": false
+   "file": "audio/stories/mua-ve-xem-phim-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-ve-xem-phim-01",
@@ -7102,64 +7102,64 @@
    "key": "stories-mua-ve-xem-phim-02",
    "group": "stories",
    "text": "我和朋友去看电影。",
-   "file": "audio/stories/mua-ve-xem-phim-02.wav",
-   "ok": false
+   "file": "audio/stories/mua-ve-xem-phim-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-ve-xem-phim-03",
    "group": "stories",
    "text": "我们先去买电影票。",
-   "file": "audio/stories/mua-ve-xem-phim-03.wav",
-   "ok": false
+   "file": "audio/stories/mua-ve-xem-phim-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-ve-xem-phim-04",
    "group": "stories",
    "text": "一张票二十块钱。",
-   "file": "audio/stories/mua-ve-xem-phim-04.wav",
-   "ok": false
+   "file": "audio/stories/mua-ve-xem-phim-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-ve-xem-phim-05",
    "group": "stories",
    "text": "电影七点开始。",
-   "file": "audio/stories/mua-ve-xem-phim-05.wav",
-   "ok": false
+   "file": "audio/stories/mua-ve-xem-phim-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-ve-xem-phim-06",
    "group": "stories",
    "text": "电影很好看，我们都很喜欢。",
-   "file": "audio/stories/mua-ve-xem-phim-06.wav",
-   "ok": false
+   "file": "audio/stories/mua-ve-xem-phim-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-mua-ve-xem-phim-07",
    "group": "stories",
    "text": "看完电影，我们高高兴兴地回家。",
-   "file": "audio/stories/mua-ve-xem-phim-07.wav",
-   "ok": false
+   "file": "audio/stories/mua-ve-xem-phim-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-boi-title",
    "group": "stories",
    "text": "学游泳",
-   "file": "audio/stories/hoc-boi-title.wav",
-   "ok": false
+   "file": "audio/stories/hoc-boi-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-boi-01",
    "group": "stories",
    "text": "夏天，我学游泳。",
-   "file": "audio/stories/hoc-boi-01.wav",
-   "ok": false
+   "file": "audio/stories/hoc-boi-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-boi-02",
    "group": "stories",
    "text": "爸爸教我游泳。",
-   "file": "audio/stories/hoc-boi-02.wav",
-   "ok": false
+   "file": "audio/stories/hoc-boi-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-boi-03",
