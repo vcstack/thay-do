@@ -7410,71 +7410,71 @@
    "key": "stories-troi-mua-06",
    "group": "stories",
    "text": "雨停了，太阳出来了。",
-   "file": "audio/stories/troi-mua-06.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-07",
    "group": "stories",
    "text": "我很高兴，可以出去玩了。",
-   "file": "audio/stories/troi-mua-07.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-title",
    "group": "stories",
    "text": "做蛋糕",
-   "file": "audio/stories/lam-banh-title.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-01",
    "group": "stories",
    "text": "今天是妈妈的生日。",
-   "file": "audio/stories/lam-banh-01.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-02",
    "group": "stories",
    "text": "我想给妈妈做一个蛋糕。",
-   "file": "audio/stories/lam-banh-02.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-03",
    "group": "stories",
    "text": "我先准备鸡蛋和面粉。",
-   "file": "audio/stories/lam-banh-03.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-04",
    "group": "stories",
    "text": "然后，我把鸡蛋打进碗里。",
-   "file": "audio/stories/lam-banh-04.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-05",
    "group": "stories",
    "text": "蛋糕做好了，很香。",
-   "file": "audio/stories/lam-banh-05.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-06",
    "group": "stories",
    "text": "妈妈吃了蛋糕，她很高兴。",
-   "file": "audio/stories/lam-banh-06.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-banh-07",
    "group": "stories",
    "text": "妈妈说：“谢谢你，我的好孩子！”",
-   "file": "audio/stories/lam-banh-07.wav",
-   "ok": false
+   "file": "audio/stories/lam-banh-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-don-phong-title",
