@@ -7655,92 +7655,92 @@
    "key": "stories-nau-mi-title",
    "group": "stories",
    "text": "煮面条",
-   "file": "audio/stories/nau-mi-title.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-01",
    "group": "stories",
    "text": "今天中午，妈妈教我煮面条。",
-   "file": "audio/stories/nau-mi-01.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-02",
    "group": "stories",
    "text": "我们先把水烧开。",
-   "file": "audio/stories/nau-mi-02.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-03",
    "group": "stories",
    "text": "水开了，把面条放进锅里。",
-   "file": "audio/stories/nau-mi-03.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-04",
    "group": "stories",
    "text": "妈妈说：“煮面条不要太长时间。”",
-   "file": "audio/stories/nau-mi-04.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-05",
    "group": "stories",
    "text": "五分钟以后，面条熟了。",
-   "file": "audio/stories/nau-mi-05.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-06",
    "group": "stories",
    "text": "我在面条里放了鸡蛋和青菜。",
-   "file": "audio/stories/nau-mi-06.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-07",
    "group": "stories",
    "text": "我自己煮的面条真好吃！",
-   "file": "audio/stories/nau-mi-07.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-nau-mi-08",
    "group": "stories",
    "text": "从今天起，我会煮面条了。",
-   "file": "audio/stories/nau-mi-08.wav",
-   "ok": false
+   "file": "audio/stories/nau-mi-08.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-thu-vien-muon-sach-title",
    "group": "stories",
    "text": "去图书馆借书",
-   "file": "audio/stories/di-thu-vien-muon-sach-title.wav",
-   "ok": false
+   "file": "audio/stories/di-thu-vien-muon-sach-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-thu-vien-muon-sach-01",
    "group": "stories",
    "text": "每个星期六，我都去图书馆借书。",
-   "file": "audio/stories/di-thu-vien-muon-sach-01.wav",
-   "ok": false
+   "file": "audio/stories/di-thu-vien-muon-sach-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-thu-vien-muon-sach-02",
    "group": "stories",
    "text": "图书馆离我家不远。",
-   "file": "audio/stories/di-thu-vien-muon-sach-02.wav",
-   "ok": false
+   "file": "audio/stories/di-thu-vien-muon-sach-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-thu-vien-muon-sach-03",
    "group": "stories",
    "text": "图书馆里有很多书。",
-   "file": "audio/stories/di-thu-vien-muon-sach-03.wav",
-   "ok": false
+   "file": "audio/stories/di-thu-vien-muon-sach-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-thu-vien-muon-sach-04",
