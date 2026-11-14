@@ -7319,92 +7319,92 @@
    "key": "stories-hoc-hat-01",
    "group": "stories",
    "text": "我很喜欢唱歌。",
-   "file": "audio/stories/hoc-hat-01.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-02",
    "group": "stories",
    "text": "每个星期，我都去学唱歌。",
-   "file": "audio/stories/hoc-hat-02.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-03",
    "group": "stories",
    "text": "老师教我们唱一首新歌。",
-   "file": "audio/stories/hoc-hat-03.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-04",
    "group": "stories",
    "text": "这首歌很好听。",
-   "file": "audio/stories/hoc-hat-04.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-05",
    "group": "stories",
    "text": "我每天在家练习唱歌。",
-   "file": "audio/stories/hoc-hat-05.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-06",
    "group": "stories",
    "text": "现在，我会唱很多歌。",
-   "file": "audio/stories/hoc-hat-06.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-hoc-hat-07",
    "group": "stories",
    "text": "唱歌让我很快乐。",
-   "file": "audio/stories/hoc-hat-07.wav",
-   "ok": false
+   "file": "audio/stories/hoc-hat-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-title",
    "group": "stories",
    "text": "下雨了",
-   "file": "audio/stories/troi-mua-title.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-01",
    "group": "stories",
    "text": "今天下雨了。",
-   "file": "audio/stories/troi-mua-01.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-02",
    "group": "stories",
    "text": "雨下得很大。",
-   "file": "audio/stories/troi-mua-02.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-03",
    "group": "stories",
    "text": "我不能去公园玩。",
-   "file": "audio/stories/troi-mua-03.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-04",
    "group": "stories",
    "text": "我在家里看书。",
-   "file": "audio/stories/troi-mua-04.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-05",
    "group": "stories",
    "text": "妈妈说：“下雨天不要出门。”",
-   "file": "audio/stories/troi-mua-05.wav",
-   "ok": false
+   "file": "audio/stories/troi-mua-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-troi-mua-06",
