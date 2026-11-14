@@ -6990,85 +6990,85 @@
    "key": "stories-con-meo-cua-toi-02",
    "group": "stories",
    "text": "小猫叫花花。",
-   "file": "audio/stories/con-meo-cua-toi-02.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-03",
    "group": "stories",
    "text": "花花是白色的。",
-   "file": "audio/stories/con-meo-cua-toi-03.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-04",
    "group": "stories",
    "text": "它很可爱，也很听话。",
-   "file": "audio/stories/con-meo-cua-toi-04.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-05",
    "group": "stories",
    "text": "每天早上，它喝牛奶。",
-   "file": "audio/stories/con-meo-cua-toi-05.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-06",
    "group": "stories",
    "text": "下午，它喜欢睡觉。",
-   "file": "audio/stories/con-meo-cua-toi-06.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-07",
    "group": "stories",
    "text": "我很喜欢我的小猫。",
-   "file": "audio/stories/con-meo-cua-toi-07.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-title",
    "group": "stories",
    "text": "骑自行车",
-   "file": "audio/stories/di-xe-dap-title.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-01",
    "group": "stories",
    "text": "我有一辆自行车。",
-   "file": "audio/stories/di-xe-dap-01.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-02",
    "group": "stories",
    "text": "自行车是红色的。",
-   "file": "audio/stories/di-xe-dap-02.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-03",
    "group": "stories",
    "text": "每天早上，我骑自行车去学校。",
-   "file": "audio/stories/di-xe-dap-03.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-04",
    "group": "stories",
    "text": "骑自行车很快，也很有意思。",
-   "file": "audio/stories/di-xe-dap-04.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-05",
    "group": "stories",
    "text": "星期天，我和爸爸一起骑自行车。",
-   "file": "audio/stories/di-xe-dap-05.wav",
-   "ok": false
+   "file": "audio/stories/di-xe-dap-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-xe-dap-06",
