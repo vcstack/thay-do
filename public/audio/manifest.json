@@ -6696,169 +6696,169 @@
    "key": "stories-chuyen-nha-07",
    "group": "stories",
    "text": "新家很大，也很漂亮，窗外可以看到公园。",
-   "file": "audio/stories/chuyen-nha-07.wav",
-   "ok": false
+   "file": "audio/stories/chuyen-nha-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-chuyen-nha-08",
    "group": "stories",
    "text": "虽然搬家很累，但是我很喜欢新家。",
-   "file": "audio/stories/chuyen-nha-08.wav",
-   "ok": false
+   "file": "audio/stories/chuyen-nha-08.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-title",
    "group": "stories",
    "text": "未来的计划",
-   "file": "audio/stories/ke-hoach-tuong-lai-title.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-01",
    "group": "stories",
    "text": "老师问我们：“你们长大了想做什么？”",
-   "file": "audio/stories/ke-hoach-tuong-lai-01.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-02",
    "group": "stories",
    "text": "有的同学想当医生，有的想当老师。",
-   "file": "audio/stories/ke-hoach-tuong-lai-02.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-03",
    "group": "stories",
    "text": "我想当一名翻译。",
-   "file": "audio/stories/ke-hoach-tuong-lai-03.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-04",
    "group": "stories",
    "text": "因为我很喜欢汉语，也喜欢和不同国家的人说话。",
-   "file": "audio/stories/ke-hoach-tuong-lai-04.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-05",
    "group": "stories",
    "text": "为了实现这个梦想，我每天都要努力学习。",
-   "file": "audio/stories/ke-hoach-tuong-lai-05.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-06",
    "group": "stories",
    "text": "我还要多读书，多练习说汉语。",
-   "file": "audio/stories/ke-hoach-tuong-lai-06.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-ke-hoach-tuong-lai-07",
    "group": "stories",
    "text": "我相信，只要坚持努力，梦想一定会实现。",
-   "file": "audio/stories/ke-hoach-tuong-lai-07.wav",
-   "ok": false
+   "file": "audio/stories/ke-hoach-tuong-lai-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-uong-tra-voi-ban-title",
    "group": "stories",
    "text": "和朋友喝茶",
-   "file": "audio/stories/uong-tra-voi-ban-title.wav",
-   "ok": false
+   "file": "audio/stories/uong-tra-voi-ban-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-uong-tra-voi-ban-01",
    "group": "stories",
    "text": "今天下午，我和朋友喝茶。",
-   "file": "audio/stories/uong-tra-voi-ban-01.wav",
-   "ok": false
+   "file": "audio/stories/uong-tra-voi-ban-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-uong-tra-voi-ban-02",
    "group": "stories",
    "text": "我们在家里喝茶。",
-   "file": "audio/stories/uong-tra-voi-ban-02.wav",
-   "ok": false
+   "file": "audio/stories/uong-tra-voi-ban-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-uong-tra-voi-ban-03",
    "group": "stories",
    "text": "茶很香，很好喝。",
-   "file": "audio/stories/uong-tra-voi-ban-03.wav",
-   "ok": false
+   "file": "audio/stories/uong-tra-voi-ban-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-uong-tra-voi-ban-04",
    "group": "stories",
    "text": "朋友说：“茶真好喝！”",
-   "file": "audio/stories/uong-tra-voi-ban-04.wav",
-   "ok": false
+   "file": "audio/stories/uong-tra-voi-ban-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-uong-tra-voi-ban-05",
    "group": "stories",
    "text": "我们一边喝茶，一边说话。",
-   "file": "audio/stories/uong-tra-voi-ban-05.wav",
-   "ok": false
+   "file": "audio/stories/uong-tra-voi-ban-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-uong-tra-voi-ban-06",
    "group": "stories",
    "text": "我很高兴。",
-   "file": "audio/stories/uong-tra-voi-ban-06.wav",
-   "ok": false
+   "file": "audio/stories/uong-tra-voi-ban-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-xem-ti-vi-title",
    "group": "stories",
    "text": "看电视",
-   "file": "audio/stories/xem-ti-vi-title.wav",
-   "ok": false
+   "file": "audio/stories/xem-ti-vi-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-xem-ti-vi-01",
    "group": "stories",
    "text": "晚上，我在家里看电视。",
-   "file": "audio/stories/xem-ti-vi-01.wav",
-   "ok": false
+   "file": "audio/stories/xem-ti-vi-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-xem-ti-vi-02",
    "group": "stories",
    "text": "电视里有很好看的节目。",
-   "file": "audio/stories/xem-ti-vi-02.wav",
-   "ok": false
+   "file": "audio/stories/xem-ti-vi-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-xem-ti-vi-03",
    "group": "stories",
    "text": "我喜欢看动画片。",
-   "file": "audio/stories/xem-ti-vi-03.wav",
-   "ok": false
+   "file": "audio/stories/xem-ti-vi-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-xem-ti-vi-04",
    "group": "stories",
    "text": "弟弟也喜欢看。",
-   "file": "audio/stories/xem-ti-vi-04.wav",
-   "ok": false
+   "file": "audio/stories/xem-ti-vi-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-xem-ti-vi-05",
    "group": "stories",
    "text": "我们一起看电视。",
-   "file": "audio/stories/xem-ti-vi-05.wav",
-   "ok": false
+   "file": "audio/stories/xem-ti-vi-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-xem-ti-vi-06",
    "group": "stories",
    "text": "看电视很有意思。",
-   "file": "audio/stories/xem-ti-vi-06.wav",
-   "ok": false
+   "file": "audio/stories/xem-ti-vi-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-title",
@@ -6871,50 +6871,50 @@
    "key": "stories-choi-bong-ro-01",
    "group": "stories",
    "text": "今天下午，我和朋友打篮球。",
-   "file": "audio/stories/choi-bong-ro-01.wav",
-   "ok": false
+   "file": "audio/stories/choi-bong-ro-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-02",
    "group": "stories",
    "text": "我们在学校打篮球。",
-   "file": "audio/stories/choi-bong-ro-02.wav",
-   "ok": false
+   "file": "audio/stories/choi-bong-ro-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-03",
    "group": "stories",
    "text": "小刚打得很好。",
-   "file": "audio/stories/choi-bong-ro-03.wav",
-   "ok": false
+   "file": "audio/stories/choi-bong-ro-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-04",
    "group": "stories",
    "text": "我也打得很好。",
-   "file": "audio/stories/choi-bong-ro-04.wav",
-   "ok": false
+   "file": "audio/stories/choi-bong-ro-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-05",
    "group": "stories",
    "text": "打篮球以后，我们很累。",
-   "file": "audio/stories/choi-bong-ro-05.wav",
-   "ok": false
+   "file": "audio/stories/choi-bong-ro-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-06",
    "group": "stories",
    "text": "但是我们很高兴。",
-   "file": "audio/stories/choi-bong-ro-06.wav",
-   "ok": false
+   "file": "audio/stories/choi-bong-ro-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-choi-bong-ro-07",
    "group": "stories",
    "text": "打篮球对身体很好。",
-   "file": "audio/stories/choi-bong-ro-07.wav",
-   "ok": false
+   "file": "audio/stories/choi-bong-ro-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-title",
@@ -6927,64 +6927,64 @@
    "key": "stories-di-cong-vien-01",
    "group": "stories",
    "text": "星期天，我和妈妈去公园。",
-   "file": "audio/stories/di-cong-vien-01.wav",
-   "ok": false
+   "file": "audio/stories/di-cong-vien-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-02",
    "group": "stories",
    "text": "公园里有很多花。",
-   "file": "audio/stories/di-cong-vien-02.wav",
-   "ok": false
+   "file": "audio/stories/di-cong-vien-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-03",
    "group": "stories",
    "text": "花很漂亮，也很香。",
-   "file": "audio/stories/di-cong-vien-03.wav",
-   "ok": false
+   "file": "audio/stories/di-cong-vien-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-04",
    "group": "stories",
    "text": "有的小朋友在跑步。",
-   "file": "audio/stories/di-cong-vien-04.wav",
-   "ok": false
+   "file": "audio/stories/di-cong-vien-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-05",
    "group": "stories",
    "text": "有的老人在跳舞。",
-   "file": "audio/stories/di-cong-vien-05.wav",
-   "ok": false
+   "file": "audio/stories/di-cong-vien-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-06",
    "group": "stories",
    "text": "我们在公园里走路。",
-   "file": "audio/stories/di-cong-vien-06.wav",
-   "ok": false
+   "file": "audio/stories/di-cong-vien-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-di-cong-vien-07",
    "group": "stories",
    "text": "公园真是一个好地方。",
-   "file": "audio/stories/di-cong-vien-07.wav",
-   "ok": false
+   "file": "audio/stories/di-cong-vien-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-title",
    "group": "stories",
    "text": "我的猫",
-   "file": "audio/stories/con-meo-cua-toi-title.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-title.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-01",
    "group": "stories",
    "text": "我有一只小猫。",
-   "file": "audio/stories/con-meo-cua-toi-01.wav",
-   "ok": false
+   "file": "audio/stories/con-meo-cua-toi-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-con-meo-cua-toi-02",
