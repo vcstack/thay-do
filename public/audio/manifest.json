@@ -8817,15 +8817,15 @@
    "key": "chars-wish-11",
    "group": "chars",
    "text": "喜",
-   "file": "audio/chars/wish11.wav",
-   "ok": false
+   "file": "audio/chars/wish11.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-12",
    "group": "chars",
    "text": "禄",
-   "file": "audio/chars/wish12.wav",
-   "ok": false
+   "file": "audio/chars/wish12.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-01",
@@ -8852,50 +8852,50 @@
    "key": "chars-ety-04",
    "group": "chars",
    "text": "木",
-   "file": "audio/chars/ety04.wav",
-   "ok": false
+   "file": "audio/chars/ety04.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-05",
    "group": "chars",
    "text": "日",
-   "file": "audio/chars/ety05.wav",
-   "ok": false
+   "file": "audio/chars/ety05.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-06",
    "group": "chars",
    "text": "月",
-   "file": "audio/chars/ety06.wav",
-   "ok": false
+   "file": "audio/chars/ety06.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-07",
    "group": "chars",
    "text": "马",
-   "file": "audio/chars/ety07.wav",
-   "ok": false
+   "file": "audio/chars/ety07.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-08",
    "group": "chars",
    "text": "鸟",
-   "file": "audio/chars/ety08.wav",
-   "ok": false
+   "file": "audio/chars/ety08.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-09",
    "group": "chars",
    "text": "田",
-   "file": "audio/chars/ety09.wav",
-   "ok": false
+   "file": "audio/chars/ety09.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-10",
    "group": "chars",
    "text": "心",
-   "file": "audio/chars/ety10.wav",
-   "ok": false
+   "file": "audio/chars/ety10.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-11",
@@ -8908,92 +8908,92 @@
    "key": "chars-ety-12",
    "group": "chars",
    "text": "学",
-   "file": "audio/chars/ety12.wav",
-   "ok": false
+   "file": "audio/chars/ety12.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-13",
    "group": "chars",
    "text": "生",
-   "file": "audio/chars/ety13.wav",
-   "ok": false
+   "file": "audio/chars/ety13.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-14",
    "group": "chars",
    "text": "大",
-   "file": "audio/chars/ety14.wav",
-   "ok": false
+   "file": "audio/chars/ety14.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-15",
    "group": "chars",
    "text": "小",
-   "file": "audio/chars/ety15.wav",
-   "ok": false
+   "file": "audio/chars/ety15.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-16",
    "group": "chars",
    "text": "天",
-   "file": "audio/chars/ety16.wav",
-   "ok": false
+   "file": "audio/chars/ety16.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-17",
    "group": "chars",
    "text": "地",
-   "file": "audio/chars/ety17.wav",
-   "ok": false
+   "file": "audio/chars/ety17.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-18",
    "group": "chars",
    "text": "火",
-   "file": "audio/chars/ety18.wav",
-   "ok": false
+   "file": "audio/chars/ety18.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-19",
    "group": "chars",
    "text": "金",
-   "file": "audio/chars/ety19.wav",
-   "ok": false
+   "file": "audio/chars/ety19.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-20",
    "group": "chars",
    "text": "女",
-   "file": "audio/chars/ety20.wav",
-   "ok": false
+   "file": "audio/chars/ety20.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-21",
    "group": "chars",
    "text": "子",
-   "file": "audio/chars/ety21.wav",
-   "ok": false
+   "file": "audio/chars/ety21.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-22",
    "group": "chars",
    "text": "门",
-   "file": "audio/chars/ety22.wav",
-   "ok": false
+   "file": "audio/chars/ety22.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-23",
    "group": "chars",
    "text": "车",
-   "file": "audio/chars/ety23.wav",
-   "ok": false
+   "file": "audio/chars/ety23.mp3",
+   "ok": true
   },
   {
    "key": "chars-ety-24",
    "group": "chars",
    "text": "电",
-   "file": "audio/chars/ety24.wav",
-   "ok": false
+   "file": "audio/chars/ety24.mp3",
+   "ok": true
   }
  ]
 }
