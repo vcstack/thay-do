@@ -8537,57 +8537,57 @@
    "key": "classics-cau-doi-6",
    "group": "classics",
    "text": "一寸光阴一寸金，寸金难买寸光阴。",
-   "file": "audio/classics/cau-doi-6.wav",
-   "ok": false
+   "file": "audio/classics/cau-doi-6.mp3",
+   "ok": true
   },
   {
    "key": "tea-step-01",
    "group": "tea",
    "text": "温壶",
-   "file": "audio/tea/step01.wav",
-   "ok": false
+   "file": "audio/tea/step01.mp3",
+   "ok": true
   },
   {
    "key": "tea-step-02",
    "group": "tea",
    "text": "投茶",
-   "file": "audio/tea/step02.wav",
-   "ok": false
+   "file": "audio/tea/step02.mp3",
+   "ok": true
   },
   {
    "key": "tea-step-03",
    "group": "tea",
    "text": "洗茶",
-   "file": "audio/tea/step03.wav",
-   "ok": false
+   "file": "audio/tea/step03.mp3",
+   "ok": true
   },
   {
    "key": "tea-step-04",
    "group": "tea",
    "text": "冲泡",
-   "file": "audio/tea/step04.wav",
-   "ok": false
+   "file": "audio/tea/step04.mp3",
+   "ok": true
   },
   {
    "key": "tea-step-05",
    "group": "tea",
    "text": "分茶",
-   "file": "audio/tea/step05.wav",
-   "ok": false
+   "file": "audio/tea/step05.mp3",
+   "ok": true
   },
   {
    "key": "tea-step-06",
    "group": "tea",
    "text": "敬茶",
-   "file": "audio/tea/step06.wav",
-   "ok": false
+   "file": "audio/tea/step06.mp3",
+   "ok": true
   },
   {
    "key": "tea-step-07",
    "group": "tea",
    "text": "品茶",
-   "file": "audio/tea/step07.wav",
-   "ok": false
+   "file": "audio/tea/step07.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-01",
@@ -8600,29 +8600,29 @@
    "key": "tea-vocab-02",
    "group": "tea",
    "text": "茶叶",
-   "file": "audio/tea/vocab02.wav",
-   "ok": false
+   "file": "audio/tea/vocab02.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-03",
    "group": "tea",
    "text": "茶壶",
-   "file": "audio/tea/vocab03.wav",
-   "ok": false
+   "file": "audio/tea/vocab03.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-04",
    "group": "tea",
    "text": "茶杯",
-   "file": "audio/tea/vocab04.wav",
-   "ok": false
+   "file": "audio/tea/vocab04.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-05",
    "group": "tea",
    "text": "开水",
-   "file": "audio/tea/vocab05.wav",
-   "ok": false
+   "file": "audio/tea/vocab05.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-06",
@@ -8642,15 +8642,15 @@
    "key": "tea-vocab-08",
    "group": "tea",
    "text": "品茶",
-   "file": "audio/tea/step07.wav",
-   "ok": false
+   "file": "audio/tea/step07.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-09",
    "group": "tea",
    "text": "敬茶",
-   "file": "audio/tea/step06.wav",
-   "ok": false
+   "file": "audio/tea/step06.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-10",
