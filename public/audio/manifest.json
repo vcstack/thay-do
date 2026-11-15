@@ -8208,15 +8208,15 @@
    "key": "stories-ngay-tet-07",
    "group": "stories",
    "text": "烟花很漂亮，照亮了整个夜空。",
-   "file": "audio/stories/ngay-tet-07.wav",
-   "ok": false
+   "file": "audio/stories/ngay-tet-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-ngay-tet-08",
    "group": "stories",
    "text": "新的一年，我希望全家人都健康快乐。",
-   "file": "audio/stories/ngay-tet-08.wav",
-   "ok": false
+   "file": "audio/stories/ngay-tet-08.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-title",
@@ -8229,71 +8229,71 @@
    "key": "stories-lam-bai-tap-01",
    "group": "stories",
    "text": "每天放学回家，我先做作业。",
-   "file": "audio/stories/lam-bai-tap-01.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-01.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-02",
    "group": "stories",
    "text": "今天的作业有点儿多。",
-   "file": "audio/stories/lam-bai-tap-02.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-02.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-03",
    "group": "stories",
    "text": "有语文作业，有数学作业，还有英语作业。",
-   "file": "audio/stories/lam-bai-tap-03.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-03.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-04",
    "group": "stories",
    "text": "我先做数学，因为数学对我来说最难。",
-   "file": "audio/stories/lam-bai-tap-04.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-04.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-05",
    "group": "stories",
    "text": "有一道题我不会做，我想了很长时间。",
-   "file": "audio/stories/lam-bai-tap-05.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-05.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-06",
    "group": "stories",
    "text": "最后，我去问爸爸，爸爸耐心地教我。",
-   "file": "audio/stories/lam-bai-tap-06.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-06.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-07",
    "group": "stories",
    "text": "做完作业，我觉得很轻松。",
-   "file": "audio/stories/lam-bai-tap-07.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-07.mp3",
+   "ok": true
   },
   {
    "key": "stories-lam-bai-tap-08",
    "group": "stories",
    "text": "我明白了：遇到困难不要害怕，要想办法解决。",
-   "file": "audio/stories/lam-bai-tap-08.wav",
-   "ok": false
+   "file": "audio/stories/lam-bai-tap-08.mp3",
+   "ok": true
   },
   {
    "key": "classics-tam-tu-kinh-1",
    "group": "classics",
    "text": "人之初，性本善。",
-   "file": "audio/classics/tam-tu-kinh-1.wav",
-   "ok": false
+   "file": "audio/classics/tam-tu-kinh-1.mp3",
+   "ok": true
   },
   {
    "key": "classics-tam-tu-kinh-2",
    "group": "classics",
    "text": "性相近，习相远。",
-   "file": "audio/classics/tam-tu-kinh-2.wav",
-   "ok": false
+   "file": "audio/classics/tam-tu-kinh-2.mp3",
+   "ok": true
   },
   {
    "key": "classics-luan-ngu-1",
