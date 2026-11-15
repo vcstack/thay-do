@@ -8719,99 +8719,99 @@
    "key": "tea-dialogue-05",
    "group": "tea",
    "text": "慢慢喝，茶要慢慢品。",
-   "file": "audio/tea/dialogue05.wav",
-   "ok": false
+   "file": "audio/tea/dialogue05.mp3",
+   "ok": true
   },
   {
    "key": "tea-poem-01",
    "group": "tea",
    "text": "茶之为饮，发乎神农氏。",
-   "file": "audio/tea/poem01.wav",
-   "ok": false
+   "file": "audio/tea/poem01.mp3",
+   "ok": true
   },
   {
    "key": "tea-poem-02",
    "group": "tea",
    "text": "休对故人思故国，且将新火试新茶。",
-   "file": "audio/tea/poem02.wav",
-   "ok": false
+   "file": "audio/tea/poem02.mp3",
+   "ok": true
   },
   {
    "key": "tea-poem-03",
    "group": "tea",
    "text": "一碗喉吻润，二碗破孤闷。",
-   "file": "audio/tea/poem03.wav",
-   "ok": false
+   "file": "audio/tea/poem03.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-01",
    "group": "chars",
    "text": "福",
-   "file": "audio/chars/wish01.wav",
-   "ok": false
+   "file": "audio/chars/wish01.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-02",
    "group": "chars",
    "text": "财",
-   "file": "audio/chars/wish02.wav",
-   "ok": false
+   "file": "audio/chars/wish02.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-03",
    "group": "chars",
    "text": "安",
-   "file": "audio/chars/wish03.wav",
-   "ok": false
+   "file": "audio/chars/wish03.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-04",
    "group": "chars",
    "text": "康",
-   "file": "audio/chars/wish04.wav",
-   "ok": false
+   "file": "audio/chars/wish04.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-05",
    "group": "chars",
    "text": "寿",
-   "file": "audio/chars/wish05.wav",
-   "ok": false
+   "file": "audio/chars/wish05.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-06",
    "group": "chars",
    "text": "乐",
-   "file": "audio/chars/wish06.wav",
-   "ok": false
+   "file": "audio/chars/wish06.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-07",
    "group": "chars",
    "text": "爱",
-   "file": "audio/chars/wish07.wav",
-   "ok": false
+   "file": "audio/chars/wish07.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-08",
    "group": "chars",
    "text": "智",
-   "file": "audio/chars/wish08.wav",
-   "ok": false
+   "file": "audio/chars/wish08.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-09",
    "group": "chars",
    "text": "勇",
-   "file": "audio/chars/wish09.wav",
-   "ok": false
+   "file": "audio/chars/wish09.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-10",
    "group": "chars",
    "text": "顺",
-   "file": "audio/chars/wish10.wav",
-   "ok": false
+   "file": "audio/chars/wish10.mp3",
+   "ok": true
   },
   {
    "key": "chars-wish-11",
