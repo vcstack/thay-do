@@ -8628,15 +8628,15 @@
    "key": "tea-vocab-06",
    "group": "tea",
    "text": "茶香",
-   "file": "audio/tea/vocab06.wav",
-   "ok": false
+   "file": "audio/tea/vocab06.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-07",
    "group": "tea",
    "text": "泡茶",
-   "file": "audio/tea/vocab07.wav",
-   "ok": false
+   "file": "audio/tea/vocab07.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-08",
@@ -8656,64 +8656,64 @@
    "key": "tea-vocab-10",
    "group": "tea",
    "text": "请茶",
-   "file": "audio/tea/vocab10.wav",
-   "ok": false
+   "file": "audio/tea/vocab10.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-11",
    "group": "tea",
    "text": "茶桌",
-   "file": "audio/tea/vocab11.wav",
-   "ok": false
+   "file": "audio/tea/vocab11.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-12",
    "group": "tea",
    "text": "绿茶",
-   "file": "audio/tea/vocab12.wav",
-   "ok": false
+   "file": "audio/tea/vocab12.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-13",
    "group": "tea",
    "text": "红茶",
-   "file": "audio/tea/vocab13.wav",
-   "ok": false
+   "file": "audio/tea/vocab13.mp3",
+   "ok": true
   },
   {
    "key": "tea-vocab-14",
    "group": "tea",
    "text": "茶水",
-   "file": "audio/tea/vocab14.wav",
-   "ok": false
+   "file": "audio/tea/vocab14.mp3",
+   "ok": true
   },
   {
    "key": "tea-dialogue-01",
    "group": "tea",
    "text": "请坐，喝杯茶吧。",
-   "file": "audio/tea/dialogue01.wav",
-   "ok": false
+   "file": "audio/tea/dialogue01.mp3",
+   "ok": true
   },
   {
    "key": "tea-dialogue-02",
    "group": "tea",
    "text": "谢谢老师。这是什么茶？",
-   "file": "audio/tea/dialogue02.wav",
-   "ok": false
+   "file": "audio/tea/dialogue02.mp3",
+   "ok": true
   },
   {
    "key": "tea-dialogue-03",
    "group": "tea",
    "text": "这是绿茶，很香。",
-   "file": "audio/tea/dialogue03.wav",
-   "ok": false
+   "file": "audio/tea/dialogue03.mp3",
+   "ok": true
   },
   {
    "key": "tea-dialogue-04",
    "group": "tea",
    "text": "真好喝！",
-   "file": "audio/tea/dialogue04.wav",
-   "ok": false
+   "file": "audio/tea/dialogue04.mp3",
+   "ok": true
   },
   {
    "key": "tea-dialogue-05",
